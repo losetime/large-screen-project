@@ -6,60 +6,79 @@
     </div>
     <div class="details-wrap">
       <div class="chart-wrap">
-        <Pie :series="peopleType" />
+        <Pie :series="projectPeople" />
       </div>
       <div class="chart-title">人员一码通分布</div>
       <div class="code-count-wrap">
         <span>绿码</span>
         <img src="../../assets/images/intelligentBuildingSite/green-code.png" alt="" />
-        <a-progress :percent="30" strokeColor="#25CA93" />
+        <a-progress :percent="peopleCodeStats.green" strokeColor="#25CA93" />
       </div>
       <div class="code-count-wrap">
         <span>黄码</span>
         <img src="../../assets/images/intelligentBuildingSite/yellow-code.png" alt="" />
-        <a-progress :percent="30" strokeColor="#F6B900" />
+        <a-progress :percent="peopleCodeStats.yellow" strokeColor="#F6B900" />
       </div>
       <div class="code-count-wrap">
         <span>红码</span>
         <img src="../../assets/images/intelligentBuildingSite/red-code.png" alt="" />
-        <a-progress :percent="30" strokeColor="#F44765" />
+        <a-progress :percent="peopleCodeStats.red" strokeColor="#F44765" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { apiGetProjectPeople, apiGetPeopleCodeStats } from '@/service/api/intelligentBuildingSite'
 
-const peopleType = ref([
-  {
-    type: 'pie',
-    radius: ['40%', '70%'],
-    center: ['50%', '50%'],
-    itemStyle: {
-      borderRadius: 4,
-    },
-    label: {
-      formatter: '{d}%',
-      backgroundColor: 'none',
-      color: '#ffffff',
-    },
-    data: [
+const projectPeople = ref<any[]>([])
+
+const peopleCodeStats = ref<any>({})
+
+onMounted(() => {
+  getProjectPeople()
+  getPeopleCodeStats()
+})
+
+/**
+ * @desc 获取项目人员
+ */
+const getProjectPeople = async () => {
+  const { code, data } = await apiGetProjectPeople()
+  if (code === 20000) {
+    projectPeople.value = [
       {
-        value: 20,
-        name: '绿码',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        center: ['50%', '50%'],
+        itemStyle: {
+          borderRadius: 4,
+        },
+        label: {
+          formatter: '{d}%',
+          backgroundColor: 'none',
+          color: '#ffffff',
+        },
+        data: data.map((item: any) => ({ name: item.label, value: item.value })),
       },
-      {
-        value: 100,
-        name: '黄码',
-      },
-      {
-        value: 50,
-        name: '红码',
-      },
-    ],
-  },
-])
+    ]
+  }
+}
+
+/**
+ * @desc 获取人员一码通统计
+ */
+const getPeopleCodeStats = async () => {
+  const { code, data } = await apiGetPeopleCodeStats()
+  if (code === 20000) {
+    const temp: any = {}
+    data.forEach((item: any) => {
+      temp[item.qrcodeColor] = item.peopleQuantity
+    })
+    peopleCodeStats.value = temp
+  }
+}
 </script>
 
 <style lang="less" scoped>

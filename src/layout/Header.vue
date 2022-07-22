@@ -100,7 +100,7 @@ const onLogout = () => {
     icon: createVNode(ExclamationCircleOutlined),
     async onOk() {
       const { code } = await apiSignOut()
-      if (code === 200) {
+      if (code === 20000) {
         localStorage.removeItem('ymToken')
         store.commit('SET_TOKEN', '')
         router.replace({ path: '/login' })

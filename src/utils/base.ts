@@ -1,5 +1,14 @@
 import type { AxiosResponse } from 'axios'
 import { isString, isObject } from 'lodash-es'
+import YunImg from '@/assets/images/common/yun.png'
+import YinImg from '@/assets/images/common/yin.png'
+import QingImg from '@/assets/images/common/qing.png'
+import YuImg from '@/assets/images/common/yu.png'
+import XueImg from '@/assets/images/common/xue.png'
+import LeiImg from '@/assets/images/common/lei.png'
+import WuImg from '@/assets/images/common/wu.png'
+import BingbaoImg from '@/assets/images/common/bingbao.png'
+import ShachenImg from '@/assets/images/common/shachen.png'
 
 /**
  * @description: 将对象作为参数添加到URL
@@ -171,5 +180,33 @@ export const isVisibleRoute = (route: any) => {
     return true
   } else {
     return false
+  }
+}
+
+/**
+ * @desc 天气图标
+ */
+export const getWeatherIcon = (type: string): string => {
+  switch (type) {
+    case 'qing':
+      return QingImg
+    case 'yun':
+      return YunImg
+    case 'yin':
+      return YinImg
+    case 'yu':
+      return YuImg
+    case 'xue':
+      return XueImg
+    case 'lei':
+      return LeiImg
+    case 'shachen':
+      return ShachenImg
+    case 'wu':
+      return WuImg
+    case 'bingbao':
+      return BingbaoImg
+    default:
+      return QingImg
   }
 }

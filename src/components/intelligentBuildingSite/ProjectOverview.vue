@@ -7,30 +7,47 @@
     <div class="overview-wrap">
       <div class="item-wrap">
         <span>建管单位</span>
-        <span>国网陕西省电力公司西安供电公司</span>
+        <span>{{ projectOverview.jgUnit }}</span>
       </div>
       <div class="item-wrap">
         <span>设计单位</span>
-        <span>西安众源电力设计有限公司</span>
+        <span>{{ projectOverview.sjUnit }}</span>
       </div>
       <div class="item-wrap">
         <span>监理单位</span>
-        <span>西北电力建设工程监理有限责任公司</span>
+        <span>{{ projectOverview.jlUnit }}</span>
       </div>
       <div class="item-wrap">
         <span>施工单位</span>
-        <span>西安亮丽电力集团有限公司</span>
+        <span>{{ projectOverview.sgUnit }}</span>
       </div>
       <div class="item-wrap">
         <span>开工日期</span>
-        <span>2021年8月1日</span>
+        <span>{{ projectOverview.startDate }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// import { reactive, ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { apiGetProjectOverview } from '@/service/api/intelligentBuildingSite'
+
+const projectOverview = ref<any>({})
+
+onMounted(() => {
+  getProjectOverview()
+})
+
+/**
+ * @desc 获取项目概况
+ */
+const getProjectOverview = async () => {
+  const { code, data } = await apiGetProjectOverview()
+  if (code === 20000) {
+    projectOverview.value = data
+  }
+}
 </script>
 
 <style lang="less" scoped>

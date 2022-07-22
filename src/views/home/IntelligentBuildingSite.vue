@@ -27,47 +27,12 @@
             <span>实时进出</span>
           </div>
           <div class="detail-wrap">
-            <div class="item-wrap">
-              <img src="../../assets/images/peopleInAndOut/people-avatar.png" alt="" />
-              <p class="name-wrap">王丽娟</p>
-              <p class="type-wrap">施工人员</p>
-              <p class="time-wrap">08:32</p>
-              <span class="status-wrap">出场</span>
-            </div>
-            <div class="item-wrap">
-              <img src="../../assets/images/peopleInAndOut/people-avatar.png" alt="" />
-              <p class="name-wrap">王丽娟</p>
-              <p class="type-wrap">施工人员</p>
-              <p class="time-wrap">08:32</p>
-              <span class="status-wrap">出场</span>
-            </div>
-            <div class="item-wrap">
-              <img src="../../assets/images/peopleInAndOut/people-avatar.png" alt="" />
-              <p class="name-wrap">王丽娟</p>
-              <p class="type-wrap">施工人员</p>
-              <p class="time-wrap">08:32</p>
-              <span class="status-wrap">出场</span>
-            </div>
-            <div class="item-wrap">
-              <img src="../../assets/images/peopleInAndOut/people-avatar.png" alt="" />
-              <p class="name-wrap">王丽娟</p>
-              <p class="type-wrap">施工人员</p>
-              <p class="time-wrap">08:32</p>
-              <span class="status-wrap">出场</span>
-            </div>
-            <div class="item-wrap">
-              <img src="../../assets/images/peopleInAndOut/people-avatar.png" alt="" />
-              <p class="name-wrap">王丽娟</p>
-              <p class="type-wrap">施工人员</p>
-              <p class="time-wrap">08:32</p>
-              <span class="status-wrap">出场</span>
-            </div>
-            <div class="item-wrap">
-              <img src="../../assets/images/peopleInAndOut/people-avatar.png" alt="" />
-              <p class="name-wrap">王丽娟</p>
-              <p class="type-wrap">施工人员</p>
-              <p class="time-wrap">08:32</p>
-              <span class="status-wrap">出场</span>
+            <div class="item-wrap" v-for="(item, index) in realTimeInAndOut" :key="index">
+              <img :src="item.imageUrl || avatar" alt="" />
+              <p class="name-wrap">{{ item.userName }}</p>
+              <p class="type-wrap">{{ item.postName }}</p>
+              <p class="time-wrap">{{ item.accessTime.slice(10) }}</p>
+              <span class="status-wrap">{{ item.accessType === '1' ? '进场' : '出场' }}</span>
             </div>
           </div>
         </div>
@@ -115,12 +80,12 @@
               <div class="split-line"></div>
               <div class="stats-item-wrap">
                 <p class="stats-label">一般违章</p>
-                <p class="stats-value">8</p>
+                <p class="stats-value stats-warning">8</p>
               </div>
               <div class="split-line"></div>
               <div class="stats-item-wrap">
                 <p class="stats-label">严重违章</p>
-                <p class="stats-value">4</p>
+                <p class="stats-value stats-error">4</p>
               </div>
             </div>
             <div class="sub-title-wrap">5月违章记录</div>
@@ -135,7 +100,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import YmWeather from '@/components/intelligentBuildingSite/YmWeather.vue'
 import ProjectOverview from '@/components/intelligentBuildingSite/ProjectOverview.vue'
 import ProjectPeople from '@/components/intelligentBuildingSite/ProjectPeople.vue'
@@ -143,6 +108,8 @@ import MonitorAndProgress from '@/components/intelligentBuildingSite/MonitorAndP
 import WorkTicket from '@/components/intelligentBuildingSite/WorkTicket.vue'
 import YmCalendar from '@/components/common/YmCalendar.vue'
 import useDateTime from '@/hooks/useDateTime'
+import { apiGetRealTimeInAndOut } from '@/service/api/IntelligentBuildingSite'
+import avatar from '../../assets/images/peopleInAndOut/people-avatar.png'
 
 const { date, time, week } = useDateTime()
 
@@ -158,6 +125,8 @@ const eventData = [
     content: '',
   },
 ]
+
+const realTimeInAndOut = ref<any[]>([])
 
 const inAndOutRecord = ref({
   series: [
@@ -212,6 +181,20 @@ const inAndOutRecord = ref({
   ],
   xAxis: ['1点', '2点', '3点'],
 })
+
+onMounted(() => {
+  getRealTimeInAndOut()
+})
+
+/**
+ * @desc 获取实时进出
+ */
+const getRealTimeInAndOut = async () => {
+  const { code, data } = await apiGetRealTimeInAndOut()
+  if (code === 20000) {
+    realTimeInAndOut.value = data
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -284,11 +267,21 @@ const inAndOutRecord = ref({
               padding: 4px;
             }
             .name-wrap {
+              width: 100%;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              text-align: center;
               font-size: 18px;
               color: #ffffff;
               margin-top: 8px;
             }
             .type-wrap {
+              width: 100%;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              text-align: center;
               font-size: 16px;
               color: #ffa721;
               margin-top: 2px;
@@ -381,6 +374,12 @@ const inAndOutRecord = ref({
                 font-weight: bold;
                 color: #1ae3f0;
               }
+              .stats-warning {
+                color: #f6b900;
+              }
+              .stats-error {
+                color: #f44765;
+              }
             }
             .split-line {
               width: 2px;
@@ -399,35 +398,6 @@ const inAndOutRecord = ref({
             line-height: 4px;
             font-size: 18px;
             font-weight: bold;
-          }
-          .form-wrap {
-            margin-top: 28px;
-            .form-item {
-              display: flex;
-              margin-top: 14px;
-              .item-label {
-                display: inline-block;
-                width: 56px;
-                font-size: 14px;
-                color: #8e91a1;
-              }
-              .item-value {
-                flex: 1;
-                display: flex;
-                flex-wrap: wrap;
-                margin-left: 14px;
-                font-size: 14px;
-                color: #ffffff;
-                span {
-                  border: 1px solid #ffa721;
-                  padding: 2px 14px;
-                  color: #ffa721;
-                  border-radius: 14px;
-                  margin-right: 8px;
-                  margin-bottom: 8px;
-                }
-              }
-            }
           }
           .calendar-wrap {
             width: 100%;

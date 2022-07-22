@@ -10,6 +10,7 @@ const props = defineProps<{
   series: Array<any>
   xAxis?: Array<any>
   yAxis?: Array<any>
+  yAxisName?: string
   color?: string[]
 }>()
 
@@ -47,6 +48,10 @@ const chartInit = () => {
       yAxis: [
         {
           type: 'value',
+          name: props.yAxisName,
+          nameTextStyle: {
+            color: '#ffffff',
+          },
           splitLine: {
             lineStyle: {
               color: ['#1D3660'],

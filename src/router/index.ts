@@ -50,7 +50,7 @@ const specialRoute = ['Overview', 'FlowDesign']
  */
 export const getRouters = async () => {
   const { code, data } = await apiGetRoutersInfo()
-  if (code === 200) {
+  if (code === 20000) {
     const routesInfo = formattRouter(data, [])
     routesInfo.forEach((item) => {
       router.addRoute(item)

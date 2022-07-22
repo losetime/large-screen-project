@@ -9,6 +9,7 @@ import useEcharts from '@/hooks/useEcharts'
 const props = defineProps<{
   series: any
   color?: string[]
+  title?: string
 }>()
 
 watch(
@@ -90,9 +91,18 @@ const chartInit = () => {
       trigger: 'item',
     },
   }
-  // option.legend = handlePieLegend()
+  option.title = {
+    text: props.title,
+    left: '42%',
+    top: '42%',
+    textStyle: {
+      color: '#ffffff',
+      fontSize: 14,
+      width: 100,
+    },
+  }
   option.legend = {
-    top: 'bottom',
+    bottom: '0%',
     textStyle: {
       color: '#ffffff',
     },

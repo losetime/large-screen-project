@@ -94,7 +94,7 @@ onMounted(() => {
 
 const getCode = async () => {
   const { code, data } = await apiGetCodeImage()
-  if (code === 200) {
+  if (code === 20000) {
     codeUrl.value = 'data:image/gif;base64,' + data.img
     loginInfo.uuid = data.uuid
   }
@@ -110,7 +110,7 @@ const loginSubmit = () => {
       uuid: loginInfo.uuid,
     })
     loginLoading.value = false
-    if (code === 200) {
+    if (code === 20000) {
       store.commit('SET_TOKEN', data.token)
       localStorage.setItem('ymToken', data.token)
       store.dispatch('GetUserInfo')

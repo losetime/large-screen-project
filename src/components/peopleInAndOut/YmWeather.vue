@@ -1,24 +1,40 @@
 <template>
   <div class="weather-wrapper">
-    <img src="../../assets/images/peopleInAndOut/cloudy.png" alt="" />
+    <img :src="getWeatherIcon(weatherInfo.weaImg)" alt="" />
     <div class="info-wrap">
-      <div class="temperature">32℃</div>
+      <div class="temperature">{{ weatherInfo.tem }}</div>
       <div class="weather-wrap">
         <p class="weather-text">
-          <span class="sky">多云</span>
+          <span class="sky">{{ weatherInfo.wea }}</span>
           <span class="line"></span>
-          <span class="air">32</span>
+          <span class="air">{{ weatherInfo.airPm25 }}</span>
         </p>
-        <p>优</p>
+        <p>{{ weatherInfo.airLevel }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
+import { apiGetWeatherInfo } from '@/service/api/home'
+import { getWeatherIcon } from '@/utils/base'
 
-onMounted(() => {})
+const weatherInfo = ref<any>({})
+
+onMounted(() => {
+  getWeatherInfo()
+})
+
+/**
+ * @desc 获取天气预报
+ */
+const getWeatherInfo = async () => {
+  const { code, data } = await apiGetWeatherInfo()
+  if (code === 20000) {
+    weatherInfo.value = data
+  }
+}
 </script>
 
 <style lang="less" scoped>
