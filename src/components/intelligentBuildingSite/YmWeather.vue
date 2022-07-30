@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { apiGetWeatherInfo } from '@/service/api/IntelligentBuildingSite'
+import { apiGetWeatherInfo } from '@/service/api/intelligentBuildingSite'
 import { getWeatherIcon } from '@/utils/base'
 
 const weatherInfo = ref<any>({})

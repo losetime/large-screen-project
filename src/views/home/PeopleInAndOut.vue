@@ -19,7 +19,7 @@
               <div class="wind-speed-text">
                 <p>
                   <span>{{ windInfo.winMeter || 0 }}</span>
-                  m/s
+                  km/h
                 </p>
                 <p>风速</p>
               </div>
@@ -183,7 +183,7 @@ onBeforeMount(() => {
 const getWindInfo = async () => {
   const { code, data } = await apiGetWindInfo()
   if (code === 20000) {
-    windInfo.value = data
+    windInfo.value = { ...data, winMeter: data.winMeter.split('k')[0] }
   }
 }
 
@@ -452,6 +452,7 @@ const getPeopleInAndOutRecord = async () => {
               font-weight: bold;
               text-align: center;
               color: #b6e2ff;
+              font-family: DINAlternate-Bold, DINAlternate, serif;
             }
           }
         }

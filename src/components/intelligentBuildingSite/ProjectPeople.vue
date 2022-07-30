@@ -73,8 +73,14 @@ const getPeopleCodeStats = async () => {
   const { code, data } = await apiGetPeopleCodeStats()
   if (code === 20000) {
     const temp: any = {}
+    let maxCount = 0
     data.forEach((item: any) => {
-      temp[item.qrcodeColor] = item.peopleQuantity
+      if (item.peopleQuantity > maxCount) {
+        maxCount = item.peopleQuantity
+      }
+    })
+    data.forEach((item: any) => {
+      temp[item.qrcodeColor] = Math.floor((item.peopleQuantity / maxCount) * 100)
     })
     peopleCodeStats.value = temp
   }

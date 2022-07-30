@@ -9,6 +9,8 @@ import LeiImg from '@/assets/images/common/lei.png'
 import WuImg from '@/assets/images/common/wu.png'
 import BingbaoImg from '@/assets/images/common/bingbao.png'
 import ShachenImg from '@/assets/images/common/shachen.png'
+import { formatQRcodeColor } from '@/enums/homeEnum'
+import QRCode from 'qrcode'
 
 /**
  * @description: 将对象作为参数添加到URL
@@ -209,4 +211,27 @@ export const getWeatherIcon = (type: string): string => {
     default:
       return QingImg
   }
+}
+
+/**
+ * @desc 生成二维码
+ */
+export const createQRCode = (text: string, color: string): string => {
+  let imgUrl = ''
+  const opts: any = {
+    errorCorrectionLevel: 'H',
+    type: 'image/jpeg',
+    quality: 0.3,
+    margin: 1,
+    color: {
+      dark: formatQRcodeColor(color),
+      light: '#FFFFFF',
+    },
+    width: 300,
+  }
+  QRCode.toDataURL(text, opts, function (err: any, url: string) {
+    if (err) throw err
+    imgUrl = url
+  })
+  return imgUrl
 }

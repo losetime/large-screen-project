@@ -46,23 +46,23 @@
           <div class="stats-wrap">
             <div class="stats-item-wrap">
               <p class="stats-label">在场人数</p>
-              <p class="stats-value">39</p>
+              <p class="stats-value">{{ scenePeopleStats.presencePersonQuantity }}</p>
             </div>
             <div class="stats-item-wrap">
               <p class="stats-label">今日进场</p>
-              <p class="stats-value">57</p>
+              <p class="stats-value">{{ scenePeopleStats.todayInPersonQuantity }}</p>
             </div>
             <div class="stats-item-wrap">
               <p class="stats-label">今日出场</p>
-              <p class="stats-value">18</p>
+              <p class="stats-value">{{ scenePeopleStats.todayOutPersonQuantity }}</p>
             </div>
             <div class="stats-item-wrap">
               <p class="stats-label">项目总人数</p>
-              <p class="stats-value">129</p>
+              <p class="stats-value">{{ scenePeopleStats.projectPersonQuantity }}</p>
             </div>
           </div>
           <div class="chart-wrap">
-            <Line :series="inAndOutRecord.series" :x-axis="inAndOutRecord.xAxis" :color="['#26477A', '#F44765']" />
+            <Line :series="scenePeopleChart.series" :x-axis="scenePeopleChart.xAxis" :color="['#26477A', '#F44765']" />
           </div>
         </div>
         <div class="work-ticket-and-break-rules-wrap">
@@ -75,22 +75,22 @@
             <div class="stats-wrap">
               <div class="stats-item-wrap">
                 <p class="stats-label">累计违章</p>
-                <p class="stats-value">12</p>
+                <p class="stats-value">{{ breakRulesStats.grandIllegal }}</p>
               </div>
               <div class="split-line"></div>
               <div class="stats-item-wrap">
                 <p class="stats-label">一般违章</p>
-                <p class="stats-value stats-warning">8</p>
+                <p class="stats-value stats-warning">{{ breakRulesStats.generalIllegal }}</p>
               </div>
               <div class="split-line"></div>
               <div class="stats-item-wrap">
                 <p class="stats-label">严重违章</p>
-                <p class="stats-value stats-error">4</p>
+                <p class="stats-value stats-error">{{ breakRulesStats.seriousIllegal }}</p>
               </div>
             </div>
-            <div class="sub-title-wrap">5月违章记录</div>
+            <div class="sub-title-wrap">{{ dateUtil().month() + 1 }}月违章记录</div>
             <div class="calendar-wrap">
-              <YmCalendar :eventData="eventData" />
+              <YmCalendar :eventData="calendarInfo" />
             </div>
           </div>
         </div>
@@ -108,82 +108,37 @@ import MonitorAndProgress from '@/components/intelligentBuildingSite/MonitorAndP
 import WorkTicket from '@/components/intelligentBuildingSite/WorkTicket.vue'
 import YmCalendar from '@/components/common/YmCalendar.vue'
 import useDateTime from '@/hooks/useDateTime'
-import { apiGetRealTimeInAndOut } from '@/service/api/IntelligentBuildingSite'
+import {
+  apiGetRealTimeInAndOut,
+  apiGetScenePeopleStats,
+  apiGetScenePeopleChart,
+  apiGetSceneBreakRulesStats,
+  apiGetSceneBreakRulesCalendar,
+} from '@/service/api/intelligentBuildingSite'
 import avatar from '../../assets/images/peopleInAndOut/people-avatar.png'
+import { dateUtil } from '@/utils/dateUtil'
 
 const { date, time, week } = useDateTime()
 
-const eventData = [
-  {
-    day: 1,
-    type: 'warning',
-    content: '',
-  },
-  {
-    day: 6,
-    type: 'warning',
-    content: '',
-  },
-]
-
 const realTimeInAndOut = ref<any[]>([])
 
-const inAndOutRecord = ref({
-  series: [
-    {
-      type: 'line',
-      data: [12, 35, 40],
-      areaStyle: {
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            {
-              offset: 0,
-              color: '#0674BC', // 0% 处的颜色
-            },
-            {
-              offset: 1,
-              color: '#081126', // 100% 处的颜色
-            },
-          ],
-          global: false, // 缺省为 false
-        },
-      },
-    },
-    {
-      type: 'line',
-      data: [40, 20, 8],
-      areaStyle: {
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            {
-              offset: 0,
-              color: 'rgba(244,71,101, 0.8)', // 0% 处的颜色
-            },
-            {
-              offset: 1,
-              color: 'rgba(244,71,101, 0.2)', // 100% 处的颜色
-            },
-          ],
-          global: false, // 缺省为 false
-        },
-      },
-    },
-  ],
-  xAxis: ['1点', '2点', '3点'],
+const scenePeopleStats = ref<any>({})
+
+const scenePeopleChart = ref<any>({
+  series: [],
+  xAxis: [],
 })
+
+const breakRulesStats = ref<any>({})
+
+const calendarInfo = ref([])
 
 onMounted(() => {
   getRealTimeInAndOut()
+  getScenePeopleStats()
+  getScenePeopleChart()
+  getSceneBreakRulesStats()
+  getSceneBreakRulesCalendar()
 })
 
 /**
@@ -193,6 +148,102 @@ const getRealTimeInAndOut = async () => {
   const { code, data } = await apiGetRealTimeInAndOut()
   if (code === 20000) {
     realTimeInAndOut.value = data
+  }
+}
+
+/**
+ * @desc 获取现场人员统计
+ */
+const getScenePeopleStats = async () => {
+  const { code, data } = await apiGetScenePeopleStats()
+  if (code === 20000) {
+    scenePeopleStats.value = data
+  }
+}
+
+/**
+ * @desc 获取现场人员统计图表
+ */
+const getScenePeopleChart = async () => {
+  const { code, data } = await apiGetScenePeopleChart()
+  if (code === 20000) {
+    scenePeopleChart.value.series = [
+      {
+        type: 'line',
+        name: data.yData[0].name,
+        data: data.yData[0].data,
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              {
+                offset: 0,
+                color: '#0674BC', // 0% 处的颜色
+              },
+              {
+                offset: 1,
+                color: '#081126', // 100% 处的颜色
+              },
+            ],
+            global: false, // 缺省为 false
+          },
+        },
+      },
+      {
+        type: 'line',
+        name: data.yData[1].name,
+        data: data.yData[1].data,
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              {
+                offset: 0,
+                color: 'rgba(244,71,101, 0.8)', // 0% 处的颜色
+              },
+              {
+                offset: 1,
+                color: 'rgba(244,71,101, 0.2)', // 100% 处的颜色
+              },
+            ],
+            global: false, // 缺省为 false
+          },
+        },
+      },
+    ]
+    scenePeopleChart.value.xAxis = data.xData
+  }
+}
+
+/**
+ * @desc 获取违章统计
+ */
+const getSceneBreakRulesStats = async () => {
+  const { code, data } = await apiGetSceneBreakRulesStats()
+  if (code === 20000) {
+    breakRulesStats.value = data
+  }
+}
+
+/**
+ * @desc 获取违章日历信息
+ */
+const getSceneBreakRulesCalendar = async () => {
+  const { code, data } = await apiGetSceneBreakRulesCalendar()
+  if (code === 20000) {
+    calendarInfo.value = data.map((item: any) => {
+      const tempDay = item.illegalDate.split('-')[2]
+      const type = item.illegalLevel === 'red' ? 'error' : item.illegalLevel === 'yellow' ? 'warning' : 'green'
+      return { day: parseInt(tempDay), type: type, content: '' }
+    })
   }
 }
 </script>
@@ -391,7 +442,7 @@ const getRealTimeInAndOut = async () => {
             height: 4px;
             width: 100%;
             margin-top: 42px;
-            background-image: url('../../assets/images/intelligentBuildingSite/work-ticket-line.png');
+            background-image: url('../../assets/images/intelligentBuildingSite/break-rules-line.png');
             background-size: 100% 100%;
             color: #55b1ff;
             text-align: center;

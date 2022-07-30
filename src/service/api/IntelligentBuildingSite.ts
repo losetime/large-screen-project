@@ -6,6 +6,12 @@ enum Api {
   getProjectPeople = '/cv-touch/largeScreenCvTouch/selectProjectPeople',
   getPeopleCodeStats = '/cv-touch/largeScreenCvTouch/selectProjectPeopleQrcode',
   getRealTimeInAndOut = '/cv-touch/largeScreenCvTouch/selectRealInoutRecord',
+  getScenePeopleStats = '/cv-touch/largeScreenCvTouch/selectPersonInoutData',
+  getScenePeopleChart = '/cv-touch/largeScreenCvTouch/selectPersonInoutRecordLineChart',
+  getWorkTicketInfo = '/cv-touch/largeScreenCvTouch/selectWorkTicket',
+  getSceneBreakRulesStats = '/cv-touch/largeScreenCvTouch/selectIllegalDataStat',
+  getSceneBreakRulesCalendar = '/cv-touch/largeScreenCvTouch/selectIllegalRecord',
+  getProjectProgress = '/cv-touch/largeScreenCvTouch/selectProjectProgress',
 }
 
 // -------------------------------------- e基建智慧工地 -----------------------------------------------
@@ -56,6 +62,66 @@ export function apiGetPeopleCodeStats(): Promise<any> {
 export function apiGetRealTimeInAndOut(): Promise<any> {
   return $http.request({
     url: Api.getRealTimeInAndOut,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc: 获取现场人员统计数据
+ */
+export function apiGetScenePeopleStats(): Promise<any> {
+  return $http.request({
+    url: Api.getScenePeopleStats,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc: 获取现场人员统计图表
+ */
+export function apiGetScenePeopleChart(): Promise<any> {
+  return $http.request({
+    url: Api.getScenePeopleChart,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取工作票信息
+ */
+export function apiGetWorkTicketInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getWorkTicketInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取现场违章统计信息
+ */
+export function apiGetSceneBreakRulesStats(): Promise<any> {
+  return $http.request({
+    url: Api.getSceneBreakRulesStats,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取现场违章日历信息
+ */
+export function apiGetSceneBreakRulesCalendar(): Promise<any> {
+  return $http.request({
+    url: Api.getSceneBreakRulesCalendar,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取工程进度
+ */
+export function apiGetProjectProgress(): Promise<any> {
+  return $http.request({
+    url: Api.getProjectProgress,
     method: 'GET',
   })
 }

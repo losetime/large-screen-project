@@ -7,47 +7,38 @@
     <div class="stats-wrap">
       <div class="stats-item-wrap">
         <p class="stats-label">作业人数</p>
-        <p class="stats-value">10</p>
+        <p class="stats-value">{{ workTicketInfo[indexes]?.peopNum }}</p>
       </div>
       <div class="split-line"></div>
       <div class="stats-item-wrap">
         <p class="stats-label">出勤率</p>
-        <p class="stats-value">80%</p>
+        <p class="stats-value">{{ workTicketInfo[indexes]?.attendanceRate }}%</p>
       </div>
     </div>
-    <div class="sub-title-wrap">标题</div>
+    <div class="sub-title-wrap">工作票内容</div>
     <div class="form-wrap">
       <div class="form-item">
         <span class="item-label">作业部位</span>
-        <span class="item-value">电缆隧道、围墙</span>
+        <span class="item-value">{{ workTicketInfo[indexes]?.workPart }}</span>
       </div>
       <div class="form-item">
         <span class="item-label">设计单位</span>
-        <span class="item-value">施工一班</span>
+        <span class="item-value">{{ workTicketInfo[indexes]?.groupName }}</span>
       </div>
       <div class="form-item">
         <span class="item-label">作业时间</span>
-        <span class="item-value">2021-03-30至2021-04-0</span>
+        <span class="item-value">
+          {{ workTicketInfo[indexes]?.beginDate }}至{{ workTicketInfo[indexes]?.planEndDate }}
+        </span>
       </div>
       <div class="form-item">
         <span class="item-label">作业内容</span>
-        <div class="item-value">
-          <p>1.电缆隧道混凝土养护</p>
-          <p>2.钢筋加工口</p>
-          <p>3.围墙基础施工</p>
-          <p>4.安全文明施工</p>
-          <p>5.电缆隧道模板拆除</p>
-        </div>
+        <div class="item-value">{{ workTicketInfo[indexes]?.workContent }}</div>
       </div>
       <div class="form-item">
         <span class="item-label">作业人员</span>
         <div class="item-value">
-          <span>张三王德王德</span>
-          <span>王德</span>
-          <span>张三</span>
-          <span>王德</span>
-          <span>张三</span>
-          <span>王德</span>
+          <span v-for="item in workTicketInfo[indexes]?.workPersonName || []" :key="item">{{ item }}</span>
         </div>
       </div>
     </div>
@@ -55,7 +46,34 @@
 </template>
 
 <script setup lang="ts">
-// import { reactive, ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { apiGetWorkTicketInfo } from '@/service/api/intelligentBuildingSite'
+
+const workTicketInfo = ref<any>([])
+
+const indexes = ref(0)
+
+onMounted(async () => {
+  await getWorkTicketInfo()
+  if (workTicketInfo.value.length > 1) {
+    setInterval(() => {
+      indexes.value = indexes.value >= workTicketInfo.value.length - 1 ? 0 : indexes.value + 1
+    }, 5000)
+  }
+})
+
+const getWorkTicketInfo = async () => {
+  const { code, data } = await apiGetWorkTicketInfo()
+  if (code === 20000) {
+    workTicketInfo.value = data.map((item: any) => ({
+      ...item,
+      workPersonName: item.workPersonName.split(',').slice(0, 7).concat(['......']),
+      beginDate: item.beginDate.split(' ')[0],
+      planEndDate: item.beginDate.split(' ')[0],
+      workContent: item.workContent.substr(0, 16 * 6) + ' ......',
+    }))
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -101,7 +119,7 @@
     height: 4px;
     width: 100%;
     margin-top: 42px;
-    background-image: url('../../assets/images/intelligentBuildingSite/work-ticket-line.png');
+    background-image: url('../../assets/images/intelligentBuildingSite/break-rules-line.png');
     background-size: 100% 100%;
     color: #55b1ff;
     text-align: center;
@@ -113,7 +131,7 @@
     margin-top: 28px;
     .form-item {
       display: flex;
-      margin-top: 14px;
+      margin-top: 8px;
       .item-label {
         display: inline-block;
         width: 56px;
@@ -129,7 +147,7 @@
         color: #ffffff;
         span {
           border: 1px solid #ffa721;
-          padding: 2px 14px;
+          padding: 0 10px;
           color: #ffa721;
           border-radius: 14px;
           margin-right: 8px;

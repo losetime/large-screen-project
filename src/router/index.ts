@@ -24,7 +24,7 @@ const getComponent = (key: string) => {
 const routes = [
   {
     path: '/',
-    redirect: '/login',
+    redirect: '/intelligent-building-site',
   },
   {
     path: '/login',

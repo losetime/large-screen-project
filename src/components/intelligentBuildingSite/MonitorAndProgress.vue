@@ -10,15 +10,15 @@
     <div class="progress-wrap">
       <div class="title-wrap">
         <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
-        <span>工程进度(总工期125天)</span>
+        <span>工程进度(总工期{{ projectProgress.totalDuration }}天)</span>
       </div>
       <div class="progress-view">
         <div class="construction-days">
-          <p class="days-value">96</p>
+          <p class="days-value">{{ projectProgress.constructionDay }}</p>
           <p class="days-label">已施工(天)</p>
         </div>
         <div class="timelines-wrap">
-          <Timelines />
+          <Timelines :timelines="timelines" />
         </div>
       </div>
     </div>
@@ -26,8 +26,64 @@
 </template>
 
 <script setup lang="ts">
-// import { reactive, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import Timelines from '@/components/intelligentBuildingSite/Timelines.vue'
+import { apiGetProjectProgress } from '@/service/api/intelligentBuildingSite'
+import { getDate, dateUtil } from '@/utils/dateUtil'
+
+const projectProgress = ref<any>({})
+
+const timelines = ref<any[]>([])
+
+onMounted(() => {
+  getProjectProgress()
+})
+
+const getProjectProgress = async () => {
+  const { code, data } = await apiGetProjectProgress()
+  if (code === 20000) {
+    projectProgress.value = data
+    const len = data.largeMilestoneProjectList.length
+    if (len <= 5) {
+      timelines.value = data.largeMilestoneProjectList.map((item: any) => ({
+        nodeTime: item.milestoneDate,
+        nodeTitle: item.milestoneName,
+        isDone: true,
+      }))
+    } else {
+      const currenDate = dateUtil(getDate())
+      const findIndex = data.largeMilestoneProjectList.findIndex((item: any) => {
+        return dateUtil(item.milestoneDate).diff(currenDate) > 0
+      })
+      if (findIndex === undefined) {
+        const progressList = data.largeMilestoneProjectList.slice(len - 5)
+        timelines.value = progressList.map((item: any) => ({
+          nodeTime: item.milestoneDate,
+          nodeTitle: item.milestoneName,
+          isDone: true,
+        }))
+      } else {
+        const needIndex = findIndex - 4
+        const progressList = data.largeMilestoneProjectList.slice(needIndex, needIndex + 5)
+        timelines.value = progressList.map((item: any, index: number) => {
+          if (index === 4) {
+            return {
+              nodeTime: item.milestoneDate,
+              nodeTitle: item.milestoneName,
+              isDone: false,
+            }
+          } else {
+            return {
+              nodeTime: item.milestoneDate,
+              nodeTitle: item.milestoneName,
+              isDone: true,
+            }
+          }
+        })
+      }
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

@@ -56,6 +56,12 @@ const chartInit = () => {
         },
         {
           type: 'value',
+          splitLine: {
+            lineStyle: {
+              color: ['#1D3660'],
+              type: 'dashed',
+            },
+          },
         },
       ],
     }
@@ -89,6 +95,9 @@ const chartInit = () => {
   option.legend = {
     show: true,
     left: 'right',
+    textStyle: {
+      color: '#ffffff',
+    },
   }
   option.color = props.color ? props.color : colorsEnum
   option.series = props.series

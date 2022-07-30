@@ -13,10 +13,6 @@
       <template v-for="(item, index) in timelines" :key="index">
         <div class="node-wrap" v-if="item.isDone">
           <span :class="{ 'dot-wrap': true }"></span>
-          <!-- <div class="content-wrap">
-            <p class="time">{{ item.nodeTime }}</p>
-            <p class="title">{{ item.nodeTitle }}</p>
-          </div> -->
         </div>
       </template>
     </div>
@@ -24,35 +20,39 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+// import { ref } from 'vue'
 
-const timelines = ref<any>([
-  {
-    nodeTime: '2019-09-05',
-    nodeTitle: '土方开挖',
-    isDone: true,
-  },
-  {
-    nodeTime: '2019-09-05',
-    nodeTitle: '土方开挖',
-    isDone: true,
-  },
-  {
-    nodeTime: '2019-09-05',
-    nodeTitle: '土方开挖',
-    isDone: true,
-  },
-  {
-    nodeTime: '2019-09-05',
-    nodeTitle: '土方开挖',
-    isDone: true,
-  },
-  {
-    nodeTime: '2019-09-05',
-    nodeTitle: '土方开挖',
-    isDone: false,
-  },
-])
+defineProps<{
+  timelines: any[]
+}>()
+
+// const timelines = ref<any>([
+//   {
+//     nodeTime: '2019-09-05',
+//     nodeTitle: '土方开挖',
+//     isDone: true,
+//   },
+//   {
+//     nodeTime: '2019-09-05',
+//     nodeTitle: '土方开挖',
+//     isDone: true,
+//   },
+//   {
+//     nodeTime: '2019-09-05',
+//     nodeTitle: '土方开挖',
+//     isDone: true,
+//   },
+//   {
+//     nodeTime: '2019-09-05',
+//     nodeTitle: '土方开挖',
+//     isDone: true,
+//   },
+//   {
+//     nodeTime: '2019-09-05',
+//     nodeTitle: '土方开挖',
+//     isDone: true,
+//   },
+// ])
 </script>
 
 <style lang="less" scoped>
@@ -116,21 +116,10 @@ const timelines = ref<any>([
         left: 0;
         border: 3px solid #ffffff;
       }
-      .content-wrap {
-        position: absolute;
-        top: 14px;
-        left: -35px;
-        .time {
-          color: #bebfcc;
-          font-size: 16px;
-          text-align: center;
-        }
-        .title {
-          color: #ffffff;
-          font-size: 16px;
-          text-align: center;
-        }
-      }
+    }
+    .node-wrap:last-child {
+      height: 6px;
+      width: 12px;
     }
   }
 }

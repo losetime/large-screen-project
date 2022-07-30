@@ -40,7 +40,7 @@ const getTime = () => {
     font-weight: bold;
     color: #1cd3f3;
     margin-left: 8px;
-    font-family: DINAlternate-Bold, DINAlternate;
+    font-family: DINAlternate-Bold, DINAlternate, serif;
     &:nth-child(3),
     &:nth-child(6) {
       padding-bottom: 10px;
