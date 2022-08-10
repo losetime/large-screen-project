@@ -13,6 +13,7 @@
       <template v-for="(item, index) in timelines" :key="index">
         <div class="node-wrap" v-if="item.isDone">
           <span :class="{ 'dot-wrap': true }"></span>
+          <span class="indicator" v-if="index === timelines.length - 2"></span>
         </div>
       </template>
     </div>
@@ -115,6 +116,15 @@ defineProps<{
         top: -3px;
         left: 0;
         border: 3px solid #ffffff;
+      }
+      .indicator {
+        border-top: 10px solid #1fa9dc;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        position: absolute;
+        top: -18px;
+        right: -6px;
       }
     }
     .node-wrap:last-child {

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 // import store from '@/store'
 import Layout from '@/layout/Layout.vue'
 import Header from '@/layout/Header.vue'
@@ -30,11 +30,6 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/login/index.vue'),
-  },
-  {
-    path: '/people-in-and-out',
-    name: 'PeopleInAndOut',
-    component: () => import('../views/home/PeopleInAndOut.vue'),
   },
   {
     path: '/intelligent-building-site',
@@ -135,7 +130,7 @@ const formattRouter = (data: any[], routerArr: any[]): any[] => {
 }
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 

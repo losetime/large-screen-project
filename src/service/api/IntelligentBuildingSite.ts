@@ -12,6 +12,7 @@ enum Api {
   getSceneBreakRulesStats = '/cv-touch/largeScreenCvTouch/selectIllegalDataStat',
   getSceneBreakRulesCalendar = '/cv-touch/largeScreenCvTouch/selectIllegalRecord',
   getProjectProgress = '/cv-touch/largeScreenCvTouch/selectProjectProgress',
+  getProjectInfo = '/cv-touch/largeScreenCvTouch/selectProjectSingleName',
 }
 
 // -------------------------------------- e基建智慧工地 -----------------------------------------------
@@ -122,6 +123,16 @@ export function apiGetSceneBreakRulesCalendar(): Promise<any> {
 export function apiGetProjectProgress(): Promise<any> {
   return $http.request({
     url: Api.getProjectProgress,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取工程信息
+ */
+export function apiGetProjectInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getProjectInfo,
     method: 'GET',
   })
 }

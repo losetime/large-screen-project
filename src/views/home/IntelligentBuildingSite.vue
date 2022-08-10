@@ -1,6 +1,10 @@
 <template>
   <div class="intelligent-building-site-wrapper">
     <div class="header-wrap">
+      <div class="project-wrap">
+        <img src="../../assets/images/intelligentBuildingSite/logo.svg" alt="" />
+        <span>{{ projectName }}</span>
+      </div>
       <div class="time-wrap">
         <span>{{ time }}</span>
         <span>{{ date }}</span>
@@ -114,11 +118,14 @@ import {
   apiGetScenePeopleChart,
   apiGetSceneBreakRulesStats,
   apiGetSceneBreakRulesCalendar,
+  apiGetProjectInfo,
 } from '@/service/api/intelligentBuildingSite'
 import avatar from '../../assets/images/peopleInAndOut/people-avatar.png'
 import { dateUtil } from '@/utils/dateUtil'
 
 const { date, time, week } = useDateTime()
+
+const projectName = ref('')
 
 const realTimeInAndOut = ref<any[]>([])
 
@@ -134,12 +141,23 @@ const breakRulesStats = ref<any>({})
 const calendarInfo = ref([])
 
 onMounted(() => {
+  getProjectInfo()
   getRealTimeInAndOut()
   getScenePeopleStats()
   getScenePeopleChart()
   getSceneBreakRulesStats()
   getSceneBreakRulesCalendar()
 })
+
+/**
+ * @desc 获取工程信息
+ */
+const getProjectInfo = async () => {
+  const { code, data } = await apiGetProjectInfo()
+  if (code === 20000) {
+    projectName.value = data.prjSingleName
+  }
+}
 
 /**
  * @desc 获取实时进出
@@ -263,7 +281,28 @@ const getSceneBreakRulesCalendar = async () => {
     background-size: cover;
     background-position: 100% 25%;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    .project-wrap {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      margin: 6px 0 0 14px;
+      img {
+        width: 40px;
+        height: 40px;
+      }
+      span {
+        display: inline-block;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: #09bcf2;
+        margin-left: 14px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
     .time-wrap {
       color: #ffffff;
       font-size: 18px;
