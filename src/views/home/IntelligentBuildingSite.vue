@@ -284,6 +284,7 @@ const getSceneBreakRulesCalendar = async () => {
     justify-content: space-between;
     .project-wrap {
       height: 40px;
+      width: 28%;
       display: flex;
       align-items: center;
       margin: 6px 0 0 14px;
