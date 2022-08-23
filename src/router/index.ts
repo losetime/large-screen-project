@@ -24,7 +24,7 @@ const getComponent = (key: string) => {
 const routes = [
   {
     path: '/',
-    redirect: '/intelligent-building-site',
+    redirect: '/building-site-temp',
   },
   {
     path: '/login',
@@ -35,6 +35,11 @@ const routes = [
     path: '/intelligent-building-site',
     name: 'IntelligentBuildingSite',
     component: () => import('../views/home/IntelligentBuildingSite.vue'),
+  },
+  {
+    path: '/building-site-temp',
+    name: 'BuildingSiteTemp',
+    component: () => import('../views/home/BuildingSiteTemp.vue'),
   },
 ]
 

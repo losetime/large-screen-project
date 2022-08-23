@@ -50,19 +50,19 @@
           <div class="stats-wrap">
             <div class="stats-item-wrap">
               <p class="stats-label">在场人数</p>
-              <p class="stats-value">{{ scenePeopleStats.presencePersonQuantity }}</p>
+              <p class="stats-value">{{ scenePeopleStats?.presencePersonQuantity }}</p>
             </div>
             <div class="stats-item-wrap">
               <p class="stats-label">今日进场</p>
-              <p class="stats-value">{{ scenePeopleStats.todayInPersonQuantity }}</p>
+              <p class="stats-value">{{ scenePeopleStats?.todayInPersonQuantity }}</p>
             </div>
             <div class="stats-item-wrap">
               <p class="stats-label">今日出场</p>
-              <p class="stats-value">{{ scenePeopleStats.todayOutPersonQuantity }}</p>
+              <p class="stats-value">{{ scenePeopleStats?.todayOutPersonQuantity }}</p>
             </div>
             <div class="stats-item-wrap">
               <p class="stats-label">项目总人数</p>
-              <p class="stats-value">{{ scenePeopleStats.projectPersonQuantity }}</p>
+              <p class="stats-value">{{ scenePeopleStats?.projectPersonQuantity }}</p>
             </div>
           </div>
           <div class="chart-wrap">
@@ -79,17 +79,17 @@
             <div class="stats-wrap">
               <div class="stats-item-wrap">
                 <p class="stats-label">累计违章</p>
-                <p class="stats-value">{{ breakRulesStats.grandIllegal }}</p>
+                <p class="stats-value">{{ breakRulesStats?.grandIllegal }}</p>
               </div>
               <div class="split-line"></div>
               <div class="stats-item-wrap">
                 <p class="stats-label">一般违章</p>
-                <p class="stats-value stats-warning">{{ breakRulesStats.generalIllegal }}</p>
+                <p class="stats-value stats-warning">{{ breakRulesStats?.generalIllegal }}</p>
               </div>
               <div class="split-line"></div>
               <div class="stats-item-wrap">
                 <p class="stats-label">严重违章</p>
-                <p class="stats-value stats-error">{{ breakRulesStats.seriousIllegal }}</p>
+                <p class="stats-value stats-error">{{ breakRulesStats?.seriousIllegal }}</p>
               </div>
             </div>
             <div class="sub-title-wrap">{{ dateUtil().month() + 1 }}月违章记录</div>
@@ -97,6 +97,23 @@
               <YmCalendar :eventData="calendarInfo" />
             </div>
           </div>
+          <!-- <div class="right-blick-wrap">
+            <div class="signs-alarm-wrap">
+              <div class="title-wrap">
+                <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+                <span>体征告警</span>
+              </div>
+              <div class="chart-wrap">
+                <Pie :series="signsAlarm" />
+              </div>
+            </div>
+            <div class="warehousing-wrap">
+              <div class="title-wrap">
+                <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+                <span>仓储告警</span>
+              </div>
+            </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -111,6 +128,7 @@ import ProjectPeople from '@/components/intelligentBuildingSite/ProjectPeople.vu
 import MonitorAndProgress from '@/components/intelligentBuildingSite/MonitorAndProgress.vue'
 import WorkTicket from '@/components/intelligentBuildingSite/WorkTicket.vue'
 import YmCalendar from '@/components/common/YmCalendar.vue'
+import Line from '@/components/charts/Line.vue'
 import useDateTime from '@/hooks/useDateTime'
 import {
   apiGetRealTimeInAndOut,
@@ -139,6 +157,8 @@ const scenePeopleChart = ref<any>({
 const breakRulesStats = ref<any>({})
 
 const calendarInfo = ref([])
+
+// const signsAlarm = ref<any[]>([])
 
 onMounted(() => {
   getProjectInfo()
@@ -495,6 +515,29 @@ const getSceneBreakRulesCalendar = async () => {
             margin-top: 20px;
           }
         }
+        // .right-blick-wrap {
+        //   flex: 1;
+        //   margin-left: 14px;
+        //   display: flex;
+        //   flex-direction: column;
+        //   justify-content: space-between;
+        //   .signs-alarm-wrap {
+        //     padding: 14px 20px;
+        //     height: 332px;
+        //     background-image: url('../../assets/images/intelligentBuildingSite/work-ticket.png');
+        //     background-size: 100% 100%;
+        //     .chart-wrap {
+        //       height: 270px;
+        //       background-color: red;
+        //     }
+        //   }
+        //   .warehousing-wrap {
+        //     padding: 14px 20px;
+        //     height: 200px;
+        //     background-image: url('../../assets/images/intelligentBuildingSite/work-ticket.png');
+        //     background-size: 100% 100%;
+        //   }
+        // }
       }
     }
   }

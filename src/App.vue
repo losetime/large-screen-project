@@ -12,11 +12,12 @@ const locale = reactive(zhCN)
 <style lang="less">
 /* 自定义字体引入 */
 @font-face {
-  font-family: DINAlternate-Bold;
-  src: url(./assets/font/DINAlternate-bold.ttf) format('truetype');
+  font-family: AliPH;
+  src: url(./assets/font/Alibaba_PuHuiTi_2.0_55_Regular_55_Regular.ttf) format('truetype');
 }
 
 body {
+  font-family: AliPH !important;
   p {
     margin: 0;
   }

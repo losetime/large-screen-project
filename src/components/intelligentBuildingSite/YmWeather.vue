@@ -1,15 +1,15 @@
 <template>
   <div class="weather-wrapper">
-    <img :src="getWeatherIcon(weatherInfo.weaImg)" alt="" />
+    <img :src="getWeatherIcon(weatherInfo?.weaImg)" alt="" />
     <div class="info-wrap">
-      <div class="temperature">{{ weatherInfo.tem }}</div>
+      <div class="temperature">{{ weatherInfo?.tem }}</div>
       <div class="weather-wrap">
         <p class="weather-text">
-          <span class="sky">{{ weatherInfo.wea }}</span>
+          <span class="sky">{{ weatherInfo?.wea }}</span>
           <span class="line"></span>
-          <span class="air">{{ weatherInfo.airPm25 }}</span>
+          <span class="air">{{ weatherInfo?.airPm25 }}</span>
         </p>
-        <p>{{ weatherInfo.airLevel }}</p>
+        <p>{{ weatherInfo?.airLevel }}</p>
       </div>
     </div>
   </div>

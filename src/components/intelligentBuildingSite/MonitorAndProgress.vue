@@ -30,15 +30,11 @@ import { onMounted, ref } from 'vue'
 import Timelines from '@/components/intelligentBuildingSite/Timelines.vue'
 import { apiGetProjectProgress } from '@/service/api/intelligentBuildingSite'
 import { getDate, dateUtil } from '@/utils/dateUtil'
-
 const projectProgress = ref<any>({})
-
 const timelines = ref<any[]>([])
-
 onMounted(() => {
   getProjectProgress()
 })
-
 const getProjectProgress = async () => {
   const { code, data } = await apiGetProjectProgress()
   if (code === 20000) {
@@ -88,7 +84,6 @@ const getProjectProgress = async () => {
 
 <style lang="less" scoped>
 @import '../../assets/style/intelligentBuildingSite.less';
-
 .monitor-and-progress-wrap {
   height: 610px;
   width: 100%;

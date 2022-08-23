@@ -4,27 +4,26 @@
       <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
       <span>项目概况</span>
     </div>
-    <div class="qr-code-wrap"><img :src="qrCode" alt="" /></div>
     <div class="overview-wrap">
       <div class="item-wrap">
         <span>建管单位</span>
-        <span>{{ projectOverview.jgUnit }}</span>
+        <span>{{ projectOverview?.jgUnit }}</span>
       </div>
       <div class="item-wrap">
         <span>设计单位</span>
-        <span>{{ projectOverview.sjUnit }}</span>
+        <span>{{ projectOverview?.sjUnit }}</span>
       </div>
       <div class="item-wrap">
         <span>监理单位</span>
-        <span>{{ projectOverview.jlUnit }}</span>
+        <span>{{ projectOverview?.jlUnit }}</span>
       </div>
       <div class="item-wrap">
         <span>施工单位</span>
-        <span>{{ projectOverview.sgUnit }}</span>
+        <span>{{ projectOverview?.sgUnit }}</span>
       </div>
       <div class="item-wrap">
         <span>开工日期</span>
-        <span>{{ projectOverview.startDate }}</span>
+        <span>{{ projectOverview?.startDate }}</span>
       </div>
     </div>
   </div>
@@ -35,8 +34,6 @@ import { onMounted, ref } from 'vue'
 import { apiGetProjectOverview } from '@/service/api/intelligentBuildingSite'
 
 const projectOverview = ref<any>({})
-
-const qrCode = ref('')
 
 onMounted(() => {
   getProjectOverview()
@@ -63,22 +60,6 @@ const getProjectOverview = async () => {
   background-size: 100% 100%;
   padding: 14px 20px;
   position: relative;
-  .qr-code-wrap {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    border: 2px solid #25ca93;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 21px;
-    right: 41px;
-    img {
-      width: 35px;
-      height: 35px;
-    }
-  }
   .overview-wrap {
     margin-top: 20px;
     color: #ffffff;

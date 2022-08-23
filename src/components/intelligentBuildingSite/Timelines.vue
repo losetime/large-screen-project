@@ -4,7 +4,7 @@
       <div class="node-wrap" v-for="(item, index) in timelines" :key="index">
         <span :class="{ 'dot-wrap': true }"></span>
         <div class="content-wrap">
-          <p class="time">{{ item.nodeTime }}</p>
+          <!-- <p class="time">{{ item.nodeTime }}</p> -->
           <p class="title">{{ item.nodeTitle }}</p>
         </div>
       </div>
@@ -13,7 +13,8 @@
       <template v-for="(item, index) in timelines" :key="index">
         <div class="node-wrap" v-if="item.isDone">
           <span :class="{ 'dot-wrap': true }"></span>
-          <span class="indicator" v-if="index === timelines.length - 2"></span>
+          <!-- <span class="indicator" v-if="index === timelines.length - 2"></span> -->
+          <span class="progress" v-if="index === timelines.length - 2">20%</span>
         </div>
       </template>
     </div>
@@ -21,39 +22,9 @@
 </template>
 
 <script setup lang="ts">
-// import { ref } from 'vue'
-
 defineProps<{
   timelines: any[]
 }>()
-
-// const timelines = ref<any>([
-//   {
-//     nodeTime: '2019-09-05',
-//     nodeTitle: '土方开挖',
-//     isDone: true,
-//   },
-//   {
-//     nodeTime: '2019-09-05',
-//     nodeTitle: '土方开挖',
-//     isDone: true,
-//   },
-//   {
-//     nodeTime: '2019-09-05',
-//     nodeTitle: '土方开挖',
-//     isDone: true,
-//   },
-//   {
-//     nodeTime: '2019-09-05',
-//     nodeTitle: '土方开挖',
-//     isDone: true,
-//   },
-//   {
-//     nodeTime: '2019-09-05',
-//     nodeTitle: '土方开挖',
-//     isDone: true,
-//   },
-// ])
 </script>
 
 <style lang="less" scoped>
@@ -82,6 +53,7 @@ defineProps<{
         position: absolute;
         top: 14px;
         left: -35px;
+        width: 90px;
         .time {
           color: #bebfcc;
           font-size: 16px;
@@ -125,6 +97,14 @@ defineProps<{
         position: absolute;
         top: -18px;
         right: -6px;
+      }
+      .progress {
+        width: 28px;
+        text-align: center;
+        color: #ffffff;
+        position: absolute;
+        top: -25px;
+        right: -10px;
       }
     }
     .node-wrap:last-child {

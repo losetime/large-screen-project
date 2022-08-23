@@ -94,7 +94,6 @@ const calendarList = computed(() => {
 
 /* 得到当前年这个月分有多少天 */
 const getDays = (Y: number, M: number): number => {
-  console.log(new Date(Y, M, 0).getDate())
   return new Date(Y, M, 0).getDate()
 }
 

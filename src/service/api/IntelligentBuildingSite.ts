@@ -13,6 +13,9 @@ enum Api {
   getSceneBreakRulesCalendar = '/cv-touch/largeScreenCvTouch/selectIllegalRecord',
   getProjectProgress = '/cv-touch/largeScreenCvTouch/selectProjectProgress',
   getProjectInfo = '/cv-touch/largeScreenCvTouch/selectProjectSingleName',
+  getEnvMonitorInfo = '/cv-touch/largeScreenCvTouch/selectEnvironmentalLatest',
+  getVRTrainInfo = '/cv-touch/largeScreenCvTouch/selectVrTrain',
+  getSignsAlarmInfo = '/cv-touch/largeScreenCvTouch/selectSingsAlarm',
 }
 
 // -------------------------------------- e基建智慧工地 -----------------------------------------------
@@ -133,6 +136,36 @@ export function apiGetProjectProgress(): Promise<any> {
 export function apiGetProjectInfo(): Promise<any> {
   return $http.request({
     url: Api.getProjectInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取环境监测数据
+ */
+export function apiGetEnvMonitorInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getEnvMonitorInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取VR培训数据
+ */
+export function apiGetVRTrainInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getVRTrainInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取体征告警数据
+ */
+export function apiGetSignsAlarmInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getSignsAlarmInfo,
     method: 'GET',
   })
 }

@@ -40,6 +40,10 @@ export default ({ mode }) => {
     server: {
       host: '0.0.0.0',
       port: 3001,
+      proxy: {
+        // '/cvtouch': 'http://192.168.35.159:12241',
+        '/cv-touch': 'http://192.168.35.213:18556',
+      },
     },
   })
 }

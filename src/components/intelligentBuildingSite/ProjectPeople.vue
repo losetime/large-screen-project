@@ -31,16 +31,12 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { apiGetProjectPeople, apiGetPeopleCodeStats } from '@/service/api/intelligentBuildingSite'
-
 const projectPeople = ref<any[]>([])
-
 const peopleCodeStats = ref<any>({})
-
 onMounted(() => {
   getProjectPeople()
   getPeopleCodeStats()
 })
-
 /**
  * @desc 获取项目人员
  */
@@ -65,7 +61,6 @@ const getProjectPeople = async () => {
     ]
   }
 }
-
 /**
  * @desc 获取人员一码通统计
  */
@@ -89,7 +84,6 @@ const getPeopleCodeStats = async () => {
 
 <style lang="less" scoped>
 @import '../../assets/style/intelligentBuildingSite.less';
-
 .project-people-wrap {
   height: 465px;
   width: 100%;
