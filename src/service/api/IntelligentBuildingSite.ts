@@ -1,21 +1,21 @@
 import { $http } from '../http/index'
 
 enum Api {
-  getWeatherInfo = '/cv-touch/largeScreenCvTouch/selectWeatherInfo',
-  getProjectOverview = '/cv-touch/largeScreenCvTouch/selectProjectInfo',
-  getProjectPeople = '/cv-touch/largeScreenCvTouch/selectProjectPeople',
-  getPeopleCodeStats = '/cv-touch/largeScreenCvTouch/selectProjectPeopleQrcode',
-  getRealTimeInAndOut = '/cv-touch/largeScreenCvTouch/selectRealInoutRecord',
-  getScenePeopleStats = '/cv-touch/largeScreenCvTouch/selectPersonInoutData',
-  getScenePeopleChart = '/cv-touch/largeScreenCvTouch/selectPersonInoutRecordLineChart',
-  getWorkTicketInfo = '/cv-touch/largeScreenCvTouch/selectWorkTicket',
-  getSceneBreakRulesStats = '/cv-touch/largeScreenCvTouch/selectIllegalDataStat',
-  getSceneBreakRulesCalendar = '/cv-touch/largeScreenCvTouch/selectIllegalRecord',
-  getProjectProgress = '/cv-touch/largeScreenCvTouch/selectProjectProgress',
-  getProjectInfo = '/cv-touch/largeScreenCvTouch/selectProjectSingleName',
-  getEnvMonitorInfo = '/cv-touch/largeScreenCvTouch/selectEnvironmentalLatest',
-  getVRTrainInfo = '/cv-touch/largeScreenCvTouch/selectVrTrain',
-  getSignsAlarmInfo = '/cv-touch/largeScreenCvTouch/selectSingsAlarm',
+  getWeatherInfo = '/cvtouch/largeScreenCvTouch/selectWeatherInfo',
+  getProjectOverview = '/cvtouch/largeScreenCvTouch/selectProjectInfo',
+  getProjectPeople = '/cvtouch/largeScreenCvTouch/selectProjectPeople',
+  getPeopleCodeStats = '/cvtouch/largeScreenCvTouch/selectProjectPeopleQrcode',
+  getRealTimeInAndOut = '/cvtouch/largeScreenCvTouch/selectRealInoutRecord',
+  getScenePeopleStats = '/cvtouch/largeScreenCvTouch/selectPersonInoutData',
+  getScenePeopleChart = '/cvtouch/largeScreenCvTouch/selectPersonInoutRecordLineChart',
+  getWorkTicketInfo = '/cvtouch/largeScreenCvTouch/selectWorkTicket',
+  getSceneBreakRulesStats = '/cvtouch/largeScreenCvTouch/selectIllegalDataStat',
+  getSceneBreakRulesCalendar = '/cvtouch/largeScreenCvTouch/selectIllegalRecord',
+  getProjectProgress = '/cvtouch/largeScreenCvTouch/selectProjectProgress',
+  getProjectInfo = '/cvtouch/largeScreenCvTouch/selectProjectSingleName',
+  getEnvMonitorInfo = '/cvtouch/largeScreenCvTouch/selectEnvironmentalLatest',
+  getVRTrainInfo = '/cvtouch/largeScreenCvTouch/selectVrTrain',
+  getSignsAlarmInfo = '/cvtouch/largeScreenCvTouch/selectSingsAlarm',
 }
 
 // -------------------------------------- e基建智慧工地 -----------------------------------------------

@@ -80,7 +80,7 @@
           </div>
           <div class="detail-wrap">
             <div class="item-wrap" v-for="(item, index) in realTimeInAndOut" :key="index">
-              <img :src="item.imageUrl || avatar" alt="" />
+              <img :src="item.useImageUrl || avatar" alt="" />
               <p class="name-wrap">{{ item.userName }}</p>
               <p class="type-wrap">{{ item.postName }}</p>
               <p class="time-wrap">{{ item.accessTime.slice(10) }}</p>
@@ -209,7 +209,7 @@ import avatar from '../../assets/images/peopleInAndOut/people-avatar.png'
 
 const { date, time, week } = useDateTime()
 
-const projectName = ref('中营-213123')
+const projectName = ref('')
 
 const realTimeInAndOut = ref<any[]>([])
 
@@ -269,7 +269,7 @@ onMounted(() => {
     getEnvMonitorInfo()
     getVRTrainInfo()
     getSignsAlarmfo()
-  }, 1000 * 60 * 60)
+  }, 1000 * 60 * 15)
 })
 
 /**

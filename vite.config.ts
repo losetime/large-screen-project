@@ -42,7 +42,7 @@ export default ({ mode }) => {
       port: 3001,
       proxy: {
         // '/cvtouch': 'http://192.168.35.159:12241',
-        '/cv-touch': 'http://192.168.35.213:18556',
+        '/cvtouch': 'http://192.168.35.213:18556',
       },
     },
   })

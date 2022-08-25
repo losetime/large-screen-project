@@ -14,7 +14,7 @@
         <div class="node-wrap" v-if="item.isDone">
           <span :class="{ 'dot-wrap': true }"></span>
           <!-- <span class="indicator" v-if="index === timelines.length - 2"></span> -->
-          <span class="progress" v-if="index === timelines.length - 2">20%</span>
+          <span class="progress" v-if="progessIndex() === index">{{ progress }}%</span>
         </div>
       </template>
     </div>
@@ -22,9 +22,19 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   timelines: any[]
+  progress: string
 }>()
+
+const progessIndex = () => {
+  const findIndex = props.timelines.findIndex((item: any) => !item.isDone)
+  if (findIndex === -1) {
+    return props.timelines.length - 1
+  } else {
+    return findIndex === 0 ? 0 : findIndex - 1
+  }
+}
 </script>
 
 <style lang="less" scoped>

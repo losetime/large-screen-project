@@ -12,7 +12,8 @@
     <div class="progress-wrap">
       <div class="title-wrap">
         <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
-        <!-- <span>工程进度(总工期{{ projectProgress?.totalDuration }}天)</span> -->
+        <!-- (总工期{{ projectProgress?.totalDuration }}天) -->
+        <span>工程进度</span>
       </div>
       <div class="progress-view">
         <!-- <div class="construction-days">
@@ -21,11 +22,11 @@
         </div> -->
         <div class="timelines-wrap">
           <div class="title">土建施工</div>
-          <Timelines :timelines="civilTimelines" />
+          <Timelines :timelines="civilTimelines" :progress="civilProgress" />
         </div>
         <div class="timelines-wrap">
           <div class="title">电气施工</div>
-          <Timelines :timelines="electricTimelines" />
+          <Timelines :timelines="electricTimelines" :progress="electricProgress" />
         </div>
       </div>
     </div>
@@ -36,7 +37,6 @@
 import { computed, onMounted, ref } from 'vue'
 import Timelines from '@/components/intelligentBuildingSite/Timelines.vue'
 import { apiGetProjectProgress } from '@/service/api/intelligentBuildingSite'
-import { getDate, dateUtil } from '@/utils/dateUtil'
 import lantian from '@/assets/images/intelligentBuildingSite/lantian.png'
 import xianyang from '@/assets/images/intelligentBuildingSite/xianyang.png'
 import zhongying from '@/assets/images/intelligentBuildingSite/zhong-ying.png'
@@ -46,13 +46,15 @@ const props = defineProps<{
   type: string
 }>()
 
-const projectProgress = ref<any>({})
-
 // 土建施工
 const civilTimelines = ref<any[]>([])
 
+const civilProgress = ref<string>('')
+
 // 电气施工
 const electricTimelines = ref<any[]>([])
+
+const electricProgress = ref<string>('')
 
 const monitorView = computed(() => {
   switch (props.type) {
@@ -67,6 +69,39 @@ const monitorView = computed(() => {
   }
 })
 
+// 土建阶段
+const civilStep = ref([
+  {
+    nodeTitle: '土方开挖',
+    isDone: false,
+    type: 'EARTH_EXCAVATION',
+  },
+  {
+    nodeTitle: '主体施工',
+    isDone: false,
+    type: 'MAIN_CONSTRUCTION',
+  },
+  {
+    nodeTitle: '施工消缺',
+    isDone: false,
+    type: 'ELIMINATION',
+  },
+])
+
+// 电气阶段
+const electricStep = ref([
+  {
+    nodeTitle: '电气安装',
+    isDone: false,
+    type: 'ELECTRICAL_INSTALLATION',
+  },
+  {
+    nodeTitle: '电气调试',
+    isDone: false,
+    type: 'MAIN_CONSTRUCTION',
+  },
+])
+
 onMounted(() => {
   getProjectProgress()
 })
@@ -77,55 +112,25 @@ const getProjectProgress = async () => {
     data.forEach((item: any) => {
       switch (item.constructionEnum) {
         case 'CIVIL_ENGINEERING':
-      }
-      if (item.constructionEnum === 'CIVIL_ENGINEERING') {
+          civilTimelines.value = formatTimelines(civilStep.value, item.progress.phase)
+          civilProgress.value = item.progress.progress
+        case 'ELECTRIC':
+          electricTimelines.value = formatTimelines(electricStep.value, item.progress.phase)
+          electricProgress.value = item.progress.progress
       }
     })
-    projectProgress.value = data
   }
 }
 
-// const formatProgess = (data: any) => {
-//   const len = data.largeMilestoneProjectList.length
-//   if (len <= 3) {
-//     timelines.value = data.largeMilestoneProjectList.map((item: any) => ({
-//       nodeTime: item.milestoneDate,
-//       nodeTitle: item.milestoneName,
-//       isDone: true,
-//     }))
-//   } else {
-//     const currenDate = dateUtil(getDate())
-//     const findIndex = data.largeMilestoneProjectList.findIndex((item: any) => {
-//       return dateUtil(item.milestoneDate).diff(currenDate) > 0
-//     })
-//     if (findIndex === undefined) {
-//       const progressList = data.largeMilestoneProjectList.slice(len - 3)
-//       timelines.value = progressList.map((item: any) => ({
-//         nodeTime: item.milestoneDate,
-//         nodeTitle: item.milestoneName,
-//         isDone: true,
-//       }))
-//     } else {
-//       const needIndex = findIndex - 2
-//       const progressList = data.largeMilestoneProjectList.slice(needIndex, needIndex + 3)
-//       timelines.value = progressList.map((item: any, index: number) => {
-//         if (index === 2) {
-//           return {
-//             nodeTime: item.milestoneDate,
-//             nodeTitle: item.milestoneName,
-//             isDone: false,
-//           }
-//         } else {
-//           return {
-//             nodeTime: item.milestoneDate,
-//             nodeTitle: item.milestoneName,
-//             isDone: true,
-//           }
-//         }
-//       })
-//     }
-//   }
-// }
+const formatTimelines = (sourceStep: any, currentStep: any) => {
+  const findIndex = sourceStep.findIndex((val: any) => currentStep === val.type)
+  return sourceStep.map((val: any, index: number) => {
+    if (index <= findIndex) {
+      val.isDone = true
+    }
+    return val
+  })
+}
 </script>
 
 <style lang="less" scoped>

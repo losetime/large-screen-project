@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import Timelines from '@/components/intelligentBuildingSite/Timelines.vue'
+import Timelines from '@/components/intelligentBuildingSite/Timelines2.vue'
 import { apiGetProjectProgress } from '@/service/api/intelligentBuildingSite'
 import { getDate, dateUtil } from '@/utils/dateUtil'
 const projectProgress = ref<any>({})
