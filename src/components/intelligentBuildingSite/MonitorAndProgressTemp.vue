@@ -98,7 +98,12 @@ const electricStep = ref([
   {
     nodeTitle: '电气调试',
     isDone: false,
-    type: 'MAIN_CONSTRUCTION',
+    type: 'ELECTRICAL_DEBUGGING',
+  },
+  {
+    nodeTitle: '施工消缺',
+    isDone: false,
+    type: 'ELIMINATION',
   },
 ])
 

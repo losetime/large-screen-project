@@ -68,8 +68,17 @@ const getProjectOverview = async () => {
       align-items: center;
       margin-top: 8px;
       span:first-child {
+        display: inline-block;
+        width: 58px;
         margin-right: 16px;
         color: #9a9caa;
+      }
+      span:last-child {
+        display: inline-block;
+        width: 240px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
   }
