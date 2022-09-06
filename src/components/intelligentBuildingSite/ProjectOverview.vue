@@ -9,10 +9,10 @@
         <span>建管单位</span>
         <span>{{ projectOverview?.jgUnit }}</span>
       </div>
-      <div class="item-wrap">
+      <!-- <div class="item-wrap">
         <span>设计单位</span>
         <span>{{ projectOverview?.sjUnit }}</span>
-      </div>
+      </div> -->
       <div class="item-wrap">
         <span>监理单位</span>
         <span>{{ projectOverview?.jlUnit }}</span>

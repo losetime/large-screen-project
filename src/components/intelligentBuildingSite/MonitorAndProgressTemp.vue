@@ -70,7 +70,7 @@ const monitorView = computed(() => {
 })
 
 // 土建阶段
-const civilStep = ref([
+const civilStep = [
   {
     nodeTitle: '土方开挖',
     isDone: false,
@@ -86,10 +86,10 @@ const civilStep = ref([
     isDone: false,
     type: 'ELIMINATION',
   },
-])
+]
 
 // 电气阶段
-const electricStep = ref([
+const electricStep = [
   {
     nodeTitle: '电气安装',
     isDone: false,
@@ -105,7 +105,7 @@ const electricStep = ref([
     isDone: false,
     type: 'ELIMINATION',
   },
-])
+]
 
 onMounted(() => {
   getProjectProgress()
@@ -117,11 +117,13 @@ const getProjectProgress = async () => {
     data.forEach((item: any) => {
       switch (item.constructionEnum) {
         case 'CIVIL_ENGINEERING':
-          civilTimelines.value = formatTimelines(civilStep.value, item.progress.phase)
+          civilTimelines.value = formatTimelines(civilStep, item.progress.phase)
           civilProgress.value = item.progress.progress
+          break
         case 'ELECTRIC':
-          electricTimelines.value = formatTimelines(electricStep.value, item.progress.phase)
+          electricTimelines.value = formatTimelines(electricStep, item.progress.phase)
           electricProgress.value = item.progress.progress
+          break
       }
     })
   }
