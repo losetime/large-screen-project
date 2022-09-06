@@ -1,7 +1,7 @@
 <template>
   <div class="project-people-wrap">
     <div class="title-wrap">
-      <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+      <img src="../../assets/images/home/title-icon.png" alt="" />
       <span>项目人员</span>
     </div>
     <div class="details-wrap">
@@ -11,17 +11,17 @@
       <div class="chart-title">人员一码通分布</div>
       <div class="code-count-wrap">
         <span>绿码</span>
-        <img src="../../assets/images/intelligentBuildingSite/green-code.png" alt="" />
+        <img src="../../assets/images/home/green-code.png" alt="" />
         <a-progress :percent="peopleCodeStats.green" strokeColor="#25CA93" />
       </div>
       <div class="code-count-wrap">
         <span>黄码</span>
-        <img src="../../assets/images/intelligentBuildingSite/yellow-code.png" alt="" />
+        <img src="../../assets/images/home/yellow-code.png" alt="" />
         <a-progress :percent="peopleCodeStats.yellow" strokeColor="#F6B900" />
       </div>
       <div class="code-count-wrap">
         <span>红码</span>
-        <img src="../../assets/images/intelligentBuildingSite/red-code.png" alt="" />
+        <img src="../../assets/images/home/red-code.png" alt="" />
         <a-progress :percent="peopleCodeStats.red" strokeColor="#F44765" />
       </div>
     </div>
@@ -83,12 +83,12 @@ const getPeopleCodeStats = async () => {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/style/intelligentBuildingSite.less';
+@import '../../assets/style/home.less';
 .project-people-wrap {
   height: 465px;
   width: 100%;
   margin-top: 14px;
-  background-image: url('../../assets/images/intelligentBuildingSite/project-people.png');
+  background-image: url('../../assets/images/home/project-people.png');
   background-size: 100% 100%;
   padding: 14px 20px;
   .details-wrap {

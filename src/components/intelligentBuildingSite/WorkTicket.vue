@@ -1,7 +1,7 @@
 <template>
   <div class="work-ticket-wrap">
     <div class="title-wrap">
-      <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+      <img src="../../assets/images/home/title-icon.png" alt="" />
       <span>工作票信息</span>
     </div>
     <div class="stats-wrap">
@@ -77,19 +77,19 @@ const getWorkTicketInfo = async () => {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/style/intelligentBuildingSite.less';
+@import '../../assets/style/home.less';
 
 .work-ticket-wrap {
   flex: 1;
   height: 546px;
-  background-image: url('../../assets/images/intelligentBuildingSite/work-ticket.png');
+  background-image: url('../../assets/images/home/work-ticket.png');
   background-size: 100% 100%;
   padding: 14px 20px;
   .stats-wrap {
     width: 90%;
     height: 72px;
     margin: 20px 0 0 5%;
-    background-image: url('../../assets/images/intelligentBuildingSite/work-ticket-stats.png');
+    background-image: url('../../assets/images/home/work-ticket-stats.png');
     background-size: 100% 100%;
     display: flex;
     align-items: center;
@@ -119,7 +119,7 @@ const getWorkTicketInfo = async () => {
     height: 4px;
     width: 100%;
     margin-top: 42px;
-    background-image: url('../../assets/images/intelligentBuildingSite/break-rules-line.png');
+    background-image: url('../../assets/images/home/break-rules-line.png');
     background-size: 100% 100%;
     color: #55b1ff;
     text-align: center;

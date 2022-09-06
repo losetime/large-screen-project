@@ -1,7 +1,7 @@
 <template>
   <div class="project-people-wrap" :style="{ height: height[0] + 'px' }">
     <div class="title-wrap">
-      <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+      <img src="../../assets/images/home/title-icon.png" alt="" />
       <span>人员总览</span>
     </div>
     <div class="details-wrap">
@@ -78,12 +78,12 @@ const getPeopleCodeStats = async () => {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/style/intelligentBuildingSite.less';
+@import '../../assets/style/home.less';
 
 .project-people-wrap {
   width: 100%;
   margin-top: 14px;
-  background-image: url('../../assets/images/intelligentBuildingSite/project-people.png');
+  background-image: url('../../assets/images/home/project-people.png');
   background-size: 100% 100%;
   padding: 14px 20px;
   .details-wrap {

@@ -1,7 +1,7 @@
 <template>
   <div class="project-overview-wrap">
     <div class="title-wrap">
-      <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+      <img src="../../assets/images/home/title-icon.png" alt="" />
       <span>项目概况</span>
     </div>
     <div class="overview-wrap">
@@ -51,12 +51,12 @@ const getProjectOverview = async () => {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/style/intelligentBuildingSite.less';
+@import '../../assets/style/home.less';
 
 .project-overview-wrap {
   height: 250px;
   width: 100%;
-  background-image: url('../../assets/images/intelligentBuildingSite/project-overview.png');
+  background-image: url('../../assets/images/home/project-overview.png');
   background-size: 100% 100%;
   padding: 14px 20px;
   position: relative;

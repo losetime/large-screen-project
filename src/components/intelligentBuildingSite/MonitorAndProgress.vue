@@ -2,14 +2,14 @@
   <div class="monitor-and-progress-wrap">
     <div class="monitor-wrap">
       <div class="title-wrap">
-        <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+        <img src="../../assets/images/home/title-icon.png" alt="" />
         <span>工地实时监控</span>
       </div>
       <div class="monitor-view"></div>
     </div>
     <div class="progress-wrap">
       <div class="title-wrap">
-        <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+        <img src="../../assets/images/home/title-icon.png" alt="" />
         <span>工程进度(总工期{{ projectProgress.totalDuration }}天)</span>
       </div>
       <div class="progress-view">
@@ -83,11 +83,11 @@ const getProjectProgress = async () => {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/style/intelligentBuildingSite.less';
+@import '../../assets/style/home.less';
 .monitor-and-progress-wrap {
   height: 610px;
   width: 100%;
-  background-image: url('../../assets/images/intelligentBuildingSite/monitor-and-progress.png');
+  background-image: url('../../assets/images/home/monitor-and-progress.png');
   background-size: 100% 100%;
   padding: 14px 20px;
   .monitor-wrap {
@@ -95,7 +95,7 @@ const getProjectProgress = async () => {
       height: 338px;
       width: 100%;
       margin: 20px 0;
-      background-image: url('../../assets/images/intelligentBuildingSite/monitor-background.png');
+      background-image: url('../../assets/images/home/monitor-background.png');
       background-size: 100% 100%;
     }
   }

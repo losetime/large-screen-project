@@ -2,7 +2,7 @@
   <div class="intelligent-building-site-wrapper">
     <div class="header-wrap">
       <div class="project-wrap">
-        <img src="../../assets/images/intelligentBuildingSite/logo.svg" alt="" />
+        <img src="../../assets/images/home/logo.svg" alt="" />
         <span>{{ projectName }}</span>
       </div>
       <div class="time-wrap">
@@ -17,7 +17,7 @@
         <ProjectPeople :height="judgeBuildingSite === 'zhongying' ? [380, 320] : [466, 390]" />
         <div class="environment-wrap" v-if="judgeBuildingSite === 'zhongying'">
           <div class="title-wrap">
-            <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+            <img src="../../assets/images/home/title-icon.png" alt="" />
             <span>环境监测</span>
           </div>
           <div class="env-content-wrap">
@@ -65,7 +65,7 @@
         </div>
         <div class="weather-forecast-wrap" v-else>
           <div class="title-wrap">
-            <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+            <img src="../../assets/images/home/title-icon.png" alt="" />
             <span>天气预报</span>
           </div>
           <ym-weather />
@@ -75,7 +75,7 @@
         <MonitorAndProgress :type="judgeBuildingSite" />
         <div class="real-time-in-and-out-wrap">
           <div class="title-wrap">
-            <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+            <img src="../../assets/images/home/title-icon.png" alt="" />
             <span>实时进出</span>
           </div>
           <div class="detail-wrap">
@@ -94,7 +94,7 @@
       <div class="right-wrap">
         <div class="scene-people-wrap">
           <div class="title-wrap">
-            <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+            <img src="../../assets/images/home/title-icon.png" alt="" />
             <span>现场人员</span>
           </div>
           <div class="stats-wrap">
@@ -123,7 +123,7 @@
           <WorkTicket />
           <!-- <div class="break-rules-wrap">
             <div class="title-wrap">
-              <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+              <img src="../../assets/images/home/title-icon.png" alt="" />
               <span>现场违章</span>
             </div>
             <div class="stats-wrap">
@@ -150,7 +150,7 @@
           <div class="right-blick-wrap">
             <div class="signs-alarm-wrap">
               <div class="title-wrap">
-                <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+                <img src="../../assets/images/home/title-icon.png" alt="" />
                 <span>体征告警</span>
               </div>
               <div class="chart-wrap">
@@ -163,7 +163,7 @@
             </div>
             <div class="warehousing-wrap">
               <div class="title-wrap">
-                <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+                <img src="../../assets/images/home/title-icon.png" alt="" />
                 <span>VR培训</span>
               </div>
               <div class="stats-wrap">
@@ -441,17 +441,17 @@ const getSignsAlarmfo = async () => {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/style/intelligentBuildingSite.less';
+@import '../../assets/style/home.less';
 
 .intelligent-building-site-wrapper {
   width: 100%;
   height: 1080px;
-  background-image: url('../../assets/images/intelligentBuildingSite/background.png');
+  background-image: url('../../assets/images/home/background.png');
   background-size: cover;
   .header-wrap {
     height: 100px;
     width: 100%;
-    background-image: url('../../assets/images/intelligentBuildingSite/header.png');
+    background-image: url('../../assets/images/home/header.png');
     background-size: cover;
     background-position: 100% 25%;
     display: flex;
@@ -495,7 +495,7 @@ const getSignsAlarmfo = async () => {
       .weather-forecast-wrap {
         height: 202px;
         width: 100%;
-        background-image: url('../../assets/images/intelligentBuildingSite/project-overview.png');
+        background-image: url('../../assets/images/home/project-overview.png');
         background-size: 100% 100%;
         padding: 14px 20px;
         margin-top: 14px;
@@ -506,7 +506,7 @@ const getSignsAlarmfo = async () => {
       .environment-wrap {
         height: 287px;
         width: 100%;
-        background-image: url('../../assets/images/intelligentBuildingSite/project-overview.png');
+        background-image: url('../../assets/images/home/project-overview.png');
         background-size: 100% 100%;
         padding: 14px 20px;
         margin-top: 14px;
@@ -537,7 +537,7 @@ const getSignsAlarmfo = async () => {
       .real-time-in-and-out-wrap {
         height: 322px;
         width: 100%;
-        background-image: url('../../assets/images/intelligentBuildingSite/real-time-in-and-out.png');
+        background-image: url('../../assets/images/home/real-time-in-and-out.png');
         background-size: 100% 100%;
         padding: 14px 20px;
         margin-top: 14px;
@@ -603,7 +603,7 @@ const getSignsAlarmfo = async () => {
       .scene-people-wrap {
         width: 100%;
         height: 384px;
-        background-image: url('../../assets/images/intelligentBuildingSite/scene-people.png');
+        background-image: url('../../assets/images/home/scene-people.png');
         background-size: 100% 100%;
         padding: 14px 20px;
         .stats-wrap {
@@ -617,7 +617,7 @@ const getSignsAlarmfo = async () => {
             margin-top: 14px;
             width: 145px;
             height: 71px;
-            background-image: url('../../assets/images/intelligentBuildingSite/scene-stats.png');
+            background-image: url('../../assets/images/home/scene-stats.png');
             background-size: 100% 100%;
             .stats-label {
               color: #8e91a1;
@@ -642,7 +642,7 @@ const getSignsAlarmfo = async () => {
         .break-rules-wrap {
           flex: 1;
           height: 546px;
-          background-image: url('../../assets/images/intelligentBuildingSite/work-ticket.png');
+          background-image: url('../../assets/images/home/work-ticket.png');
           background-size: 100% 100%;
           padding: 14px 20px;
           margin-left: 14px;
@@ -650,7 +650,7 @@ const getSignsAlarmfo = async () => {
             width: 90%;
             height: 72px;
             margin: 20px 0 0 5%;
-            background-image: url('../../assets/images/intelligentBuildingSite/work-ticket-stats.png');
+            background-image: url('../../assets/images/home/work-ticket-stats.png');
             background-size: 100% 100%;
             display: flex;
             align-items: center;
@@ -686,7 +686,7 @@ const getSignsAlarmfo = async () => {
             height: 4px;
             width: 100%;
             margin-top: 42px;
-            background-image: url('../../assets/images/intelligentBuildingSite/break-rules-line.png');
+            background-image: url('../../assets/images/home/break-rules-line.png');
             background-size: 100% 100%;
             color: #55b1ff;
             text-align: center;
@@ -708,7 +708,7 @@ const getSignsAlarmfo = async () => {
           .signs-alarm-wrap {
             padding: 14px 20px;
             height: 332px;
-            background-image: url('../../assets/images/intelligentBuildingSite/work-ticket.png');
+            background-image: url('../../assets/images/home/work-ticket.png');
             background-size: 100% 100%;
             .chart-wrap {
               height: 270px;
@@ -728,7 +728,7 @@ const getSignsAlarmfo = async () => {
           .warehousing-wrap {
             padding: 14px 20px;
             height: 200px;
-            background-image: url('../../assets/images/intelligentBuildingSite/work-ticket.png');
+            background-image: url('../../assets/images/home/work-ticket.png');
             background-size: 100% 100%;
             .stats-wrap {
               display: flex;
@@ -741,7 +741,7 @@ const getSignsAlarmfo = async () => {
                 margin-top: 35px;
                 width: 140px;
                 height: 71px;
-                background-image: url('../../assets/images/intelligentBuildingSite/scene-stats.png');
+                background-image: url('../../assets/images/home/scene-stats.png');
                 background-size: 100% 100%;
                 .stats-label {
                   color: #8e91a1;

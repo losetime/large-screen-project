@@ -17,6 +17,7 @@
     "nanoid": "^4.0.0",
     "qrcode": "^1.5.1",
     "screenfull": "^5.1.0",
+    "swiper": "^8.3.2",
     "vue": "^3.2.20",
     "vue-router": "4",
     "vuex": "^4.0.2"

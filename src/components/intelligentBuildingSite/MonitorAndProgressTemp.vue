@@ -2,7 +2,7 @@
   <div class="monitor-and-progress-wrap">
     <div class="monitor-wrap">
       <div class="title-wrap">
-        <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+        <img src="../../assets/images/home/title-icon.png" alt="" />
         <span>工地实时监控</span>
       </div>
       <div class="monitor-view">
@@ -11,7 +11,7 @@
     </div>
     <div class="progress-wrap">
       <div class="title-wrap">
-        <img src="../../assets/images/intelligentBuildingSite/title-icon.png" alt="" />
+        <img src="../../assets/images/home/title-icon.png" alt="" />
         <!-- (总工期{{ projectProgress?.totalDuration }}天) -->
         <span>工程进度</span>
       </div>
@@ -37,10 +37,10 @@
 import { computed, onMounted, ref } from 'vue'
 import Timelines from '@/components/intelligentBuildingSite/Timelines.vue'
 import { apiGetProjectProgress } from '@/service/api/intelligentBuildingSite'
-import lantian from '@/assets/images/intelligentBuildingSite/lantian.png'
-import xianyang from '@/assets/images/intelligentBuildingSite/xianyang.png'
-import zhongying from '@/assets/images/intelligentBuildingSite/zhong-ying.png'
-import normal from '@/assets/images/intelligentBuildingSite/normal.png'
+import lantian from '@/assets/images/home/lantian.png'
+import xianyang from '@/assets/images/home/xianyang.png'
+import zhongying from '@/assets/images/home/zhong-ying.png'
+import normal from '@/assets/images/home/normal.png'
 
 const props = defineProps<{
   type: string
@@ -141,12 +141,12 @@ const formatTimelines = (sourceStep: any, currentStep: any) => {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/style/intelligentBuildingSite.less';
+@import '../../assets/style/home.less';
 
 .monitor-and-progress-wrap {
   height: 610px;
   width: 100%;
-  background-image: url('../../assets/images/intelligentBuildingSite/monitor-and-progress.png');
+  background-image: url('../../assets/images/home/monitor-and-progress.png');
   background-size: 100% 100%;
   padding: 14px 20px;
   .monitor-wrap {
@@ -154,7 +154,7 @@ const formatTimelines = (sourceStep: any, currentStep: any) => {
       height: 338px;
       width: 100%;
       margin: 20px 0;
-      background-image: url('../../assets/images/intelligentBuildingSite/monitor-background.png');
+      background-image: url('../../assets/images/home/monitor-background.png');
       background-size: 100% 100%;
       padding: 14px 60px;
       img {
