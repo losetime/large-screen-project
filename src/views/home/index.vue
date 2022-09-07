@@ -22,33 +22,7 @@
         <BlockSeven />
       </div>
       <div class="right-wrap">
-        <div class="scene-people-wrap">
-          <div class="title-wrap">
-            <img src="../../assets/images/home/title-icon.png" alt="" />
-            <span>现场人员</span>
-          </div>
-          <div class="stats-wrap">
-            <div class="stats-item-wrap">
-              <p class="stats-label">在场人数</p>
-              <p class="stats-value">{{ scenePeopleStats?.presencePersonQuantity }}</p>
-            </div>
-            <div class="stats-item-wrap">
-              <p class="stats-label">今日进场</p>
-              <p class="stats-value">{{ scenePeopleStats?.todayInPersonQuantity }}</p>
-            </div>
-            <div class="stats-item-wrap">
-              <p class="stats-label">今日出场</p>
-              <p class="stats-value">{{ scenePeopleStats?.todayOutPersonQuantity }}</p>
-            </div>
-            <div class="stats-item-wrap">
-              <p class="stats-label">项目总人数</p>
-              <p class="stats-value">{{ scenePeopleStats?.projectPersonQuantity }}</p>
-            </div>
-          </div>
-          <div class="chart-wrap">
-            <Line :series="scenePeopleChart.series" :x-axis="scenePeopleChart.xAxis" :color="['#26477A', '#F44765']" />
-          </div>
-        </div>
+        <BlockEight />
         <div class="work-ticket-and-break-rules-wrap">
           <WorkTicket />
           <!-- <div class="break-rules-wrap">
@@ -120,12 +94,12 @@ import ProjectOverview from '@/components/intelligentBuildingSite/ProjectOvervie
 import ProjectPeople from '@/components/intelligentBuildingSite/ProjectPeopleTemp.vue'
 import MonitorAndProgress from '@/components/intelligentBuildingSite/MonitorAndProgressTemp.vue'
 import WorkTicket from '@/components/intelligentBuildingSite/WorkTicket.vue'
-import Line from '@/components/charts/Line.vue'
+// import Line from '@/components/charts/Line.vue'
 import Pie from '@/components/charts/Pie.vue'
 import useDateTime from '@/hooks/useDateTime'
 import {
-  apiGetScenePeopleStats,
-  apiGetScenePeopleChart,
+  // apiGetScenePeopleStats,
+  // apiGetScenePeopleChart,
   apiGetSceneBreakRulesStats,
   apiGetSceneBreakRulesCalendar,
   apiGetProjectInfo,
@@ -135,17 +109,18 @@ import {
 } from '@/service/api/intelligentBuildingSite'
 import BlockSeven from '@/components/home/blockSeven/index.vue'
 import BlockFour from '@/components/home/blockFour/index.vue'
+import BlockEight from '@/components/home/blockEight/index.vue'
 
 const { date, time, week } = useDateTime()
 
 const projectName = ref('')
 
-const scenePeopleStats = ref<any>({})
+// const scenePeopleStats = ref<any>({})
 
-const scenePeopleChart = ref<any>({
-  series: [],
-  xAxis: [],
-})
+// const scenePeopleChart = ref<any>({
+//   series: [],
+//   xAxis: [],
+// })
 
 const breakRulesStats = ref<any>({})
 
@@ -174,21 +149,21 @@ const judgeBuildingSite = computed(() => {
 
 onMounted(() => {
   getProjectInfo()
-  getScenePeopleStats()
-  getScenePeopleChart()
+  // getScenePeopleStats()
+  // getScenePeopleChart()
   // getSceneBreakRulesStats()
   // getSceneBreakRulesCalendar()
   getEnvMonitorInfo()
   getVRTrainInfo()
   getSignsAlarmfo()
 
-  setInterval(() => {
-    getScenePeopleStats()
-  }, 15000)
+  // setInterval(() => {
+  //   getScenePeopleStats()
+  // }, 15000)
 
   setInterval(() => {
     getProjectInfo()
-    getScenePeopleChart()
+    // getScenePeopleChart()
     getSceneBreakRulesStats()
     getSceneBreakRulesCalendar()
     getEnvMonitorInfo()
@@ -204,78 +179,6 @@ const getProjectInfo = async () => {
   const { code, data } = await apiGetProjectInfo()
   if (code === 20000) {
     projectName.value = data.prjSingleName
-  }
-}
-
-/**
- * @desc 获取现场人员统计
- */
-const getScenePeopleStats = async () => {
-  const { code, data } = await apiGetScenePeopleStats()
-  if (code === 20000) {
-    scenePeopleStats.value = data
-  }
-}
-
-/**
- * @desc 获取现场人员统计图表
- */
-const getScenePeopleChart = async () => {
-  const { code, data } = await apiGetScenePeopleChart()
-  if (code === 20000) {
-    scenePeopleChart.value.series = [
-      {
-        type: 'line',
-        name: data.yData[0].name,
-        data: data.yData[0].data,
-        areaStyle: {
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              {
-                offset: 0,
-                color: '#0674BC', // 0% 处的颜色
-              },
-              {
-                offset: 1,
-                color: '#081126', // 100% 处的颜色
-              },
-            ],
-            global: false, // 缺省为 false
-          },
-        },
-      },
-      {
-        type: 'line',
-        name: data.yData[1].name,
-        data: data.yData[1].data,
-        areaStyle: {
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              {
-                offset: 0,
-                color: 'rgba(244,71,101, 0.8)', // 0% 处的颜色
-              },
-              {
-                offset: 1,
-                color: 'rgba(244,71,101, 0.2)', // 100% 处的颜色
-              },
-            ],
-            global: false, // 缺省为 false
-          },
-        },
-      },
-    ]
-    scenePeopleChart.value.xAxis = data.xData
   }
 }
 
@@ -406,51 +309,15 @@ const getSignsAlarmfo = async () => {
     display: flex;
     padding: 14px;
     .left-wrap {
-      width: 342px;
+      width: 20%;
     }
     .middle-wrap {
-      width: 817px;
+      width: 40%;
       margin-left: 14px;
     }
     .right-wrap {
-      flex: 1;
+      width: 38.6%;
       margin-left: 14px;
-      .scene-people-wrap {
-        width: 100%;
-        height: 384px;
-        background-image: url('../../assets/images/home/scene-people.png');
-        background-size: 100% 100%;
-        padding: 14px 20px;
-        .stats-wrap {
-          display: flex;
-          justify-content: space-around;
-          .stats-item-wrap {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-top: 14px;
-            width: 145px;
-            height: 71px;
-            background-image: url('../../assets/images/home/scene-stats.png');
-            background-size: 100% 100%;
-            .stats-label {
-              color: #8e91a1;
-              font-size: 14px;
-            }
-            .stats-value {
-              font-size: 22px;
-              font-weight: bold;
-              color: #1ae3f0;
-            }
-          }
-        }
-        .chart-wrap {
-          height: 200px;
-          width: 100%;
-          margin-top: 28px;
-        }
-      }
       .work-ticket-and-break-rules-wrap {
         display: flex;
         margin-top: 14px;

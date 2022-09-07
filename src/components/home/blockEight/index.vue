@@ -1,14 +1,11 @@
 <template>
-  <div class="block-four-wrapper">
+  <div class="block-eight-wrapper">
     <swiper :pagination="pagination" :modules="modules" :loop="true" @swiper="onSwiper">
       <swiper-slide>
-        <EnvMonitor />
+        <SencePeople />
       </swiper-slide>
       <swiper-slide>
-        <Meteorological />
-      </swiper-slide>
-      <swiper-slide>
-        <WeatherForecast />
+        <SafetyStats />
       </swiper-slide>
     </swiper>
   </div>
@@ -20,9 +17,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import EnvMonitor from './EnvMonitor.vue'
-import Meteorological from './Meteorological.vue'
-import WeatherForecast from './WeatherForecast.vue'
+import SencePeople from './SencePeople.vue'
+import SafetyStats from './SafetyStats.vue'
 
 const pagination = {
   clickable: true,
@@ -36,7 +32,7 @@ const modules = [Pagination]
 const swiperInstance = ref()
 
 onMounted(() => {
-  swiperInstance.value.slideTo(1, false)
+  // swiperInstance.value.slideTo(0, false)
 })
 
 const onSwiper = (swiper: any) => {
@@ -45,16 +41,15 @@ const onSwiper = (swiper: any) => {
 </script>
 
 <style lang="less" scoped>
-.block-four-wrapper {
-  height: 280px;
-  margin-top: 14px;
+.block-eight-wrapper {
+  // height: 280px;
   ::v-deep(.swiper) {
     width: 100%;
     height: 100%;
     .swiper-pagination,
     .swiper-pagination-horizontal {
       bottom: 90% !important;
-      left: 82% !important;
+      left: 91% !important;
       width: 50px !important;
       z-index: 99;
       .swiper-pagination-bullet {

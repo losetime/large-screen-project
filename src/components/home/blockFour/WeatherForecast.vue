@@ -48,7 +48,7 @@ const getWeatherInfo = async () => {
 .weather-forecast-wrapper {
   height: inherit;
   width: 100%;
-  background-image: url('../../../assets/images/home/project-overview.png');
+  background-image: url('../../../assets/images/home/left-bottom.png');
   background-size: 100% 100%;
   padding: 14px 20px;
   .content-wrap {

@@ -1,7 +1,7 @@
 <template>
   <div class="meteorological-wrapper">
     <div class="title-wrap">
-      <img src="../../../assets/images/home/title-icon.png" alt="" />
+      <img src="../../../assets/images/home/title-icon-warning.png" alt="" />
       <span>气象预警</span>
     </div>
     <div class="content-wrap">
@@ -34,9 +34,14 @@ const meteorologicalInfo = ref({
 .meteorological-wrapper {
   height: inherit;
   width: 100%;
-  background-image: url('../../../assets/images/home/project-overview.png');
+  background-image: url('../../../assets/images/home/meteorological.png');
   background-size: 100% 100%;
   padding: 14px 20px;
+  .title-wrap {
+    span {
+      color: #f44765;
+    }
+  }
   .content-wrap {
     color: #ffffff;
     .warning-title {
