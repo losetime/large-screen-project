@@ -51,7 +51,7 @@ const getScenePeopleStats = async () => {
  * @desc 获取现场人员统计图表
  */
 const getScenePeopleChart = async () => {
-  const { code, data } = await apiGetScenePeopleChart()
+  const { code } = await apiGetScenePeopleChart()
   if (code === 20000) {
     // safetyChart.value.series = [
     //   {
