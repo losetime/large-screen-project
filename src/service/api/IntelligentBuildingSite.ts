@@ -2,6 +2,7 @@ import { $http } from '../http/index'
 
 enum Api {
   getWeatherInfo = '/cvtouch/largeScreenCvTouch/selectWeatherInfo',
+  getWeatherDay7 = '/doorway/largeScreenDoorway/selectLastSevenWeather',
   getProjectOverview = '/cvtouch/largeScreenCvTouch/selectProjectInfo',
   getProjectPeople = '/cvtouch/largeScreenCvTouch/selectProjectPeople',
   getPeopleCodeStats = '/cvtouch/largeScreenCvTouch/selectProjectPeopleQrcode',
@@ -26,6 +27,16 @@ enum Api {
 export function apiGetWeatherInfo(): Promise<any> {
   return $http.request({
     url: Api.getWeatherInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc: 获取近7天天气预报
+ */
+export function apiGetWeatherDay7(): Promise<any> {
+  return $http.request({
+    url: Api.getWeatherDay7,
     method: 'GET',
   })
 }

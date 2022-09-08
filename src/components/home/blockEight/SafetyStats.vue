@@ -15,15 +15,15 @@
       </div>
     </div>
     <div class="chart-wrap">
-      <Line :series="safetyChart.series" :x-axis="safetyChart.xAxis" :color="['#26477A', '#F44765']" />
+      <Bar :series="safetyChart.series" :x-axis="safetyChart.xAxis" :color="['#404DFD', '#55B1FF']" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { apiGetScenePeopleStats, apiGetScenePeopleChart } from '@/service/api/intelligentBuildingSite'
-import Line from '@/components/charts/Line.vue'
+import { apiGetScenePeopleStats, apiGetScenePeopleChart } from '@/service/api/home'
+import Bar from '@/components/charts/Bar.vue'
 
 const safetyStats = ref<any>({})
 
@@ -53,59 +53,46 @@ const getScenePeopleStats = async () => {
 const getScenePeopleChart = async () => {
   const { code, data } = await apiGetScenePeopleChart()
   if (code === 20000) {
+    // safetyChart.value.series = [
+    //   {
+    //     type: 'bar',
+    //     name: data.yData[0].name,
+    //     data: data.yData[0].data,
+    //   },
+    //   {
+    //     type: 'bar',
+    //     name: data.yData[1].name,
+    //     data: data.yData[1].data,
+    //   },
+    // ]
+    // safetyChart.value.xAxis = data.xData
     safetyChart.value.series = [
       {
-        type: 'line',
-        name: data.yData[0].name,
-        data: data.yData[0].data,
-        areaStyle: {
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              {
-                offset: 0,
-                color: '#0674BC', // 0% 处的颜色
-              },
-              {
-                offset: 1,
-                color: '#081126', // 100% 处的颜色
-              },
-            ],
-            global: false, // 缺省为 false
+        type: 'bar',
+        name: '123',
+        barWidth: 40,
+        itemStyle: {
+          normal: {
+            //这里设置柱形图圆角 [左上角，右上角，右下角，左下角]
+            barBorderRadius: 20,
           },
         },
+        data: [10, 20, 30, 50, 60],
       },
       {
-        type: 'line',
-        name: data.yData[1].name,
-        data: data.yData[1].data,
-        areaStyle: {
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              {
-                offset: 0,
-                color: 'rgba(244,71,101, 0.8)', // 0% 处的颜色
-              },
-              {
-                offset: 1,
-                color: 'rgba(244,71,101, 0.2)', // 100% 处的颜色
-              },
-            ],
-            global: false, // 缺省为 false
+        type: 'bar',
+        name: '345',
+        barWidth: 40,
+        itemStyle: {
+          normal: {
+            //这里设置柱形图圆角 [左上角，右上角，右下角，左下角]
+            barBorderRadius: 20,
           },
         },
+        data: [60, 50, 40, 20, 10],
       },
     ]
-    safetyChart.value.xAxis = data.xData
+    safetyChart.value.xAxis = ['1', '2', '3', '4', '5']
   }
 }
 </script>
@@ -114,36 +101,36 @@ const getScenePeopleChart = async () => {
 @import '../../../assets/style/home.less';
 .safety-stats-wrapper {
   width: 100%;
-  height: 384px;
+  height: 100%;
   background-image: url('../../../assets/images/home/right-top.png');
   background-size: 100% 100%;
-  padding: 14px 20px;
+  padding: 39px 35px;
   .stats-wrap {
     display: flex;
+    margin-top: 30px;
     .stats-item-wrap {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      margin-top: 14px;
-      width: 145px;
-      height: 71px;
+      width: 290px;
+      height: 144px;
       margin-right: 22px;
       background-image: url('../../../assets/images/home/scene-stats.png');
       background-size: 100% 100%;
       .stats-label {
         color: #8e91a1;
-        font-size: 14px;
+        font-size: 28px;
       }
       .stats-value {
-        font-size: 22px;
+        font-size: 48px;
         font-weight: bold;
         color: #1ae3f0;
       }
     }
   }
   .chart-wrap {
-    height: 200px;
+    height: 420px;
     width: 100%;
     margin-top: 28px;
   }

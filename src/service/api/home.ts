@@ -1,17 +1,28 @@
 import { $http } from '../http/index'
 
 enum Api {
-  getWeatherInfo = '/doorway/largeScreenDoorway/selectWeatherInfo',
-  getWindInfo = '/doorway/largeScreenDoorway/selectWeatherInfo2',
+  getWeatherInfo = '/cvtouch/largeScreenCvTouch/selectWeatherInfo',
   getWeatherDay7 = '/doorway/largeScreenDoorway/selectLastSevenWeather',
-  getPeopleInAndOutStats = '/doorway/largeScreenDoorway/selectPersonInoutData',
-  getPeoplePostDistribute = '/doorway/largeScreenDoorway/selectPersonPostDistributed',
-  getPeopleType = '/doorway/largeScreenDoorway/selectPersonTypeDistributed',
-  getProjectDistribute = '/doorway/largeScreenDoorway/selectProjectDistributed',
-  getPeopleInAndOutRecord = '/doorway/largeScreenDoorway/selectPersonInoutRecord',
+  getProjectOverview = '/cvtouch/largeScreenCvTouch/selectProjectInfo',
+  getProjectPeople = '/cvtouch/largeScreenCvTouch/selectProjectPeople',
+  getPeopleCodeStats = '/cvtouch/largeScreenCvTouch/selectProjectPeopleQrcode',
+  getRealTimeInAndOut = '/cvtouch/largeScreenCvTouch/selectRealInoutRecord',
+  getScenePeopleStats = '/cvtouch/largeScreenCvTouch/selectPersonInoutData',
+  getScenePeopleChart = '/cvtouch/largeScreenCvTouch/selectPersonInoutRecordLineChart',
+  getWorkTicketInfo = '/cvtouch/largeScreenCvTouch/selectWorkTicket',
+  getSceneBreakRulesStats = '/cvtouch/largeScreenCvTouch/selectIllegalDataStat',
+  getSceneBreakRulesCalendar = '/cvtouch/largeScreenCvTouch/selectIllegalRecord',
+  getProjectProgress = '/cvtouch/largeScreenCvTouch/selectProjectProgress',
+  getProjectInfo = '/cvtouch/largeScreenCvTouch/selectProjectSingleName',
+  getEnvMonitorInfo = '/cvtouch/largeScreenCvTouch/selectEnvironmentalLatest',
+  getVRTrainInfo = '/cvtouch/largeScreenCvTouch/selectVrTrain',
+  getSignsAlarmInfo = '/cvtouch/largeScreenCvTouch/selectSingsAlarm',
+
+  getPlayerToken = '/person/safetyHat/loginInfo',
+  getSecurityHatLocation = '/person/safetyHat/allOnlineHatRealTimeLocation',
 }
 
-// -------------------------------------- 人员进出管理大屏 -----------------------------------------------
+// -------------------------------------- e基建智慧工地 -----------------------------------------------
 
 /**
  * @desc: 获取当前天气
@@ -19,16 +30,6 @@ enum Api {
 export function apiGetWeatherInfo(): Promise<any> {
   return $http.request({
     url: Api.getWeatherInfo,
-    method: 'GET',
-  })
-}
-
-/**
- * @desc: 获取风力相关信息
- */
-export function apiGetWindInfo(): Promise<any> {
-  return $http.request({
-    url: Api.getWindInfo,
     method: 'GET',
   })
 }
@@ -44,51 +45,161 @@ export function apiGetWeatherDay7(): Promise<any> {
 }
 
 /**
- * @desc: 获取人员进出统计
+ * @desc: 获取项目概况
  */
-export function apiGetPeopleInAndOutStats(): Promise<any> {
+export function apiGetProjectOverview(): Promise<any> {
   return $http.request({
-    url: Api.getPeopleInAndOutStats,
+    url: Api.getProjectOverview,
     method: 'GET',
   })
 }
 
 /**
- * @desc 在场人员岗位分布
+ * @desc: 获取项目人员信息
  */
-export function apiGetPeoplePostDistribute(): Promise<any> {
+export function apiGetProjectPeople(): Promise<any> {
   return $http.request({
-    url: Api.getPeoplePostDistribute,
+    url: Api.getProjectPeople,
     method: 'GET',
   })
 }
 
 /**
- * @desc 在场人员类型
+ * @desc: 获取人员一码通统计
  */
-export function apiGetPeopleType(): Promise<any> {
+export function apiGetPeopleCodeStats(): Promise<any> {
   return $http.request({
-    url: Api.getPeopleType,
+    url: Api.getPeopleCodeStats,
     method: 'GET',
   })
 }
 
 /**
- * @desc 项目部分布
+ * @desc: 获取实时进出
  */
-export function apiGetProjectDistribute(): Promise<any> {
+export function apiGetRealTimeInAndOut(): Promise<any> {
   return $http.request({
-    url: Api.getProjectDistribute,
+    url: Api.getRealTimeInAndOut,
     method: 'GET',
   })
 }
 
 /**
- * @desc 获取人员进出记录
+ * @desc: 获取现场人员统计数据
  */
-export function apiGetPeopleInAndOutRecord(): Promise<any> {
+export function apiGetScenePeopleStats(): Promise<any> {
   return $http.request({
-    url: Api.getPeopleInAndOutRecord,
+    url: Api.getScenePeopleStats,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc: 获取现场人员统计图表
+ */
+export function apiGetScenePeopleChart(): Promise<any> {
+  return $http.request({
+    url: Api.getScenePeopleChart,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取工作票信息
+ */
+export function apiGetWorkTicketInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getWorkTicketInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取现场违章统计信息
+ */
+export function apiGetSceneBreakRulesStats(): Promise<any> {
+  return $http.request({
+    url: Api.getSceneBreakRulesStats,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取现场违章日历信息
+ */
+export function apiGetSceneBreakRulesCalendar(): Promise<any> {
+  return $http.request({
+    url: Api.getSceneBreakRulesCalendar,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取工程进度
+ */
+export function apiGetProjectProgress(): Promise<any> {
+  return $http.request({
+    url: Api.getProjectProgress,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取工程信息
+ */
+export function apiGetProjectInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getProjectInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取环境监测数据
+ */
+export function apiGetEnvMonitorInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getEnvMonitorInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取VR培训数据
+ */
+export function apiGetVRTrainInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getVRTrainInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取体征告警数据
+ */
+export function apiGetSignsAlarmInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getSignsAlarmInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @description: 获取视频token
+ */
+export function apiGetPlayerToken() {
+  return $http.request({
+    url: Api.getPlayerToken,
+    method: 'POST',
+  })
+}
+
+/**
+ * @description: 获取在线安全帽位置
+ */
+export function apiGetSecurityHatLocation() {
+  return $http.request({
+    url: Api.getSecurityHatLocation,
     method: 'GET',
   })
 }

@@ -23,65 +23,9 @@
       </div>
       <div class="right-wrap">
         <BlockEight />
-        <div class="work-ticket-and-break-rules-wrap">
+        <div class="right-bottom-wrap">
           <WorkTicket />
-          <!-- <div class="break-rules-wrap">
-            <div class="title-wrap">
-              <img src="../../assets/images/home/title-icon.png" alt="" />
-              <span>现场违章</span>
-            </div>
-            <div class="stats-wrap">
-              <div class="stats-item-wrap">
-                <p class="stats-label">累计违章</p>
-                <p class="stats-value">{{ breakRulesStats?.grandIllegal }}</p>
-              </div>
-              <div class="split-line"></div>
-              <div class="stats-item-wrap">
-                <p class="stats-label">一般违章</p>
-                <p class="stats-value stats-warning">{{ breakRulesStats?.generalIllegal }}</p>
-              </div>
-              <div class="split-line"></div>
-              <div class="stats-item-wrap">
-                <p class="stats-label">严重违章</p>
-                <p class="stats-value stats-error">{{ breakRulesStats?.seriousIllegal }}</p>
-              </div>
-            </div>
-            <div class="sub-title-wrap">{{ dateUtil().month() + 1 }}月违章记录</div>
-            <div class="calendar-wrap">
-              <YmCalendar :eventData="calendarInfo" />
-            </div>
-          </div> -->
-          <div class="right-blick-wrap">
-            <div class="signs-alarm-wrap">
-              <div class="title-wrap">
-                <img src="../../assets/images/home/title-icon.png" alt="" />
-                <span>体征告警</span>
-              </div>
-              <div class="chart-wrap">
-                <Pie :series="signsAlarm" />
-                <div class="count-wrap">
-                  <p>告警总数</p>
-                  <p>{{ signsAlarmCount }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="warehousing-wrap">
-              <div class="title-wrap">
-                <img src="../../assets/images/home/title-icon.png" alt="" />
-                <span>VR培训</span>
-              </div>
-              <div class="stats-wrap">
-                <div class="stats-item-wrap">
-                  <p class="stats-label">培训人数</p>
-                  <p class="stats-value">{{ vrTrainInfo?.trainNum }}</p>
-                </div>
-                <div class="stats-item-wrap">
-                  <p class="stats-label">人均培训时长</p>
-                  <p class="stats-value">{{ vrTrainInfo?.trainDurationStr }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <AlarmRecord />
         </div>
       </div>
     </div>
@@ -90,37 +34,27 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import ProjectOverview from '@/components/intelligentBuildingSite/ProjectOverview.vue'
-import ProjectPeople from '@/components/intelligentBuildingSite/ProjectPeopleTemp.vue'
-import MonitorAndProgress from '@/components/intelligentBuildingSite/MonitorAndProgressTemp.vue'
-import WorkTicket from '@/components/intelligentBuildingSite/WorkTicket.vue'
-// import Line from '@/components/charts/Line.vue'
-import Pie from '@/components/charts/Pie.vue'
+import ProjectOverview from '@/components/home/ProjectOverview.vue'
+import ProjectPeople from '@/components/home/ProjectPeople.vue'
+import MonitorAndProgress from '@/components/home/MonitorAndProgress.vue'
+import WorkTicket from '@/components/home/WorkTicket.vue'
 import useDateTime from '@/hooks/useDateTime'
 import {
-  // apiGetScenePeopleStats,
-  // apiGetScenePeopleChart,
   apiGetSceneBreakRulesStats,
   apiGetSceneBreakRulesCalendar,
   apiGetProjectInfo,
   apiGetEnvMonitorInfo,
   apiGetVRTrainInfo,
   apiGetSignsAlarmInfo,
-} from '@/service/api/intelligentBuildingSite'
+} from '@/service/api/home'
 import BlockSeven from '@/components/home/blockSeven/index.vue'
 import BlockFour from '@/components/home/blockFour/index.vue'
 import BlockEight from '@/components/home/blockEight/index.vue'
+import AlarmRecord from '@/components/home/AlarmRecord.vue'
 
 const { date, time, week } = useDateTime()
 
 const projectName = ref('')
-
-// const scenePeopleStats = ref<any>({})
-
-// const scenePeopleChart = ref<any>({
-//   series: [],
-//   xAxis: [],
-// })
 
 const breakRulesStats = ref<any>({})
 
@@ -262,12 +196,12 @@ const getSignsAlarmfo = async () => {
 @import '../../assets/style/home.less';
 
 .intelligent-building-site-wrapper {
-  width: 100%;
-  height: 1080px;
+  width: 3840px;
+  height: 2160px;
   background-image: url('../../assets/images/home/background.png');
   background-size: cover;
   .header-wrap {
-    height: 100px;
+    height: 231px;
     width: 100%;
     background-image: url('../../assets/images/home/header.png');
     background-size: cover;
@@ -275,14 +209,14 @@ const getSignsAlarmfo = async () => {
     display: flex;
     justify-content: space-between;
     .project-wrap {
-      height: 40px;
+      height: 118px;
       width: 28%;
       display: flex;
       align-items: center;
-      margin: 6px 0 0 14px;
+      margin-left: 40px;
       img {
-        width: 40px;
-        height: 40px;
+        width: 80px;
+        height: 80px;
       }
       span {
         display: inline-block;
@@ -292,14 +226,16 @@ const getSignsAlarmfo = async () => {
         text-overflow: ellipsis;
         color: #09bcf2;
         margin-left: 14px;
-        font-size: 20px;
+        font-size: 60px;
         font-weight: bold;
       }
     }
     .time-wrap {
       color: #ffffff;
-      font-size: 18px;
-      margin: 14px 28px 0 0;
+      font-size: 40px;
+      height: 118px;
+      line-height: 118px;
+      margin-right: 40px;
       span:nth-child(2) {
         margin: 0 14px;
       }
@@ -318,126 +254,9 @@ const getSignsAlarmfo = async () => {
     .right-wrap {
       width: 38.6%;
       margin-left: 14px;
-      .work-ticket-and-break-rules-wrap {
+      .right-bottom-wrap {
         display: flex;
-        margin-top: 14px;
-        .break-rules-wrap {
-          flex: 1;
-          height: 546px;
-          background-image: url('../../assets/images/home/work-ticket.png');
-          background-size: 100% 100%;
-          padding: 14px 20px;
-          margin-left: 14px;
-          .stats-wrap {
-            width: 90%;
-            height: 72px;
-            margin: 20px 0 0 5%;
-            background-image: url('../../assets/images/home/work-ticket-stats.png');
-            background-size: 100% 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            .stats-item-wrap {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              .stats-label {
-                font-size: 14px;
-                color: #8e91a1;
-              }
-              .stats-value {
-                font-size: 20px;
-                font-weight: bold;
-                color: #1ae3f0;
-              }
-              .stats-warning {
-                color: #f6b900;
-              }
-              .stats-error {
-                color: #f44765;
-              }
-            }
-            .split-line {
-              width: 2px;
-              height: 24px;
-              background-color: #55b1ff;
-            }
-          }
-          .sub-title-wrap {
-            height: 4px;
-            width: 100%;
-            margin-top: 42px;
-            background-image: url('../../assets/images/home/break-rules-line.png');
-            background-size: 100% 100%;
-            color: #55b1ff;
-            text-align: center;
-            line-height: 4px;
-            font-size: 18px;
-            font-weight: bold;
-          }
-          .calendar-wrap {
-            width: 100%;
-            margin-top: 20px;
-          }
-        }
-        .right-blick-wrap {
-          width: 341px;
-          margin-left: 14px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          .signs-alarm-wrap {
-            padding: 14px 20px;
-            height: 332px;
-            background-image: url('../../assets/images/home/work-ticket.png');
-            background-size: 100% 100%;
-            .chart-wrap {
-              height: 270px;
-              position: relative;
-              .count-wrap {
-                position: absolute;
-                top: 42%;
-                left: 41%;
-                color: #ffffff;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-              }
-            }
-          }
-          .warehousing-wrap {
-            padding: 14px 20px;
-            height: 200px;
-            background-image: url('../../assets/images/home/work-ticket.png');
-            background-size: 100% 100%;
-            .stats-wrap {
-              display: flex;
-              justify-content: space-between;
-              .stats-item-wrap {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                margin-top: 35px;
-                width: 140px;
-                height: 71px;
-                background-image: url('../../assets/images/home/scene-stats.png');
-                background-size: 100% 100%;
-                .stats-label {
-                  color: #8e91a1;
-                  font-size: 14px;
-                }
-                .stats-value {
-                  font-size: 18px;
-                  font-weight: bold;
-                  color: #1ae3f0;
-                }
-              }
-            }
-          }
-        }
+        margin-top: 32px;
       }
     }
   }

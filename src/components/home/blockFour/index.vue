@@ -46,15 +46,15 @@ const onSwiper = (swiper: any) => {
 
 <style lang="less" scoped>
 .block-four-wrapper {
-  height: 280px;
-  margin-top: 14px;
+  height: 436px;
+  margin-top: 34px;
   ::v-deep(.swiper) {
     width: 100%;
     height: 100%;
     .swiper-pagination,
     .swiper-pagination-horizontal {
       bottom: 90% !important;
-      left: 82% !important;
+      left: 88% !important;
       width: 50px !important;
       z-index: 99;
       .swiper-pagination-bullet {

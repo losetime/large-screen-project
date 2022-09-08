@@ -32,16 +32,6 @@ const routes = [
     component: () => import('../views/login/index.vue'),
   },
   {
-    path: '/intelligent-building-site',
-    name: 'IntelligentBuildingSite',
-    component: () => import('../views/home/IntelligentBuildingSite.vue'),
-  },
-  {
-    path: '/building-site-temp',
-    name: 'BuildingSiteTemp',
-    component: () => import('../views/home/BuildingSiteTemp.vue'),
-  },
-  {
     path: '/home',
     name: 'Home',
     component: () => import('../views/home/index.vue'),

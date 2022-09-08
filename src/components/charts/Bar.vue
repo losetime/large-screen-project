@@ -43,6 +43,7 @@ const chartInit = () => {
         },
         axisLabel: {
           color: '#6A707E',
+          fontSize: 24,
         },
       },
       yAxis: [
@@ -57,6 +58,10 @@ const chartInit = () => {
               color: ['#1D3660'],
               type: 'dashed',
             },
+          },
+          axisLabel: {
+            color: '#6A707E',
+            fontSize: 24,
           },
         },
         {
@@ -94,6 +99,10 @@ const chartInit = () => {
   option.legend = {
     show: true,
     left: 'right',
+    textStyle: {
+      color: '#ffffff',
+      fontSize: 24,
+    },
   }
   option.color = props.color ? props.color : colorsEnum
   option.series = props.series

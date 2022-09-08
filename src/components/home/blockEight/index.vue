@@ -1,6 +1,6 @@
 <template>
   <div class="block-eight-wrapper">
-    <swiper :pagination="pagination" :modules="modules" :loop="true" @swiper="onSwiper">
+    <swiper :pagination="pagination" :modules="modules" @swiper="onSwiper">
       <swiper-slide>
         <SencePeople />
       </swiper-slide>
@@ -42,7 +42,7 @@ const onSwiper = (swiper: any) => {
 
 <style lang="less" scoped>
 .block-eight-wrapper {
-  // height: 280px;
+  height: 762px;
   ::v-deep(.swiper) {
     width: 100%;
     height: 100%;

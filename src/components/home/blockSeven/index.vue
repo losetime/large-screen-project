@@ -46,8 +46,8 @@ const onSwiper = (swiper: any) => {
 
 <style lang="less" scoped>
 .block-seven-wrapper {
-  height: 322px;
-  margin-top: 14px;
+  height: 626px;
+  margin-top: 32px;
   ::v-deep(.swiper) {
     width: 100%;
     height: 100%;

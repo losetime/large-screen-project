@@ -10,7 +10,7 @@
         <p class="name-wrap">{{ item.userName }}</p>
         <p class="type-wrap">{{ item.postName }}</p>
         <p class="time-wrap">{{ item.accessTime.slice(10) }}</p>
-        <span :class="{ 'status-wrap': true, 'out-site': item.accessType === '2' }">
+        <span :class="{ 'in-site-wrap': item.accessType === '1', 'out-site-wrap': item.accessType === '2' }">
           {{ item.accessType === '1' ? '进场' : '出场' }}
         </span>
       </div>
@@ -20,10 +20,23 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { apiGetRealTimeInAndOut } from '@/service/api/intelligentBuildingSite'
+import { apiGetRealTimeInAndOut } from '@/service/api/home'
 import avatar from '../../../assets/images/peopleInAndOut/people-avatar.png'
 
-const realTimeInAndOut = ref<any[]>([])
+const realTimeInAndOut = ref<any[]>([
+  {
+    userName: '张三',
+    postName: '吊车司机',
+    accessTime: '2021-12-21 15:30',
+    accessType: '1',
+  },
+  {
+    userName: '张三',
+    postName: '吊车司机',
+    accessTime: '2021-12-21 15:30',
+    accessType: '2',
+  },
+])
 
 onMounted(() => {
   getRealTimeInAndOut()
@@ -45,22 +58,22 @@ const getRealTimeInAndOut = async () => {
 .people-in-and-out-wrapper {
   height: inherit;
   width: 100%;
-  background-image: url('../../../assets/images/home/real-time-in-and-out.png');
+  background-image: url('../../../assets/images/home/middle-bottom.png');
   background-size: 100% 100%;
-  padding: 14px 20px;
+  padding: 39px 35px;
   .detail-wrap {
     margin-top: 14px;
     display: flex;
     .item-wrap {
-      width: 82px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       color: #ffffff;
+      margin-left: 96px;
       img {
-        width: 76px;
-        height: 106px;
+        width: 164px;
+        height: 224px;
         border: 1px solid #1f5bb5;
         border-radius: 5px;
         padding: 4px;
@@ -71,8 +84,8 @@ const getRealTimeInAndOut = async () => {
         white-space: nowrap;
         text-overflow: ellipsis;
         text-align: center;
-        font-size: 18px;
-        margin-top: 8px;
+        font-size: 40px;
+        margin-top: 6px;
       }
       .type-wrap {
         width: 100%;
@@ -80,24 +93,41 @@ const getRealTimeInAndOut = async () => {
         white-space: nowrap;
         text-overflow: ellipsis;
         text-align: center;
-        font-size: 16px;
-        color: #ffa721;
-        margin-top: 2px;
+        font-size: 32px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 4px;
       }
       .time-wrap {
-        font-size: 18px;
-        color: #8e91a1;
-        margin-top: 8px;
+        font-size: 40px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 4px;
       }
-      .status-wrap {
-        background-color: #04b2ff;
-        padding: 2px 14px;
-        border-radius: 14px;
-        margin-top: 5px;
+      .in-site-wrap {
+        padding: 2px 20px;
+        margin-top: 4px;
+        font-size: 28px;
+        background: rgba(68, 4, 15, 0.42);
+        box-shadow: inset 0px 0px 16px 0px rgba(244, 71, 101, 0.5);
+        border-radius: 32px;
+        border: 2px solid #70242b;
       }
-      .out-site {
-        background-color: #f44765;
+      .out-site-wrap {
+        padding: 2px 20px;
+        margin-top: 4px;
+        font-size: 28px;
+        background: linear-gradient(
+          360deg,
+          rgba(26, 73, 129, 0.42) 0%,
+          rgba(14, 29, 51, 0.42) 14%,
+          rgba(11, 24, 43, 0.42) 100%
+        );
+        box-shadow: inset 0px 0px 16px 0px rgba(42, 140, 222, 0.54);
+        border-radius: 32px;
+        border: 2px solid #26477a;
       }
+    }
+    .item-wrap:first-child {
+      margin-left: 0;
     }
   }
 }

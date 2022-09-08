@@ -8,10 +8,10 @@
       <div class="item-wrap" v-for="(item, index) in braceletRecord" :key="index">
         <img :src="item.useImageUrl || avatar" alt="" />
         <p class="name-wrap">{{ item.userName }}</p>
-        <p class="post-wrap">{{ item.post }}</p>
+        <p class="type-wrap">{{ item.postName }}</p>
         <p class="time-wrap">{{ item.accessTime.slice(10) }}</p>
-        <span :class="{ 'status-wrap': true, 'out-site': item.accessType === '2' }">
-          {{ item.accessType === '1' ? '进场' : '出场' }}
+        <span :class="{ 'receive-wrap': item.accessType === '1', 'return-wrap': item.accessType === '2' }">
+          {{ item.accessType === '1' ? '领用' : '归还' }}
         </span>
       </div>
     </div>
@@ -26,9 +26,15 @@ import avatar from '../../../assets/images/peopleInAndOut/people-avatar.png'
 const braceletRecord = ref<any[]>([
   {
     userName: '张三',
-    post: '吊车司机',
+    postName: '吊车司机',
     accessTime: '2021-12-21 15:30',
     accessType: '1',
+  },
+  {
+    userName: '张三',
+    postName: '吊车司机',
+    accessTime: '2021-12-21 15:30',
+    accessType: '2',
   },
 ])
 
@@ -52,22 +58,22 @@ onMounted(() => {
 .bracelet-record-wrapper {
   height: inherit;
   width: 100%;
-  background-image: url('../../../assets/images/home/real-time-in-and-out.png');
+  background-image: url('../../../assets/images/home/middle-bottom.png');
   background-size: 100% 100%;
-  padding: 14px 20px;
+  padding: 39px 35px;
   .detail-wrap {
     margin-top: 14px;
     display: flex;
     .item-wrap {
-      width: 82px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       color: #ffffff;
+      margin-left: 96px;
       img {
-        width: 76px;
-        height: 106px;
+        width: 164px;
+        height: 224px;
         border: 1px solid #1f5bb5;
         border-radius: 5px;
         padding: 4px;
@@ -78,25 +84,45 @@ onMounted(() => {
         white-space: nowrap;
         text-overflow: ellipsis;
         text-align: center;
-        font-size: 18px;
-        margin-top: 8px;
+        font-size: 40px;
+        margin-top: 6px;
       }
-      .post-wrap {
+      .type-wrap {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-align: center;
+        font-size: 32px;
+        color: #ffa721;
+        margin-top: 4px;
       }
       .time-wrap {
-        font-size: 18px;
-        color: #8e91a1;
-        margin-top: 8px;
+        font-size: 40px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 4px;
       }
-      .status-wrap {
-        background-color: #04b2ff;
-        padding: 2px 14px;
-        border-radius: 14px;
-        margin-top: 5px;
+      .receive-wrap {
+        padding: 2px 20px;
+        margin-top: 4px;
+        font-size: 28px;
+        background: rgba(60, 32, 7, 0.42);
+        box-shadow: inset 0px 0px 16px 0px rgba(241, 157, 85, 0.5);
+        border-radius: 32px;
+        border: 2px solid #90490c;
       }
-      .out-site {
-        background-color: #f44765;
+      .return-wrap {
+        padding: 2px 20px;
+        margin-top: 4px;
+        font-size: 28px;
+        background: rgba(11, 83, 43, 0.42);
+        box-shadow: inset 0px 0px 16px 0px rgba(101, 202, 146, 0.5);
+        border-radius: 32px;
+        border: 2px solid #076c63;
       }
+    }
+    .item-wrap:first-child {
+      margin-left: 0;
     }
   }
 }

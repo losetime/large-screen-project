@@ -7,43 +7,64 @@
     <div class="content-wrap">
       <div class="item-wrap">
         <img src="../../../assets/images/common/temperature.png" alt="" />
-        <p>温度</p>
-        <p>{{ envMonitor?.tem }}℃</p>
+        <p class="label">温度</p>
+        <p class="value">
+          <span>{{ envMonitor?.tem || 0 }}</span>
+          <span class="unit">℃</span>
+        </p>
       </div>
       <div class="item-wrap">
         <img src="../../../assets/images/common/humidity.png" alt="" />
-        <p>湿度</p>
-        <p>{{ envMonitor?.humidity }}%</p>
+        <p class="label">湿度</p>
+        <p class="value">
+          <span>{{ envMonitor?.humidity || 0 }}</span>
+          <span class="unit">%</span>
+        </p>
       </div>
       <div class="item-wrap">
         <img src="../../../assets/images/common/wind-speed.png" alt="" />
-        <p>风速</p>
-        <p>{{ envMonitor?.windSpeed }}m/s</p>
+        <p class="label">风速</p>
+        <p class="value">
+          <span>{{ envMonitor?.windSpeed || 0 }}</span>
+          <span class="unit">m/s</span>
+        </p>
       </div>
       <div class="item-wrap">
         <img src="../../../assets/images/common/wind-direction.png" alt="" />
-        <p>风向</p>
-        <p>{{ envMonitor?.windDirection }}</p>
+        <p class="label">风向</p>
+        <p class="value">
+          <span>{{ envMonitor?.windDirection || '暂无' }}</span>
+        </p>
       </div>
       <div class="item-wrap">
         <img src="../../../assets/images/common/air-pressure.png" alt="" />
-        <p>气压</p>
-        <p>{{ envMonitor?.airPressure }}hPa</p>
+        <p class="label">气压</p>
+        <p class="value">
+          <span>{{ envMonitor?.airPressure || 0 }}</span>
+          <span class="unit">hPa</span>
+        </p>
       </div>
       <div class="item-wrap">
         <img src="../../../assets/images/common/noise.png" alt="" />
-        <p>噪声</p>
-        <p>{{ envMonitor?.noise }}dB</p>
+        <p class="label">噪声</p>
+        <p class="value">
+          <span>{{ envMonitor?.noise || 0 }}</span>
+          <span class="unit">dB</span>
+        </p>
       </div>
       <div class="item-wrap">
         <img src="../../../assets/images/common/pm2-5.png" alt="" />
-        <p>PM2.5</p>
-        <p>{{ envMonitor?.pm25 }}</p>
+        <p class="label">PM2.5</p>
+        <p class="value">
+          <span>{{ envMonitor?.pm25 || 0 }}</span>
+        </p>
       </div>
       <div class="item-wrap">
         <img src="../../../assets/images/common/pm10.png" alt="" />
-        <p>PM10</p>
-        <p>{{ envMonitor?.pm10 }}</p>
+        <p class="label">PM10</p>
+        <p class="value">
+          <span>{{ envMonitor?.pm10 || 0 }}</span>
+        </p>
       </div>
     </div>
   </div>
@@ -51,7 +72,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { apiGetEnvMonitorInfo } from '@/service/api/intelligentBuildingSite'
+import { apiGetEnvMonitorInfo } from '@/service/api/home'
 
 const envMonitor = ref<any>({})
 
@@ -77,7 +98,7 @@ const getEnvMonitorInfo = async () => {
   width: 100%;
   background-image: url('../../../assets/images/home/left-bottom.png');
   background-size: 100% 100%;
-  padding: 14px 20px;
+  padding: 24px 32px;
   .content-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -86,13 +107,25 @@ const getEnvMonitorInfo = async () => {
       flex-direction: column;
       align-items: center;
       width: 25%;
-      margin-top: 15px;
+      margin-top: 12px;
       img {
-        width: 50px;
-        height: 50px;
+        width: 64px;
+        height: 64px;
       }
-      p {
-        color: #ffffff;
+      .label {
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .value {
+        span:first-child {
+          font-size: 32px;
+          color: #ffffff;
+        }
+        .unit {
+          font-size: 22px;
+          color: rgba(255, 255, 255, 0.85);
+          margin-left: 4px;
+        }
       }
     }
   }

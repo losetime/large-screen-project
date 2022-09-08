@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { apiGetScenePeopleStats, apiGetScenePeopleChart } from '@/service/api/intelligentBuildingSite'
+import { apiGetScenePeopleStats, apiGetScenePeopleChart } from '@/service/api/home'
 import Line from '@/components/charts/Line.vue'
 
 const scenePeopleStats = ref<any>({})
@@ -125,33 +125,33 @@ const getScenePeopleChart = async () => {
   height: 100%;
   background-image: url('../../../assets/images/home/right-top.png');
   background-size: 100% 100%;
-  padding: 14px 20px;
+  padding: 39px 35px;
   .stats-wrap {
     display: flex;
+    margin-top: 30px;
     .stats-item-wrap {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      margin-top: 14px;
-      width: 145px;
-      height: 71px;
+      width: 290px;
+      height: 144px;
       margin-right: 22px;
       background-image: url('../../../assets/images/home/scene-stats.png');
       background-size: 100% 100%;
       .stats-label {
         color: #8e91a1;
-        font-size: 14px;
+        font-size: 28px;
       }
       .stats-value {
-        font-size: 22px;
+        font-size: 48px;
         font-weight: bold;
         color: #1ae3f0;
       }
     }
   }
   .chart-wrap {
-    height: 200px;
+    height: 420px;
     width: 100%;
     margin-top: 28px;
   }

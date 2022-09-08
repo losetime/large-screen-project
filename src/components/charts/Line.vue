@@ -42,6 +42,7 @@ const chartInit = () => {
         },
         axisLabel: {
           color: '#6A707E',
+          fontSize: 24,
         },
       },
       yAxis: [
@@ -52,6 +53,10 @@ const chartInit = () => {
               color: ['#1D3660'],
               type: 'dashed',
             },
+          },
+          axisLabel: {
+            color: '#6A707E',
+            fontSize: 24,
           },
         },
         {
@@ -97,6 +102,7 @@ const chartInit = () => {
     left: 'right',
     textStyle: {
       color: '#ffffff',
+      fontSize: 24,
     },
   }
   option.color = props.color ? props.color : colorsEnum
