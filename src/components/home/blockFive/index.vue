@@ -15,11 +15,14 @@
       class="mySwiper"
     >
       <swiper-slide>
+        <VideoMonitor />
+      </swiper-slide>
+      <swiper-slide>
         <Location />
       </swiper-slide>
-      <swiper-slide><img src="https://swiperjs.com/demos/images/nature-2.jpg" /></swiper-slide>
-      <swiper-slide><img src="https://swiperjs.com/demos/images/nature-3.jpg" /></swiper-slide>
-      <swiper-slide><img src="https://swiperjs.com/demos/images/nature-4.jpg" /></swiper-slide>
+      <swiper-slide>
+        <DesignDrawing />
+      </swiper-slide>
     </swiper>
   </div>
 </template>
@@ -30,7 +33,9 @@ import 'swiper/css'
 import 'swiper/css/effect-cube'
 import 'swiper/css/pagination'
 import { EffectCube, Pagination } from 'swiper'
+import VideoMonitor from './VideoMonitor.vue'
 import Location from './Location.vue'
+import DesignDrawing from './DesignDrawing.vue'
 
 const modules = [EffectCube, Pagination]
 </script>

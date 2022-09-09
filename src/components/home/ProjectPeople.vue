@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import Pie from '@/components/charts/Pie.vue'
 import { apiGetProjectPeople, apiGetPeopleCodeStats } from '@/service/api/home'
 const projectPeople = ref<any[]>([])
 const peopleCodeStats = ref<any>({})
@@ -55,6 +56,7 @@ const getProjectPeople = async () => {
           formatter: '{d}%',
           backgroundColor: 'none',
           color: '#ffffff',
+          fontSize: 28,
         },
         data: data.map((item: any) => ({ name: item.label, value: item.value })),
       },

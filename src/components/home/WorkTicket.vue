@@ -70,7 +70,8 @@ const getWorkTicketInfo = async () => {
       workPersonName: item.workPersonName.split(',').slice(0, 7).concat(['......']),
       beginDate: item.beginDate.split(' ')[0],
       planEndDate: item.beginDate.split(' ')[0],
-      workContent: item.workContent.substr(0, 16 * 6) + ' ......',
+      workContent: item.workContent.length > 16 * 6 ? item.workContent.substr(0, 16 * 6) + ' ......' : item.workContent,
+      workPart: item.workPart.length > 16 * 3 ? item.workPart.substr(0, 16 * 3) + ' ......' : item.item.workPart,
     }))
   }
 }

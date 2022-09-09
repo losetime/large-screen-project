@@ -1,6 +1,18 @@
 <template>
   <div class="block-seven-wrapper">
-    <swiper :pagination="pagination" :modules="modules" :loop="true" @swiper="onSwiper">
+    <swiper
+      :effect="'cube'"
+      :grabCursor="true"
+      :cubeEffect="{
+        shadow: false,
+        slideShadows: false,
+      }"
+      :direction="'vertical'"
+      :pagination="pagination"
+      :modules="modules"
+      @swiper="onSwiper"
+      @active-index-change="onActiveIndexChange"
+    >
       <swiper-slide>
         <PeopleInAndOut />
       </swiper-slide>
@@ -17,9 +29,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Pagination } from 'swiper'
+import { EffectCube, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import 'swiper/css/effect-cube'
 import PeopleInAndOut from './PeopleInAndOut.vue'
 import PeopleReportToDuty from './PeopleReportToDuty.vue'
 import BraceletRecord from './BraceletRecord.vue'
@@ -31,7 +44,7 @@ const pagination = {
   },
 }
 
-const modules = [Pagination]
+const modules = [EffectCube, Pagination]
 
 const swiperInstance = ref()
 
@@ -42,11 +55,16 @@ onMounted(() => {
 const onSwiper = (swiper: any) => {
   swiperInstance.value = swiper
 }
+
+const onActiveIndexChange = (event: any) => {
+  console.log(event)
+  // window.localStorage.setItem('blockSeven', event.realIndex)
+}
 </script>
 
 <style lang="less" scoped>
 .block-seven-wrapper {
-  height: 626px;
+  height: 636px;
   margin-top: 32px;
   ::v-deep(.swiper) {
     width: 100%;
@@ -54,7 +72,7 @@ const onSwiper = (swiper: any) => {
     .swiper-pagination,
     .swiper-pagination-horizontal {
       bottom: 90% !important;
-      left: 92% !important;
+      left: 97% !important;
       width: 50px !important;
       z-index: 99;
       .swiper-pagination-bullet {

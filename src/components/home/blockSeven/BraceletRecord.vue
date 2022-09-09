@@ -6,12 +6,12 @@
     </div>
     <div class="detail-wrap">
       <div class="item-wrap" v-for="(item, index) in braceletRecord" :key="index">
-        <img :src="item.useImageUrl || avatar" alt="" />
-        <p class="name-wrap">{{ item.userName }}</p>
-        <p class="type-wrap">{{ item.postName }}</p>
-        <p class="time-wrap">{{ item.accessTime.slice(10) }}</p>
-        <span :class="{ 'receive-wrap': item.accessType === '1', 'return-wrap': item.accessType === '2' }">
-          {{ item.accessType === '1' ? '领用' : '归还' }}
+        <img :src="item?.useImageUrl || avatar" alt="" />
+        <p class="name-wrap">{{ item?.personName }}</p>
+        <p class="type-wrap">{{ item?.postName }}</p>
+        <p class="time-wrap">{{ item?.actionTime.slice(10) }}</p>
+        <span :class="{ 'receive-wrap': item.status === 'ONLINE', 'return-wrap': item.status === 'OFFLINE' }">
+          {{ item.status === 'ONLINE' ? '领用' : '归还' }}
         </span>
       </div>
     </div>
@@ -20,37 +20,24 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-// import { apiGetRealTimeInAndOut } from '@/service/api/intelligentBuildingSite'
 import avatar from '../../../assets/images/peopleInAndOut/people-avatar.png'
+import { apiGetBraceletRecord } from '@/service/api/home'
 
-const braceletRecord = ref<any[]>([
-  {
-    userName: '张三',
-    postName: '吊车司机',
-    accessTime: '2021-12-21 15:30',
-    accessType: '1',
-  },
-  {
-    userName: '张三',
-    postName: '吊车司机',
-    accessTime: '2021-12-21 15:30',
-    accessType: '2',
-  },
-])
+const braceletRecord = ref<any[]>([])
 
 onMounted(() => {
-  // getRealTimeInAndOut()
+  getBraceletRecord()
 })
 
 /**
- * @desc 人员实时进出
+ * @desc 手环领还记录
  */
-// const getRealTimeInAndOut = async () => {
-//   const { code, data } = await apiGetRealTimeInAndOut()
-//   if (code === 20000) {
-//     braceletRecord.value = data
-//   }
-// }
+const getBraceletRecord = async () => {
+  const { code, data } = await apiGetBraceletRecord()
+  if (code === 20000) {
+    braceletRecord.value = data
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -70,7 +57,7 @@ onMounted(() => {
       justify-content: center;
       align-items: center;
       color: #ffffff;
-      margin-left: 96px;
+      width: 238px;
       img {
         width: 164px;
         height: 224px;

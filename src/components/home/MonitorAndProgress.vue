@@ -56,7 +56,7 @@
 import { onMounted, ref } from 'vue'
 import Timelines from './Timelines.vue'
 import Progress from './Progress.vue'
-import { apiGetProjectProgress } from '@/service/api/home'
+import { apiGetPowerTransformProjectProgress, apiGetLineRouteProjectProgress } from '@/service/api/home'
 import BlockFive from './blockFive/index.vue'
 
 const projectType = 2
@@ -136,11 +136,15 @@ const electricStep = [
 ]
 
 onMounted(() => {
-  getProjectProgress()
+  getPowerTransformProjectProgress()
+  getLineRouteProjectProgress()
 })
 
-const getProjectProgress = async () => {
-  const { code, data } = await apiGetProjectProgress()
+/**
+ * @desc 获取工程进度-变电
+ */
+const getPowerTransformProjectProgress = async () => {
+  const { code, data } = await apiGetPowerTransformProjectProgress()
   if (code === 20000) {
     data.forEach((item: any) => {
       switch (item.constructionEnum) {
@@ -166,6 +170,15 @@ const formatTimelines = (sourceStep: any, currentStep: any) => {
     return val
   })
 }
+
+/**
+ * @desc 获取工程进度-线路
+ */
+const getLineRouteProjectProgress = async () => {
+  const { code } = await apiGetLineRouteProjectProgress()
+  if (code === 20000) {
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -179,7 +192,7 @@ const formatTimelines = (sourceStep: any, currentStep: any) => {
   padding: 39px 35px;
   .monitor-wrap {
     .monitor-view {
-      height: 680px;
+      height: 705px;
       width: 100%;
       margin: 20px 0;
       background-image: url('../../assets/images/home/monitor-background.png');

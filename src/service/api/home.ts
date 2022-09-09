@@ -12,14 +12,25 @@ enum Api {
   getWorkTicketInfo = '/cvtouch/largeScreenCvTouch/selectWorkTicket',
   getSceneBreakRulesStats = '/cvtouch/largeScreenCvTouch/selectIllegalDataStat',
   getSceneBreakRulesCalendar = '/cvtouch/largeScreenCvTouch/selectIllegalRecord',
-  getProjectProgress = '/cvtouch/largeScreenCvTouch/selectProjectProgress',
   getProjectInfo = '/cvtouch/largeScreenCvTouch/selectProjectSingleName',
   getEnvMonitorInfo = '/cvtouch/largeScreenCvTouch/selectEnvironmentalLatest',
   getVRTrainInfo = '/cvtouch/largeScreenCvTouch/selectVrTrain',
   getSignsAlarmInfo = '/cvtouch/largeScreenCvTouch/selectSingsAlarm',
 
-  getPlayerToken = '/person/safetyHat/loginInfo',
-  getSecurityHatLocation = '/person/safetyHat/allOnlineHatRealTimeLocation',
+  getLocationInfo = '/cvtouch/largeScreenCvTouch/selectMapLocation',
+  getVideoList = '/cvtouch/largeScreenCvTouch/selectMonitorList',
+
+  getPowerTransformProjectProgress = '/cvtouch/largeScreenCvTouch/selectProjectProgress',
+  getLineRouteProjectProgress = '/cvtouch/largeScreenCvTouch/selectConstructionProgressOfXl',
+
+  getProjectManagerDuty = '/cvtouch/largeScreenCvTouch/selectCurrentMonthProjectManagerArrival',
+  getBraceletRecord = '/cvtouch/largeScreenCvTouch/selectLatestWatchSignList',
+
+  getSafetyStats = '/cvtouch/largeScreenCvTouch/selectAqbWatchTodayTotal',
+  getSafetyChart = '/cvtouch/largeScreenCvTouch/selectAqbWatchDataStats',
+
+  getAlarmStats = '/cvtouch/largeScreenCvTouch/selectWarningStats',
+  getAlarmRecord = '/cvtouch/largeScreenCvTouch/selectWarningRecord',
 }
 
 // -------------------------------------- e基建智慧工地 -----------------------------------------------
@@ -135,16 +146,6 @@ export function apiGetSceneBreakRulesCalendar(): Promise<any> {
 }
 
 /**
- * @desc 获取工程进度
- */
-export function apiGetProjectProgress(): Promise<any> {
-  return $http.request({
-    url: Api.getProjectProgress,
-    method: 'GET',
-  })
-}
-
-/**
  * @desc 获取工程信息
  */
 export function apiGetProjectInfo(): Promise<any> {
@@ -184,22 +185,112 @@ export function apiGetSignsAlarmInfo(): Promise<any> {
   })
 }
 
+// ----------------------------------------工地实时监控-----------------------------------------------------
+
 /**
- * @description: 获取视频token
+ * @desc 获取地图定位
  */
-export function apiGetPlayerToken() {
+export function apiGetLocationInfo(): Promise<any> {
   return $http.request({
-    url: Api.getPlayerToken,
-    method: 'POST',
+    url: Api.getLocationInfo,
+    method: 'GET',
   })
 }
 
 /**
- * @description: 获取在线安全帽位置
+ * @desc 获取视频列表
  */
-export function apiGetSecurityHatLocation() {
+export function apiGetVideoList(): Promise<any> {
   return $http.request({
-    url: Api.getSecurityHatLocation,
+    url: Api.getVideoList,
+    method: 'GET',
+  })
+}
+
+// ----------------------------------------工程进度-----------------------------------------------------
+
+/**
+ * @desc 获取工程进度-变电
+ */
+export function apiGetPowerTransformProjectProgress(): Promise<any> {
+  return $http.request({
+    url: Api.getPowerTransformProjectProgress,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取工程进度-线路
+ */
+export function apiGetLineRouteProjectProgress(): Promise<any> {
+  return $http.request({
+    url: Api.getLineRouteProjectProgress,
+    method: 'GET',
+  })
+}
+
+// ----------------------------------------block-seven-----------------------------------------------------
+
+/**
+ * @desc 获取项目经理到岗到位
+ */
+export function apiGetProjectManagerDuty() {
+  return $http.request({
+    url: Api.getProjectManagerDuty,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取手环领还记录
+ */
+export function apiGetBraceletRecord() {
+  return $http.request({
+    url: Api.getBraceletRecord,
+    method: 'GET',
+  })
+}
+
+// ----------------------------------------block-eight-----------------------------------------------------
+
+/**
+ * @desc 获取安全宝统计数据
+ */
+export function apiGetSafetyStats() {
+  return $http.request({
+    url: Api.getSafetyStats,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取安全宝柱状图数据
+ */
+export function apiGetSafetyChart() {
+  return $http.request({
+    url: Api.getSafetyChart,
+    method: 'GET',
+  })
+}
+
+// ----------------------------------------体征告警-----------------------------------------------------
+
+/**
+ * @desc 获取体征告警统计数据
+ */
+export function apiGetAlarmStats() {
+  return $http.request({
+    url: Api.getAlarmStats,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取体征告警列表
+ */
+export function apiGetAlarmRecord() {
+  return $http.request({
+    url: Api.getAlarmRecord + '?size=3',
     method: 'GET',
   })
 }

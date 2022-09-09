@@ -1,6 +1,17 @@
 <template>
   <div class="block-eight-wrapper">
-    <swiper :pagination="pagination" :modules="modules" @swiper="onSwiper">
+    <swiper
+      :effect="'cube'"
+      :grabCursor="true"
+      :cubeEffect="{
+        shadow: false,
+        slideShadows: false,
+      }"
+      :direction="'vertical'"
+      :pagination="pagination"
+      :modules="modules"
+      @swiper="onSwiper"
+    >
       <swiper-slide>
         <SencePeople />
       </swiper-slide>
@@ -14,9 +25,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Pagination } from 'swiper'
+import { EffectCube, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import 'swiper/css/effect-cube'
 import SencePeople from './SencePeople.vue'
 import SafetyStats from './SafetyStats.vue'
 
@@ -27,7 +39,7 @@ const pagination = {
   },
 }
 
-const modules = [Pagination]
+const modules = [EffectCube, Pagination]
 
 const swiperInstance = ref()
 
@@ -42,14 +54,14 @@ const onSwiper = (swiper: any) => {
 
 <style lang="less" scoped>
 .block-eight-wrapper {
-  height: 762px;
+  height: 780px;
   ::v-deep(.swiper) {
     width: 100%;
     height: 100%;
     .swiper-pagination,
     .swiper-pagination-horizontal {
       bottom: 90% !important;
-      left: 91% !important;
+      left: 98% !important;
       width: 50px !important;
       z-index: 99;
       .swiper-pagination-bullet {

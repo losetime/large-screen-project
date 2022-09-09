@@ -89,6 +89,9 @@ const chartInit = () => {
   const option: any = {
     tooltip: {
       trigger: 'item',
+      textStyle: {
+        fontSize: 28,
+      },
     },
   }
   option.title = {
@@ -97,7 +100,7 @@ const chartInit = () => {
     top: '42%',
     textStyle: {
       color: '#ffffff',
-      fontSize: 14,
+      fontSize: 28,
       width: 100,
     },
   }
@@ -105,6 +108,7 @@ const chartInit = () => {
     bottom: '0%',
     textStyle: {
       color: '#ffffff',
+      fontSize: 28,
     },
   }
   option.color = props.color ? props.color : colorsEnum

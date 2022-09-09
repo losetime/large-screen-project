@@ -70,7 +70,7 @@ const getRealTimeInAndOut = async () => {
       justify-content: center;
       align-items: center;
       color: #ffffff;
-      margin-left: 96px;
+      width: 238px;
       img {
         width: 164px;
         height: 224px;

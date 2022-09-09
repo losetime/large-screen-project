@@ -7,57 +7,68 @@
     <div class="stats-wrap">
       <div class="stats-item-wrap">
         <p class="stats-label">今日告警</p>
-        <p class="stats-value">20</p>
+        <p class="stats-value">{{ alarmStats?.todayWarningCount }}</p>
       </div>
       <div class="split-line"></div>
       <div class="stats-item-wrap">
         <p class="stats-label">本周告警</p>
-        <p class="stats-value">20%</p>
+        <p class="stats-value">{{ alarmStats?.weekWarningCount }}</p>
       </div>
       <div class="split-line"></div>
       <div class="stats-item-wrap">
         <p class="stats-label">本月告警</p>
-        <p class="stats-value">20%</p>
+        <p class="stats-value">{{ alarmStats?.monthWarningCount }}</p>
       </div>
     </div>
     <div class="sub-title-wrap">告警列表</div>
     <div class="alarm-list-wrap">
-      <div class="alarm-item-wrap">
+      <div class="alarm-item-wrap" v-for="(item, index) in AlarmRecord" :key="index">
         <div class="header-wrap">
           <div class="alarm-type">
             <warning-filled />
-            <span>气象告警</span>
+            <span>{{ item?.warningType }}</span>
           </div>
-          <div class="alarm-time">14:43</div>
+          <div class="alarm-time">{{ item?.warningTime }}</div>
         </div>
-        <div class="alarm-content">蓝色大风预警</div>
-      </div>
-      <div class="alarm-item-wrap">
-        <div class="header-wrap">
-          <div class="alarm-type">
-            <warning-filled />
-            <span>气象告警</span>
-          </div>
-          <div class="alarm-time">14:43</div>
-        </div>
-        <div class="alarm-content">蓝色大风预警</div>
-      </div>
-      <div class="alarm-item-wrap">
-        <div class="header-wrap">
-          <div class="alarm-type">
-            <warning-filled />
-            <span>气象告警</span>
-          </div>
-          <div class="alarm-time">14:43</div>
-        </div>
-        <div class="alarm-content">蓝色大风预警</div>
+        <div class="alarm-content">{{ item?.warningName }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { WarningFilled } from '@ant-design/icons-vue'
+import { apiGetAlarmStats, apiGetAlarmRecord } from '@/service/api/home'
+
+const alarmStats = ref<any>({})
+
+const AlarmRecord = ref<any[]>([])
+
+onMounted(() => {
+  getAlarmStats()
+  getAlarmRecord()
+})
+
+/**
+ * @desc 获取告警统计
+ */
+const getAlarmStats = async () => {
+  const { code, data } = await apiGetAlarmStats()
+  if (code === 20000) {
+    alarmStats.value = data
+  }
+}
+
+/**
+ * @desc 获取告警列表
+ */
+const getAlarmRecord = async () => {
+  const { code, data } = await apiGetAlarmRecord()
+  if (code === 20000) {
+    AlarmRecord.value = data
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -116,6 +127,8 @@ import { WarningFilled } from '@ant-design/icons-vue'
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 670px;
+    overflow: hidden;
     .alarm-item-wrap {
       width: 90%;
       height: 202px;

@@ -7,11 +7,11 @@
     <div class="stats-wrap">
       <div class="stats-item-wrap">
         <p class="stats-label">今日手环领用</p>
-        <p class="stats-value">{{ safetyStats?.presencePersonQuantity }}</p>
+        <p class="stats-value">{{ safetyStats?.onlineTotal }}</p>
       </div>
       <div class="stats-item-wrap">
         <p class="stats-label">今日手环归还</p>
-        <p class="stats-value">{{ safetyStats?.todayInPersonQuantity }}</p>
+        <p class="stats-value">{{ safetyStats?.offlineTotal }}</p>
       </div>
     </div>
     <div class="chart-wrap">
@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { apiGetScenePeopleStats, apiGetScenePeopleChart } from '@/service/api/home'
+import { apiGetSafetyStats, apiGetSafetyChart } from '@/service/api/home'
 import Bar from '@/components/charts/Bar.vue'
 
 const safetyStats = ref<any>({})
@@ -41,7 +41,7 @@ onMounted(() => {
  * @desc 获取现场人员统计
  */
 const getScenePeopleStats = async () => {
-  const { code, data } = await apiGetScenePeopleStats()
+  const { code, data } = await apiGetSafetyStats()
   if (code === 20000) {
     safetyStats.value = data
   }
@@ -51,25 +51,12 @@ const getScenePeopleStats = async () => {
  * @desc 获取现场人员统计图表
  */
 const getScenePeopleChart = async () => {
-  const { code } = await apiGetScenePeopleChart()
+  const { code, data } = await apiGetSafetyChart()
   if (code === 20000) {
-    // safetyChart.value.series = [
-    //   {
-    //     type: 'bar',
-    //     name: data.yData[0].name,
-    //     data: data.yData[0].data,
-    //   },
-    //   {
-    //     type: 'bar',
-    //     name: data.yData[1].name,
-    //     data: data.yData[1].data,
-    //   },
-    // ]
-    // safetyChart.value.xAxis = data.xData
     safetyChart.value.series = [
       {
         type: 'bar',
-        name: '123',
+        name: data.yData[0].label,
         barWidth: 40,
         itemStyle: {
           normal: {
@@ -77,11 +64,11 @@ const getScenePeopleChart = async () => {
             barBorderRadius: 20,
           },
         },
-        data: [10, 20, 30, 50, 60],
+        data: data.yData[0].data,
       },
       {
         type: 'bar',
-        name: '345',
+        name: data.yData[1].label,
         barWidth: 40,
         itemStyle: {
           normal: {
@@ -89,10 +76,10 @@ const getScenePeopleChart = async () => {
             barBorderRadius: 20,
           },
         },
-        data: [60, 50, 40, 20, 10],
+        data: data.yData[1].data,
       },
     ]
-    safetyChart.value.xAxis = ['1', '2', '3', '4', '5']
+    safetyChart.value.xAxis = data.xData
   }
 }
 </script>

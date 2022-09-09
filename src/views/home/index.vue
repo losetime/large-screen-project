@@ -5,6 +5,9 @@
         <img src="../../assets/images/home/logo.svg" alt="" />
         <span>{{ projectName }}</span>
       </div>
+      <div class="title-wrap">
+        <img src="../../assets/images/home/header-title.png" alt="" />
+      </div>
       <div class="time-wrap">
         <span>{{ time }}</span>
         <span>{{ date }}</span>
@@ -196,7 +199,7 @@ const getSignsAlarmfo = async () => {
 @import '../../assets/style/home.less';
 
 .intelligent-building-site-wrapper {
-  width: 3840px;
+  width: 100%;
   height: 2160px;
   background-image: url('../../assets/images/home/background.png');
   background-size: cover;
@@ -230,6 +233,16 @@ const getSignsAlarmfo = async () => {
         font-weight: bold;
       }
     }
+    .title-wrap {
+      width: 32%;
+      height: 107px;
+      margin-top: 38px;
+      margin-left: -16%;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
     .time-wrap {
       color: #ffffff;
       font-size: 40px;
@@ -243,17 +256,17 @@ const getSignsAlarmfo = async () => {
   }
   .content-wrap {
     display: flex;
-    padding: 14px;
+    padding: 0 14px;
     .left-wrap {
       width: 20%;
     }
     .middle-wrap {
       width: 40%;
-      margin-left: 14px;
+      margin-left: 23px;
     }
     .right-wrap {
       width: 38.6%;
-      margin-left: 14px;
+      margin-left: 23px;
       .right-bottom-wrap {
         display: flex;
         margin-top: 32px;

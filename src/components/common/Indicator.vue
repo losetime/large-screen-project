@@ -1,8 +1,6 @@
 <template>
-  <div class="indicator-wrap">
-    <template v-for="(item, index) in length" :key="item">
-      <span :class="{ 'indicator-dot': true, 'active-dot': activeIndex === index }"></span>
-    </template>
+  <div class="paging-wrap">
+    <p>{{ activeIndex }}/{{ length }}</p>
   </div>
 </template>
 
@@ -13,27 +11,26 @@ withDefaults(
     activeIndex?: number
   }>(),
   {
-    activeIndex: 0,
+    activeIndex: 1,
   },
 )
 </script>
 
 <style lang="less" scoped>
-.indicator-wrap {
-  position: absolute;
-  right: 18px;
-  top: 5px;
-  .indicator-dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #7282a1;
-    margin-left: 5px;
-    cursor: pointer;
-  }
-  .active-dot {
-    background-color: #ffffff;
+.paging-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  p {
+    width: 120px;
+    height: 48px;
+    background: #060d30;
+    border-radius: 8px;
+    border: 2px solid #55b1ff;
+    color: #ffffff;
+    font-size: 40px;
+    line-height: 48px;
+    text-align: center;
   }
 }
 </style>
