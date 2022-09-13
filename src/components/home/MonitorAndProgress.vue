@@ -14,7 +14,7 @@
         <img src="../../assets/images/home/title-icon.png" alt="" />
         <span>工程进度</span>
       </div>
-      <div class="power-transform-wrap" v-if="projectType === 1">
+      <div class="power-transform-wrap" v-if="projectType === 'BD'">
         <div class="timelines-wrap">
           <div class="title">土建施工</div>
           <Timelines :timelines="civilTimelines" :progress="civilProgress" />
@@ -24,17 +24,17 @@
           <Timelines :timelines="electricTimelines" :progress="electricProgress" />
         </div>
       </div>
-      <div class="line-route-wrap" v-else>
+      <div class="line-route-wrap" v-if="projectType === 'XL'">
         <div class="progress-item-wrap">
           <div class="title">杆塔施工(共10基)</div>
           <div class="content-wrap">
             <div class="item-wrap base-construction">
               <span>基础施工</span>
-              <Progress :progress="100" />
+              <Progress :progress="baseConstruction" />
             </div>
             <div class="item-wrap">
               <span>组塔施工</span>
-              <Progress :progress="20" />
+              <Progress :progress="towerConstruction" />
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
           <div class="content-wrap">
             <div class="item-wrap">
               <span>架线施工</span>
-              <Progress :progress="100" />
+              <Progress :progress="lineConstruction" />
             </div>
           </div>
         </div>
@@ -56,10 +56,14 @@
 import { onMounted, ref } from 'vue'
 import Timelines from './Timelines.vue'
 import Progress from './Progress.vue'
-import { apiGetPowerTransformProjectProgress, apiGetLineRouteProjectProgress } from '@/service/api/home'
+import {
+  apiGetPowerTransformProjectProgress,
+  apiGetLineRouteProjectProgress,
+  apiGetProjectType,
+} from '@/service/api/home'
 import BlockFive from './blockFive/index.vue'
 
-const projectType = 2
+const projectType = ref('')
 
 // 土建施工
 const civilTimelines = ref<any[]>([
@@ -135,10 +139,30 @@ const electricStep = [
   },
 ]
 
+// 基础施工
+const baseConstruction = ref(0)
+
+// 组塔施工
+const towerConstruction = ref(0)
+
+// 架线施工
+const lineConstruction = ref(0)
+
 onMounted(() => {
   getPowerTransformProjectProgress()
   getLineRouteProjectProgress()
+  getProjectType()
 })
+
+/**
+ * @desc 获取工程类型
+ */
+const getProjectType = async () => {
+  const { code, data } = await apiGetProjectType()
+  if (code === 20000) {
+    projectType.value = data
+  }
+}
 
 /**
  * @desc 获取工程进度-变电
@@ -175,8 +199,29 @@ const formatTimelines = (sourceStep: any, currentStep: any) => {
  * @desc 获取工程进度-线路
  */
 const getLineRouteProjectProgress = async () => {
-  const { code } = await apiGetLineRouteProjectProgress()
+  const { code, data } = await apiGetLineRouteProjectProgress()
   if (code === 20000) {
+    data.forEach((item: any) => {
+      const { projectTotal, doneTotal, doneGroupTower } = item.progress
+      switch (item.progressXlEnum) {
+        case 'GROUP_TOWER':
+          if (item.projectTotal > 0) {
+            baseConstruction.value = Math.ceil(doneTotal / projectTotal)
+            towerConstruction.value = Math.ceil(doneGroupTower / projectTotal)
+          } else {
+            baseConstruction.value = 0
+            towerConstruction.value = 0
+          }
+          break
+        case 'STRINGING':
+          if (projectTotal > 0) {
+            lineConstruction.value = Math.ceil(doneTotal / projectTotal)
+          } else {
+            lineConstruction.value = 0
+          }
+          break
+      }
+    })
   }
 }
 </script>

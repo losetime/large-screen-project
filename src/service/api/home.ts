@@ -1,27 +1,28 @@
 import { $http } from '../http/index'
 
 enum Api {
-  getWeatherInfo = '/cvtouch/largeScreenCvTouch/selectWeatherInfo',
-  getWeatherDay7 = '/doorway/largeScreenDoorway/selectLastSevenWeather',
   getProjectOverview = '/cvtouch/largeScreenCvTouch/selectProjectInfo',
   getProjectPeople = '/cvtouch/largeScreenCvTouch/selectProjectPeople',
   getPeopleCodeStats = '/cvtouch/largeScreenCvTouch/selectProjectPeopleQrcode',
   getRealTimeInAndOut = '/cvtouch/largeScreenCvTouch/selectRealInoutRecord',
   getScenePeopleStats = '/cvtouch/largeScreenCvTouch/selectPersonInoutData',
   getScenePeopleChart = '/cvtouch/largeScreenCvTouch/selectPersonInoutRecordLineChart',
-  getWorkTicketInfo = '/cvtouch/largeScreenCvTouch/selectWorkTicket',
-  getSceneBreakRulesStats = '/cvtouch/largeScreenCvTouch/selectIllegalDataStat',
-  getSceneBreakRulesCalendar = '/cvtouch/largeScreenCvTouch/selectIllegalRecord',
   getProjectInfo = '/cvtouch/largeScreenCvTouch/selectProjectSingleName',
+
+  getQRCode = '/cvtouch/largeScreenCvTouch/selectProjectInfoOfQrcode',
+  getProjectType = '/cvtouch/largeScreenCvTouch/selectProjectType',
+
   getEnvMonitorInfo = '/cvtouch/largeScreenCvTouch/selectEnvironmentalLatest',
-  getVRTrainInfo = '/cvtouch/largeScreenCvTouch/selectVrTrain',
-  getSignsAlarmInfo = '/cvtouch/largeScreenCvTouch/selectSingsAlarm',
+  getMeteorologicalAlarm = '/cvtouch/largeScreenCvTouch/selectWeatherWarningList',
+  getWeatherInfo = '/cvtouch/largeScreenCvTouch/selectTodayWeatherInfo',
+  getWeatherDay7 = '/cvtouch/largeScreenCvTouch/selectWeatherInfo',
 
   getLocationInfo = '/cvtouch/largeScreenCvTouch/selectMapLocation',
   getVideoList = '/cvtouch/largeScreenCvTouch/selectMonitorList',
 
   getPowerTransformProjectProgress = '/cvtouch/largeScreenCvTouch/selectProjectProgress',
   getLineRouteProjectProgress = '/cvtouch/largeScreenCvTouch/selectConstructionProgressOfXl',
+  getProjectDesignImg = '/cvtouch/largeScreenCvTouch/selectProjectImageList',
 
   getProjectManagerDuty = '/cvtouch/largeScreenCvTouch/selectCurrentMonthProjectManagerArrival',
   getBraceletRecord = '/cvtouch/largeScreenCvTouch/selectLatestWatchSignList',
@@ -29,28 +30,20 @@ enum Api {
   getSafetyStats = '/cvtouch/largeScreenCvTouch/selectAqbWatchTodayTotal',
   getSafetyChart = '/cvtouch/largeScreenCvTouch/selectAqbWatchDataStats',
 
+  getWorkTicketInfo = '/cvtouch/largeScreenCvTouch/selectWorkTicket',
+
   getAlarmStats = '/cvtouch/largeScreenCvTouch/selectWarningStats',
   getAlarmRecord = '/cvtouch/largeScreenCvTouch/selectWarningRecord',
 }
 
-// -------------------------------------- e基建智慧工地 -----------------------------------------------
+// ----------------------------------------项目概况--------------------------------------------------------
 
 /**
- * @desc: 获取当前天气
+ * @desc 获取工程信息
  */
-export function apiGetWeatherInfo(): Promise<any> {
+export function apiGetProjectInfo(): Promise<any> {
   return $http.request({
-    url: Api.getWeatherInfo,
-    method: 'GET',
-  })
-}
-
-/**
- * @desc: 获取近7天天气预报
- */
-export function apiGetWeatherDay7(): Promise<any> {
-  return $http.request({
-    url: Api.getWeatherDay7,
+    url: Api.getProjectInfo,
     method: 'GET',
   })
 }
@@ -64,6 +57,28 @@ export function apiGetProjectOverview(): Promise<any> {
     method: 'GET',
   })
 }
+
+/**
+ * @desc 获取项目二维码
+ */
+export function apiGetQRCode(): Promise<any> {
+  return $http.request({
+    url: Api.getQRCode,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取项目类型
+ */
+export function apiGetProjectType(): Promise<any> {
+  return $http.request({
+    url: Api.getProjectType,
+    method: 'GET',
+  })
+}
+
+// ----------------------------------------人员总览-----------------------------------------------------
 
 /**
  * @desc: 获取项目人员信息
@@ -85,75 +100,7 @@ export function apiGetPeopleCodeStats(): Promise<any> {
   })
 }
 
-/**
- * @desc: 获取实时进出
- */
-export function apiGetRealTimeInAndOut(): Promise<any> {
-  return $http.request({
-    url: Api.getRealTimeInAndOut,
-    method: 'GET',
-  })
-}
-
-/**
- * @desc: 获取现场人员统计数据
- */
-export function apiGetScenePeopleStats(): Promise<any> {
-  return $http.request({
-    url: Api.getScenePeopleStats,
-    method: 'GET',
-  })
-}
-
-/**
- * @desc: 获取现场人员统计图表
- */
-export function apiGetScenePeopleChart(): Promise<any> {
-  return $http.request({
-    url: Api.getScenePeopleChart,
-    method: 'GET',
-  })
-}
-
-/**
- * @desc 获取工作票信息
- */
-export function apiGetWorkTicketInfo(): Promise<any> {
-  return $http.request({
-    url: Api.getWorkTicketInfo,
-    method: 'GET',
-  })
-}
-
-/**
- * @desc 获取现场违章统计信息
- */
-export function apiGetSceneBreakRulesStats(): Promise<any> {
-  return $http.request({
-    url: Api.getSceneBreakRulesStats,
-    method: 'GET',
-  })
-}
-
-/**
- * @desc 获取现场违章日历信息
- */
-export function apiGetSceneBreakRulesCalendar(): Promise<any> {
-  return $http.request({
-    url: Api.getSceneBreakRulesCalendar,
-    method: 'GET',
-  })
-}
-
-/**
- * @desc 获取工程信息
- */
-export function apiGetProjectInfo(): Promise<any> {
-  return $http.request({
-    url: Api.getProjectInfo,
-    method: 'GET',
-  })
-}
+// ----------------------------------------block-four-----------------------------------------------------
 
 /**
  * @desc 获取环境监测数据
@@ -166,21 +113,31 @@ export function apiGetEnvMonitorInfo(): Promise<any> {
 }
 
 /**
- * @desc 获取VR培训数据
+ * @desc 气象预警
  */
-export function apiGetVRTrainInfo(): Promise<any> {
+export function apiGetMeteorologicalAlarm(): Promise<any> {
   return $http.request({
-    url: Api.getVRTrainInfo,
+    url: Api.getMeteorologicalAlarm,
     method: 'GET',
   })
 }
 
 /**
- * @desc 获取体征告警数据
+ * @desc: 获取当前天气
  */
-export function apiGetSignsAlarmInfo(): Promise<any> {
+export function apiGetWeatherInfo(): Promise<any> {
   return $http.request({
-    url: Api.getSignsAlarmInfo,
+    url: Api.getWeatherInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc: 获取近7天天气预报
+ */
+export function apiGetWeatherDay5(): Promise<any> {
+  return $http.request({
+    url: Api.getWeatherDay7,
     method: 'GET',
   })
 }
@@ -203,6 +160,16 @@ export function apiGetLocationInfo(): Promise<any> {
 export function apiGetVideoList(): Promise<any> {
   return $http.request({
     url: Api.getVideoList,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取项目设计图
+ */
+export function apiGetProjectDesignImg(): Promise<any> {
+  return $http.request({
+    url: Api.getProjectDesignImg,
     method: 'GET',
   })
 }
@@ -230,6 +197,16 @@ export function apiGetLineRouteProjectProgress(): Promise<any> {
 }
 
 // ----------------------------------------block-seven-----------------------------------------------------
+
+/**
+ * @desc: 获取实时进出
+ */
+export function apiGetRealTimeInAndOut(): Promise<any> {
+  return $http.request({
+    url: Api.getRealTimeInAndOut,
+    method: 'GET',
+  })
+}
 
 /**
  * @desc 获取项目经理到岗到位
@@ -269,6 +246,38 @@ export function apiGetSafetyStats() {
 export function apiGetSafetyChart() {
   return $http.request({
     url: Api.getSafetyChart,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc: 获取现场人员统计数据
+ */
+export function apiGetScenePeopleStats(): Promise<any> {
+  return $http.request({
+    url: Api.getScenePeopleStats,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc: 获取现场人员统计图表
+ */
+export function apiGetScenePeopleChart(): Promise<any> {
+  return $http.request({
+    url: Api.getScenePeopleChart,
+    method: 'GET',
+  })
+}
+
+// ---------------------------------------工作票------------------------------------------------------
+
+/**
+ * @desc 获取工作票信息
+ */
+export function apiGetWorkTicketInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getWorkTicketInfo,
     method: 'GET',
   })
 }

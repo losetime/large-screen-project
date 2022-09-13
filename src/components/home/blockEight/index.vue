@@ -11,6 +11,7 @@
       :pagination="pagination"
       :modules="modules"
       @swiper="onSwiper"
+      @active-index-change="onActiveIndexChange"
     >
       <swiper-slide>
         <SencePeople />
@@ -31,6 +32,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/effect-cube'
 import SencePeople from './SencePeople.vue'
 import SafetyStats from './SafetyStats.vue'
+import { setItem, getItem } from '@/utils/base'
 
 const pagination = {
   clickable: true,
@@ -44,11 +46,18 @@ const modules = [EffectCube, Pagination]
 const swiperInstance = ref()
 
 onMounted(() => {
-  // swiperInstance.value.slideTo(0, false)
+  const slideIndex = getItem('blockEight')
+  if (slideIndex !== null) {
+    swiperInstance.value.slideTo(slideIndex, false)
+  }
 })
 
 const onSwiper = (swiper: any) => {
   swiperInstance.value = swiper
+}
+
+const onActiveIndexChange = (event: any) => {
+  setItem('blockEight', event.realIndex)
 }
 </script>
 

@@ -1,40 +1,88 @@
 <template>
   <div class="meteorological-wrapper">
-    <div class="title-wrap">
-      <img src="../../../assets/images/home/title-icon-warning.png" alt="" />
-      <span>气象预警</span>
-    </div>
-    <div class="warning-date">2022-08-23 04:05</div>
-    <div class="content-wrap">
-      <div class="warning-title">
-        <div class="type-wrap">
-          <span class="label-wrap">预警类型</span>
-          <span class="value-wrap" :style="{ color: getWarningStyle(level) }">雷电</span>
-        </div>
-        <div class="level-wrap">
-          <span class="label-wrap">预警等级</span>
-          <span
-            class="value-wrap"
-            :style="{ backgroundColor: getWarningStyle(level), color: level === '白色' ? '#000000' : '#ffffff' }"
-          >
-            {{ level }}预警
-          </span>
-        </div>
-      </div>
-      <div class="warning-text">{{ meteorologicalInfo.warnText }}</div>
-    </div>
+    <Indicator :length="meteorologicalInfo.length" :active-index="activeIndex" v-if="meteorologicalInfo.length > 0" />
+    <swiper
+      :modules="modules"
+      :autoplay="{
+        delay: 10000,
+        disableOnInteraction: false,
+      }"
+      @swiper="onSwiper"
+      @active-index-change="onActiveIndexChange"
+    >
+      <template v-for="(item, index) in meteorologicalInfo" :key="index">
+        <swiper-slide>
+          <div class="item-wrap">
+            <div class="title-wrap">
+              <img src="../../../assets/images/home/title-icon-warning.png" alt="" />
+              <span>气象预警</span>
+            </div>
+            <div class="warning-date">{{ item.warningTime }}</div>
+            <div class="content-wrap">
+              <div class="warning-title">
+                <div class="type-wrap">
+                  <span class="label-wrap">预警类型</span>
+                  <span class="value-wrap" :style="{ color: getWarningStyle(item.warningLevel) }">{{
+                    item.warningType
+                  }}</span>
+                </div>
+                <div class="level-wrap">
+                  <span class="label-wrap">预警等级</span>
+                  <span
+                    class="value-wrap"
+                    :style="{
+                      backgroundColor: getWarningStyle(item.warningLevel),
+                      color: item.warningLevel === '白色' ? '#000000' : '#ffffff',
+                    }"
+                  >
+                    {{ item.warningLevel }}预警
+                  </span>
+                </div>
+              </div>
+              <div class="warning-text">{{ item.warningContent }}</div>
+            </div>
+          </div>
+        </swiper-slide>
+      </template>
+    </swiper>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination, Autoplay } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import Indicator from '@/components/common/Indicator.vue'
+import { apiGetMeteorologicalAlarm } from '@/service/api/home'
 
-const meteorologicalInfo = ref({
-  warnText:
-    '北海市气象台23日4时05分更新发布雷电橙色预警信号：雷雨云团正影响涠洲岛、海城区、银海区及北部湾海面，雷雨云团向偏北方向移动，预计未来3小时，上述地区仍受雷电活动影响，并伴有短时强降雨和大风，请防范。',
+const modules = [Pagination, Autoplay]
+
+const meteorologicalInfo = ref<any>([])
+
+const activeIndex = ref(1)
+
+const swiperInstance = ref()
+
+onMounted(() => {
+  getMeteorologicalAlarm()
 })
 
-const level = '橙色'
+const onSwiper = (swiper: any) => {
+  swiperInstance.value = swiper
+}
+
+const getMeteorologicalAlarm = async () => {
+  const { code, data } = await apiGetMeteorologicalAlarm()
+  if (code === 20000) {
+    meteorologicalInfo.value = data
+  }
+}
+
+const onActiveIndexChange = (event: any) => {
+  activeIndex.value = event.realIndex + 1
+}
 
 const getWarningStyle = (type: string) => {
   switch (type) {
@@ -59,57 +107,73 @@ const getWarningStyle = (type: string) => {
   width: 100%;
   background-image: url('../../../assets/images/home/meteorological.png');
   background-size: 100% 100%;
-  padding: 24px 32px;
-  .title-wrap {
-    span {
-      color: #f44765;
-    }
-  }
-  .warning-date {
+  .paging-wrap {
     position: absolute;
-    top: 38px;
-    right: 34px;
-    font-size: 24px;
-    color: rgba(255, 255, 255, 0.8);
+    bottom: 20px;
+    left: 45%;
+    z-index: 100;
   }
-  .content-wrap {
-    color: #ffffff;
-    .warning-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 14px;
-      .type-wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .label-wrap {
-          font-size: 24px;
-        }
-        .value-wrap {
-          font-size: 40px;
-          margin-left: 8px;
+  ::v-deep(.swiper) {
+    width: 100%;
+    height: 100%;
+    .swiper-wrapper {
+      .swiper-slide {
+        .item-wrap {
+          padding: 24px 32px;
+          .title-wrap {
+            span {
+              color: #f44765;
+            }
+          }
+          .warning-date {
+            position: absolute;
+            top: 32px;
+            right: 35px;
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.8);
+          }
+          .content-wrap {
+            color: #ffffff;
+            .warning-title {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-top: 14px;
+              .type-wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .label-wrap {
+                  font-size: 24px;
+                }
+                .value-wrap {
+                  font-size: 40px;
+                  margin-left: 8px;
+                }
+              }
+              .level-wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .label-wrap {
+                  font-size: 24px;
+                }
+                .value-wrap {
+                  font-size: 20px;
+                  // background-color: #fa9027;
+                  border-radius: 16px;
+                  margin-left: 8px;
+                  padding: 2px 10px;
+                }
+              }
+            }
+            .warning-text {
+              margin-top: 14px;
+              font-size: 28px;
+            }
+          }
         }
       }
-      .level-wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .label-wrap {
-          font-size: 24px;
-        }
-        .value-wrap {
-          font-size: 20px;
-          // background-color: #fa9027;
-          border-radius: 16px;
-          margin-left: 8px;
-          padding: 2px 10px;
-        }
-      }
-    }
-    .warning-text {
-      margin-top: 14px;
-      font-size: 28px;
     }
   }
 }

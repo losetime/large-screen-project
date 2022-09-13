@@ -227,11 +227,20 @@ export const createQRCode = (text: string, color: string): string => {
       dark: formatQRcodeColor(color),
       light: '#FFFFFF',
     },
-    width: 300,
+    width: 100,
   }
   QRCode.toDataURL(text, opts, function (err: any, url: string) {
     if (err) throw err
     imgUrl = url
   })
   return imgUrl
+}
+
+export const setItem = (key: string, value: string) => {
+  window.localStorage.setItem(key, value)
+}
+
+export const getItem = (key: string) => {
+  const storage = window.localStorage.getItem(key)
+  return storage ? parseInt(storage) : null
 }

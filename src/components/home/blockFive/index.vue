@@ -4,15 +4,14 @@
       :effect="'cube'"
       :grabCursor="true"
       :cubeEffect="{
-        shadow: true,
-        slideShadows: true,
-        shadowOffset: 20,
-        shadowScale: 0.94,
+        shadow: false,
+        slideShadows: false,
       }"
       :direction="'vertical'"
-      :pagination="true"
+      :pagination="pagination"
       :modules="modules"
-      class="mySwiper"
+      @swiper="onSwiper"
+      @active-index-change="onActiveIndexChange"
     >
       <swiper-slide>
         <VideoMonitor />
@@ -28,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/effect-cube'
@@ -36,21 +36,36 @@ import { EffectCube, Pagination } from 'swiper'
 import VideoMonitor from './VideoMonitor.vue'
 import Location from './Location.vue'
 import DesignDrawing from './DesignDrawing.vue'
+import { setItem, getItem } from '@/utils/base'
 
 const modules = [EffectCube, Pagination]
+
+const pagination = {
+  clickable: true,
+  renderBullet: function (index: number, className: string) {
+    return '<span class="' + className + '"></span>'
+  },
+}
+
+const swiperInstance = ref()
+
+onMounted(() => {
+  const slideIndex = getItem('blockFive')
+  if (slideIndex !== null) {
+    swiperInstance.value.slideTo(slideIndex, false)
+  }
+})
+
+const onSwiper = (swiper: any) => {
+  swiperInstance.value = swiper
+}
+
+const onActiveIndexChange = (event: any) => {
+  setItem('blockFive', event.realIndex)
+}
 </script>
 
 <style lang="less" scoped>
-/* 创建正方体旋转动画 */
-@keyframes cube {
-  from {
-    transform: rotateX(0);
-  }
-
-  to {
-    transform: rotateX(360deg);
-  }
-}
 .block-five-wrapper {
   width: 90%;
   height: 100%;

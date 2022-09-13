@@ -11,15 +11,16 @@
       :pagination="pagination"
       :modules="modules"
       @swiper="onSwiper"
+      @active-index-change="onActiveIndexChange"
     >
       <swiper-slide>
         <EnvMonitor />
       </swiper-slide>
       <swiper-slide>
-        <Meteorological />
+        <WeatherForecast />
       </swiper-slide>
       <swiper-slide>
-        <WeatherForecast />
+        <Meteorological />
       </swiper-slide>
     </swiper>
   </div>
@@ -35,6 +36,7 @@ import 'swiper/css/effect-cube'
 import EnvMonitor from './EnvMonitor.vue'
 import Meteorological from './Meteorological.vue'
 import WeatherForecast from './WeatherForecast.vue'
+import { setItem, getItem } from '@/utils/base'
 
 const pagination = {
   clickable: true,
@@ -48,11 +50,18 @@ const modules = [EffectCube, Pagination]
 const swiperInstance = ref()
 
 onMounted(() => {
-  swiperInstance.value.slideTo(1, false)
+  const slideIndex = getItem('blockFour')
+  if (slideIndex !== null) {
+    swiperInstance.value.slideTo(slideIndex, false)
+  }
 })
 
 const onSwiper = (swiper: any) => {
   swiperInstance.value = swiper
+}
+
+const onActiveIndexChange = (event: any) => {
+  setItem('blockFour', event.realIndex)
 }
 </script>
 

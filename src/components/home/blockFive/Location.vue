@@ -59,7 +59,7 @@ const getSecurityHatLocation = async () => {
         coords = coords ? `${coords}|${lng},${lat}` : `${lng},${lat}`
       })
       convertCoords(coords).then((newCoords: any) => {
-        markerList.value = safetyHatLocations.map((item: any, index: number) => {
+        markerList.value = watchLocations.map((item: any, index: number) => {
           const tempCoords = newCoords[index].split(',')
           return {
             longitude: tempCoords[0],

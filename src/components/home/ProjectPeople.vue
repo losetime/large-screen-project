@@ -2,7 +2,7 @@
   <div class="project-people-wrap">
     <div class="title-wrap">
       <img src="../../assets/images/home/title-icon.png" alt="" />
-      <span>项目人员</span>
+      <span>人员总览</span>
     </div>
     <div class="details-wrap">
       <div class="chart-wrap">

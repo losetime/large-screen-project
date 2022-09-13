@@ -21,12 +21,11 @@
     <div class="five-days-weather-wrap">
       <template v-for="item in weatherDay7" :key="item.date">
         <div class="item-weather-wrap">
-          <!-- <p>{{ item.date.slice(5) }}</p> -->
-          <p>{{ item.date }}</p>
+          <p>{{ item.week }}</p>
           <img :src="getWeatherIcon(item.weaImg)" alt="" />
-          <p>{{ item.tem2 }}</p>
+          <p>{{ item.tem }}℃</p>
           <p class="line"></p>
-          <p>{{ item.tem1 }}</p>
+          <p>{{ item.maxTem }}℃</p>
         </div>
       </template>
     </div>
@@ -35,7 +34,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { apiGetWeatherInfo } from '@/service/api/home'
+import { apiGetWeatherInfo, apiGetWeatherDay5 } from '@/service/api/home'
 import { getWeatherIcon } from '@/utils/base'
 
 const weatherInfo = ref<any>({})
@@ -87,7 +86,7 @@ const weatherDay7 = ref<any[]>([
 
 onMounted(() => {
   getWeatherInfo()
-  // getWeatherDay7()
+  getWeatherDay7()
 })
 
 /**
@@ -100,15 +99,15 @@ const getWeatherInfo = async () => {
   }
 }
 
-// /**
-//  * @desc 获取近7天天气预报
-//  */
-// const getWeatherDay7 = async () => {
-//   const { code, data } = await apiGetWeatherDay7()
-//   if (code === 20000) {
-//     weatherDay7.value = data
-//   }
-// }
+/**
+ * @desc 获取近7天天气预报
+ */
+const getWeatherDay7 = async () => {
+  const { code, data } = await apiGetWeatherDay5()
+  if (code === 20000) {
+    weatherDay7.value = data
+  }
+}
 </script>
 
 <style lang="less" scoped>

@@ -2,8 +2,16 @@
   <div class="progress-wrapper">
     <div class="base-progress-wrap"></div>
     <div class="actual-progress-wrap" :style="{ width: props.progress + '%' }"></div>
-    <div class="dot-wrap" :style="{ left: `calc(${props.progress}% - 30px)` }"></div>
-    <div class="progress-label" :style="{ left: `calc(${props.progress}% - 52px)` }">{{ progress }}%</div>
+    <div
+      class="dot-wrap"
+      :style="{
+        left: props.progress < 8 ? 0 : `calc(${props.progress}% - 30px)`,
+        backgroundColor: props.progress < 8 ? '#156BC3' : '',
+      }"
+    ></div>
+    <div class="progress-label" :style="{ left: props.progress < 8 ? '-22px' : `calc(${props.progress}% - 52px)` }">
+      {{ progress }}%
+    </div>
   </div>
 </template>
 

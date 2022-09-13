@@ -36,6 +36,7 @@ import 'swiper/css/effect-cube'
 import PeopleInAndOut from './PeopleInAndOut.vue'
 import PeopleReportToDuty from './PeopleReportToDuty.vue'
 import BraceletRecord from './BraceletRecord.vue'
+import { setItem, getItem } from '@/utils/base'
 
 const pagination = {
   clickable: true,
@@ -49,7 +50,10 @@ const modules = [EffectCube, Pagination]
 const swiperInstance = ref()
 
 onMounted(() => {
-  swiperInstance.value.slideTo(1, false)
+  const slideIndex = getItem('blockSeven')
+  if (slideIndex !== null) {
+    swiperInstance.value.slideTo(slideIndex, false)
+  }
 })
 
 const onSwiper = (swiper: any) => {
@@ -57,8 +61,7 @@ const onSwiper = (swiper: any) => {
 }
 
 const onActiveIndexChange = (event: any) => {
-  console.log(event)
-  // window.localStorage.setItem('blockSeven', event.realIndex)
+  setItem('blockSeven', event.realIndex)
 }
 </script>
 

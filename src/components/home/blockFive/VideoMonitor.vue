@@ -4,17 +4,17 @@
       <swiper
         :modules="modules"
         :autoplay="{
-          delay: 5000,
+          delay: 10000,
           disableOnInteraction: false,
         }"
-        :loop="true"
-        @swiper="onSwiper"
         @active-index-change="onActiveIndexChange"
       >
         <template v-for="(item, index) in fullScreenVideoList" :key="index">
           <swiper-slide>
             <div class="video-item">
-              <video :src="item.channelChild[0].videoAddress" controls></video>
+              <video :id="'video' + index" preload="auto" muted autoplay type="rtmp/flv">
+                <source src="" />
+              </video>
               <div class="time-wrap">{{ item.dateTime }}</div>
             </div>
           </swiper-slide>
@@ -23,17 +23,22 @@
       <Indicator :length="fullScreenVideoList.length" :active-index="activeIndex" />
     </div>
     <div class="split-screen-video-wrap" v-else>
-      <!-- :autoplay="{
-          delay: 2500,
+      <swiper
+        :modules="modules"
+        :autoplay="{
+          delay: 10000,
           disableOnInteraction: false,
-        }" -->
-      <swiper :modules="modules" :loop="true" @swiper="onSwiper" @active-index-change="onActiveIndexChange">
-        <template v-for="(videoList, index) in splitScreenVideoList" :key="index">
+        }"
+        @active-index-change="onActiveIndexChange"
+      >
+        <template v-for="(chunk, chunkIndex) in splitScreenVideoList" :key="chunkIndex">
           <swiper-slide>
             <div class="video-content">
-              <template v-for="item in videoList" :key="item.title">
+              <template v-for="(item, index) in chunk" :key="item.title">
                 <div class="video-item" v-if="item.channelId">
-                  <video :src="item.channelChild[0].videoAddress" controls></video>
+                  <video :id="'video' + chunkIndex + '_' + index" preload="auto" muted autoplay type="rtmp/flv">
+                    <source src="" />
+                  </video>
                   <div class="time-wrap">{{ item.dateTime }}</div>
                 </div>
                 <div class="video-item" v-else>
@@ -58,6 +63,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import Indicator from '@/components/common/Indicator.vue'
 import { apiGetVideoList } from '@/service/api/home'
+import flvjs from 'flv.js'
 
 const modules = [Pagination, Autoplay]
 
@@ -67,10 +73,9 @@ const splitScreenVideoList = ref<any[][]>([])
 
 const activeIndex = ref(1)
 
-const swiperInstance = ref()
+const flvPlayer: any = [{}, {}, {}, {}]
 
 onMounted(() => {
-  // swiperInstance.value.slideTo(1, false)
   getVideoList()
 })
 
@@ -82,6 +87,20 @@ const getVideoList = async () => {
   if (code === 20000) {
     if (data.length <= 2) {
       fullScreenVideoList.value = data
+      setTimeout(() => {
+        fullScreenVideoList.value.forEach((item: any, index: number) => {
+          if (flvjs.isSupported()) {
+            const videoElement: any = document.getElementById('video' + index)
+            var flvPlayer = flvjs.createPlayer({
+              type: 'flv',
+              url: item.channelChild[0].videoAddress,
+            })
+            flvPlayer.attachMediaElement(videoElement)
+            flvPlayer.load()
+            flvPlayer.play()
+          }
+        })
+      }, 200)
     } else {
       let sourceDataTemp: any[] = []
       const fillLen = 4 - (data.length % 4)
@@ -89,16 +108,44 @@ const getVideoList = async () => {
         sourceDataTemp = [...data, ...new Array(fillLen).fill({})]
       }
       splitScreenVideoList.value = handleChunk(sourceDataTemp, 4)
+      setTimeout(() => {
+        const chunk = splitScreenVideoList.value[0]
+        chunk.forEach((item: any, index: number) => {
+          if (item.monitorId && flvjs.isSupported()) {
+            var videoElement: any = document.getElementById('video' + 0 + '_' + index)
+            flvPlayer[index] = flvjs.createPlayer({
+              type: 'flv',
+              url: item.channelChild[0].videoAddress,
+            })
+            flvPlayer[index].attachMediaElement(videoElement)
+            flvPlayer[index].load()
+            flvPlayer[index].play()
+          }
+        })
+      }, 200)
     }
   }
 }
 
-const onSwiper = (swiper: any) => {
-  swiperInstance.value = swiper
-}
-
 const onActiveIndexChange = (event: any) => {
   activeIndex.value = event.realIndex + 1
+  const chunk = splitScreenVideoList.value[event.realIndex]
+  destroyPlayer()
+  setTimeout(() => {
+    chunk.forEach((item: any, index: number) => {
+      if (item.monitorId && flvjs.isSupported()) {
+        const videoElement: any = document.getElementById('video' + event.realIndex + '_' + index)
+        console.log(videoElement, item)
+        flvPlayer[index] = flvjs.createPlayer({
+          type: 'flv',
+          url: item.channelChild[0].videoAddress,
+        })
+        flvPlayer[index].attachMediaElement(videoElement)
+        flvPlayer[index].load()
+        flvPlayer[index].play()
+      }
+    })
+  }, 200)
 }
 
 /**
@@ -119,6 +166,17 @@ const handleChunk = (arr: any[], size: number): any[][] => {
     objArr[i] = arrTemp
   }
   return objArr
+}
+
+const destroyPlayer = () => {
+  for (const [index, item] of flvPlayer.entries()) {
+    console.log(item)
+    item.pause()
+    item.unload()
+    item.detachMediaElement()
+    item.destroy()
+    flvPlayer[index] = null
+  }
 }
 </script>
 

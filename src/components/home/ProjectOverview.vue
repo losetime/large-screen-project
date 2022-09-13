@@ -4,7 +4,9 @@
       <img src="../../assets/images/home/title-icon.png" alt="" />
       <span>项目概况</span>
     </div>
-    <div class="qrcode-wrap"><img src="../../assets/images/home/green-code.png" alt="" /></div>
+    <div class="qrcode-wrap">
+      <img :src="qrcodeImg" alt="" />
+    </div>
     <div class="overview-wrap">
       <div class="item-wrap">
         <span>建管单位</span>
@@ -28,12 +30,18 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { apiGetProjectOverview } from '@/service/api/home'
+import { apiGetProjectOverview, apiGetQRCode } from '@/service/api/home'
+import { createQRCode } from '@/utils/base'
 
 const projectOverview = ref<any>({})
 
+const qrCodeInfo = ref<any>({})
+
+const qrcodeImg = ref('')
+
 onMounted(() => {
   getProjectOverview()
+  getQRCode()
 })
 
 /**
@@ -43,6 +51,20 @@ const getProjectOverview = async () => {
   const { code, data } = await apiGetProjectOverview()
   if (code === 20000) {
     projectOverview.value = data
+  }
+}
+
+/**
+ * @desc 获取项目二维码
+ */
+const getQRCode = async () => {
+  const { code, data } = await apiGetQRCode()
+  if (code === 20000) {
+    qrCodeInfo.value = data
+    const { infoCode, codeColor } = data
+    if (infoCode && codeColor) {
+      qrcodeImg.value = createQRCode(infoCode, codeColor)
+    }
   }
 }
 </script>
@@ -60,7 +82,7 @@ const getProjectOverview = async () => {
   .qrcode-wrap {
     width: 100px;
     height: 100px;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid #25ca93;
     border-radius: 16px;
     position: absolute;
