@@ -79,7 +79,9 @@ const store = createStore({
      * @desc 获取mqtt连接信息
      */
     async GetConnectionInfo({ commit }) {
-      const { code, data } = await apiGetConnectionInfo('http://192.168.35.159:12240')
+      const protocol = window.location.protocol
+      const hostname = window.location.hostname
+      const { code, data } = await apiGetConnectionInfo(`${protocol}//${hostname}:12240`)
       if (code === 20000) {
         commit('SET_MQTT_URL', data.EMQX_URL)
       }

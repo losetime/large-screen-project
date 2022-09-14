@@ -56,11 +56,16 @@ export function apiGetScreenConfigInfo(): Promise<any> {
  * @desc 获取mqtt连接地址
  */
 export function apiGetConnectionInfo(domain: string): Promise<any> {
-  return $http.request({
-    url: Api.getConnectionInfo,
-    method: 'GET',
-    timeout: 50 * 1000,
-  })
+  return $http.request(
+    {
+      url: Api.getConnectionInfo,
+      method: 'GET',
+      timeout: 50 * 1000,
+    },
+    {
+      apiUrl: domain,
+    },
+  )
 }
 
 // ----------------------------------------项目概况--------------------------------------------------------
