@@ -32,6 +32,7 @@
 import { onMounted, ref } from 'vue'
 import { apiGetScenePeopleStats, apiGetScenePeopleChart } from '@/service/api/home'
 import Line from '@/components/charts/Line.vue'
+import useSubscription from '@/hooks/useSubscription'
 
 const scenePeopleStats = ref<any>({})
 
@@ -116,6 +117,22 @@ const getScenePeopleChart = async () => {
     scenePeopleChart.value.xAxis = data.xData
   }
 }
+
+/**
+ * @desc MQTT订阅回调
+ */
+const listenMqttMsg = (res: any) => {
+  const { topic, msg } = res
+  if (topic === '/S/push/person') {
+    const { dataType } = msg
+    if (dataType === 'personInout') {
+      getScenePeopleStats()
+      getScenePeopleChart()
+    }
+  }
+}
+
+useSubscription(listenMqttMsg)
 </script>
 
 <style lang="less" scoped>

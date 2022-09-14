@@ -22,6 +22,7 @@
 import { onMounted, ref } from 'vue'
 import avatar from '../../../assets/images/peopleInAndOut/people-avatar.png'
 import { apiGetBraceletRecord } from '@/service/api/home'
+import useSubscription from '@/hooks/useSubscription'
 
 const braceletRecord = ref<any[]>([])
 
@@ -38,6 +39,21 @@ const getBraceletRecord = async () => {
     braceletRecord.value = data
   }
 }
+
+/**
+ * @desc MQTT订阅回调
+ */
+const listenMqttMsg = (res: any) => {
+  const { topic, msg } = res
+  if (topic === '/S/push/aqb') {
+    const { dataType } = msg
+    if (dataType === 'aqbSign') {
+      getBraceletRecord()
+    }
+  }
+}
+
+useSubscription(listenMqttMsg)
 </script>
 
 <style lang="less" scoped>

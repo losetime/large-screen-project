@@ -1,12 +1,14 @@
 import { $http } from '../http/index'
 
 enum Api {
+  getScreenConfigInfo = '/cvtouch/largeScreenCvTouch/selectConfigList',
+  getConnectionInfo = '/person/sniff/serverUrl',
+
   getProjectOverview = '/cvtouch/largeScreenCvTouch/selectProjectInfo',
   getProjectPeople = '/cvtouch/largeScreenCvTouch/selectProjectPeople',
   getPeopleCodeStats = '/cvtouch/largeScreenCvTouch/selectProjectPeopleQrcode',
   getRealTimeInAndOut = '/cvtouch/largeScreenCvTouch/selectRealInoutRecord',
-  getScenePeopleStats = '/cvtouch/largeScreenCvTouch/selectPersonInoutData',
-  getScenePeopleChart = '/cvtouch/largeScreenCvTouch/selectPersonInoutRecordLineChart',
+
   getProjectInfo = '/cvtouch/largeScreenCvTouch/selectProjectSingleName',
 
   getQRCode = '/cvtouch/largeScreenCvTouch/selectProjectInfoOfQrcode',
@@ -29,11 +31,36 @@ enum Api {
 
   getSafetyStats = '/cvtouch/largeScreenCvTouch/selectAqbWatchTodayTotal',
   getSafetyChart = '/cvtouch/largeScreenCvTouch/selectAqbWatchDataStats',
+  getScenePeopleStats = '/cvtouch/largeScreenCvTouch/selectPersonInoutData',
+  getScenePeopleChart = '/cvtouch/largeScreenCvTouch/selectPersonInoutRecordLineChart',
 
   getWorkTicketInfo = '/cvtouch/largeScreenCvTouch/selectWorkTicket',
 
   getAlarmStats = '/cvtouch/largeScreenCvTouch/selectWarningStats',
   getAlarmRecord = '/cvtouch/largeScreenCvTouch/selectWarningRecord',
+}
+
+// ----------------------------------------全局-----------------------------------------------------------
+
+/**
+ * @desc 获取大屏配置信息
+ */
+export function apiGetScreenConfigInfo(): Promise<any> {
+  return $http.request({
+    url: Api.getScreenConfigInfo,
+    method: 'GET',
+  })
+}
+
+/**
+ * @desc 获取mqtt连接地址
+ */
+export function apiGetConnectionInfo(domain: string): Promise<any> {
+  return $http.request({
+    url: Api.getConnectionInfo,
+    method: 'GET',
+    timeout: 50 * 1000,
+  })
 }
 
 // ----------------------------------------项目概况--------------------------------------------------------

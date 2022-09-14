@@ -4,7 +4,7 @@
       <img src="../../assets/images/home/title-icon.png" alt="" />
       <span>项目概况</span>
     </div>
-    <div class="qrcode-wrap">
+    <div class="qrcode-wrap" v-if="showQRCode">
       <img :src="qrcodeImg" alt="" />
     </div>
     <div class="overview-wrap">
@@ -29,15 +29,20 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { apiGetProjectOverview, apiGetQRCode } from '@/service/api/home'
 import { createQRCode } from '@/utils/base'
+import useComponents from '@/hooks/useComponents'
+
+const { componentsContainer } = useComponents(2)
 
 const projectOverview = ref<any>({})
 
 const qrCodeInfo = ref<any>({})
 
 const qrcodeImg = ref('')
+
+const showQRCode = computed(() => componentsContainer.value.includes('PROJECT_INFO_CODE'))
 
 onMounted(() => {
   getProjectOverview()

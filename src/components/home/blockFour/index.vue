@@ -13,15 +13,11 @@
       @swiper="onSwiper"
       @active-index-change="onActiveIndexChange"
     >
-      <swiper-slide>
-        <EnvMonitor />
-      </swiper-slide>
-      <swiper-slide>
-        <WeatherForecast />
-      </swiper-slide>
-      <swiper-slide>
-        <Meteorological />
-      </swiper-slide>
+      <template v-for="(item, index) in componentsContainer" :key="index">
+        <swiper-slide>
+          <component :is="item" />
+        </swiper-slide>
+      </template>
     </swiper>
   </div>
 </template>
@@ -33,15 +29,17 @@ import { EffectCube, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-cube'
-import EnvMonitor from './EnvMonitor.vue'
-import Meteorological from './Meteorological.vue'
-import WeatherForecast from './WeatherForecast.vue'
 import { setItem, getItem } from '@/utils/base'
+import useComponents from '@/hooks/useComponents'
+import useSubscription from '@/hooks/useSubscription'
+
+const { componentsContainer } = useComponents(4)
 
 const pagination = {
   clickable: true,
   renderBullet: function (index: number, className: string) {
-    return '<span class="' + className + '"></span>'
+    const tempIndex = index + 1
+    return '<span class="' + className + '"> ' + tempIndex + '</span>'
   },
 }
 
@@ -63,6 +61,22 @@ const onSwiper = (swiper: any) => {
 const onActiveIndexChange = (event: any) => {
   setItem('blockFour', event.realIndex)
 }
+
+/**
+ * @desc MQTT订阅回调
+ */
+const listenMqttMsg = (res: any) => {
+  const { topic, msg } = res
+  if (topic === '/S/push/warning') {
+    const { dataType } = msg
+    if (dataType === 'weatherWarning') {
+      const findIndex = componentsContainer.value.findIndex((item: any) => item.__name === 'Meteorological')
+      swiperInstance.value.slideTo(findIndex, false)
+    }
+  }
+}
+
+useSubscription(listenMqttMsg)
 </script>
 
 <style lang="less" scoped>
@@ -74,17 +88,25 @@ const onActiveIndexChange = (event: any) => {
     height: 100%;
     .swiper-pagination,
     .swiper-pagination-horizontal {
-      bottom: 90% !important;
-      left: 95% !important;
+      left: 94% !important;
       width: 50px !important;
       z-index: 99;
       .swiper-pagination-bullet {
-        width: 8px;
-        height: 8px;
-        background: #7282a1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        opacity: 0.4;
+        border: 3px solid #55b1ff;
+        color: #55b1ff;
       }
       .swiper-pagination-bullet-active {
-        background: #ffffff;
+        color: #ffffff;
+        border: 3px solid #ffffff;
+        background-color: #000000;
+        box-shadow: 0px 0px 5px 1px #ffffff;
+        font-weight: bold;
       }
     }
   }

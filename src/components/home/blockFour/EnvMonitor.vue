@@ -88,6 +88,10 @@ const getEnvMonitorInfo = async () => {
   if (code === 20000 && data) {
     envMonitor.value = data
   }
+  const timeout = setTimeout(() => {
+    getEnvMonitorInfo()
+    clearTimeout(timeout)
+  }, 1000 * 60 * 5)
 }
 </script>
 

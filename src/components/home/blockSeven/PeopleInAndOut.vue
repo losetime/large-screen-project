@@ -21,7 +21,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { apiGetRealTimeInAndOut } from '@/service/api/home'
-import avatar from '../../../assets/images/peopleInAndOut/people-avatar.png'
+import avatar from '@/assets/images/peopleInAndOut/people-avatar.png'
+import useSubscription from '@/hooks/useSubscription'
 
 const realTimeInAndOut = ref<any[]>([
   {
@@ -51,6 +52,21 @@ const getRealTimeInAndOut = async () => {
     realTimeInAndOut.value = data
   }
 }
+
+/**
+ * @desc MQTT订阅回调
+ */
+const listenMqttMsg = (res: any) => {
+  const { topic, msg } = res
+  if (topic === '/S/push/person') {
+    const { dataType } = msg
+    if (dataType === 'personInout') {
+      getRealTimeInAndOut()
+    }
+  }
+}
+
+useSubscription(listenMqttMsg)
 </script>
 
 <style lang="less" scoped>

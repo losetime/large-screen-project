@@ -13,12 +13,11 @@
       @swiper="onSwiper"
       @active-index-change="onActiveIndexChange"
     >
-      <swiper-slide>
-        <SencePeople />
-      </swiper-slide>
-      <swiper-slide>
-        <SafetyStats />
-      </swiper-slide>
+      <template v-for="(item, index) in componentsContainer" :key="index">
+        <swiper-slide>
+          <component :is="item" />
+        </swiper-slide>
+      </template>
     </swiper>
   </div>
 </template>
@@ -30,14 +29,16 @@ import { EffectCube, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-cube'
-import SencePeople from './SencePeople.vue'
-import SafetyStats from './SafetyStats.vue'
 import { setItem, getItem } from '@/utils/base'
+import useComponents from '@/hooks/useComponents'
+
+const { componentsContainer } = useComponents(8)
 
 const pagination = {
   clickable: true,
   renderBullet: function (index: number, className: string) {
-    return '<span class="' + className + '"></span>'
+    const tempIndex = index + 1
+    return '<span class="' + className + '"> ' + tempIndex + '</span>'
   },
 }
 
@@ -69,17 +70,25 @@ const onActiveIndexChange = (event: any) => {
     height: 100%;
     .swiper-pagination,
     .swiper-pagination-horizontal {
-      bottom: 90% !important;
-      left: 98% !important;
+      left: 96% !important;
       width: 50px !important;
       z-index: 99;
       .swiper-pagination-bullet {
-        width: 8px;
-        height: 8px;
-        background: #7282a1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        opacity: 0.4;
+        border: 3px solid #55b1ff;
+        color: #55b1ff;
       }
       .swiper-pagination-bullet-active {
-        background: #ffffff;
+        color: #ffffff;
+        border: 3px solid #ffffff;
+        background-color: #000000;
+        box-shadow: 0px 0px 5px 1px #ffffff;
+        font-weight: bold;
       }
     }
   }

@@ -72,6 +72,10 @@ const getSecurityHatLocation = async () => {
       })
     }
   }
+  const timeout = setTimeout(() => {
+    getSecurityHatLocation()
+    clearTimeout(timeout)
+  }, 1000 * 60 * 5)
 }
 
 const createMarker = () => {

@@ -3,6 +3,7 @@ import { createStore, useStore as baseUseStore, Store } from 'vuex'
 import { isDevMode } from '@/enums/envEnum'
 import { StateInterface, UserInfoInterface } from './types'
 import { apiGetUserInfo } from '@/service/api/login'
+import { apiGetScreenConfigInfo, apiGetConnectionInfo } from '@/service/api/home'
 
 export const key: InjectionKey<Store<StateInterface>> = Symbol()
 
@@ -19,6 +20,13 @@ const store = createStore({
       token: '',
       userInfo: { userName: '', userId: 0 },
       sidebarStatus: false,
+      screenConfigInfo: [],
+      mqttUrl: '',
+      subscriptionMqttInfo: {
+        id: '',
+        topic: '',
+        msg: '',
+      },
     }
   },
   mutations: {
@@ -30,6 +38,15 @@ const store = createStore({
     },
     SET_SIDEBAR_STATUS(state: StateInterface, payload: StateInterface['sidebarStatus']) {
       state.sidebarStatus = payload
+    },
+    SET_SCREEN_CONFIG_INFO(state: StateInterface, payload: StateInterface['screenConfigInfo']) {
+      state.screenConfigInfo = payload
+    },
+    SET_MQTT_URL(state: StateInterface, payload: StateInterface['mqttUrl']) {
+      state.mqttUrl = payload
+    },
+    SET_SUBSCRIPTION_MQTT_INFO(state: StateInterface, payload: StateInterface['subscriptionMqttInfo']) {
+      state.subscriptionMqttInfo = payload
     },
   },
   actions: {
@@ -47,6 +64,24 @@ const store = createStore({
         return Promise.resolve()
       } else {
         return Promise.reject()
+      }
+    },
+    /**
+     * @desc 获取全局模块配置
+     */
+    async GetScreenConfigInfo({ commit }) {
+      const { code, data } = await apiGetScreenConfigInfo()
+      if (code === 20000) {
+        commit('SET_SCREEN_CONFIG_INFO', data)
+      }
+    },
+    /**
+     * @desc 获取mqtt连接信息
+     */
+    async GetConnectionInfo({ commit }) {
+      const { code, data } = await apiGetConnectionInfo('http://192.168.35.159:12240')
+      if (code === 20000) {
+        commit('SET_MQTT_URL', data.EMQX_URL)
       }
     },
   },

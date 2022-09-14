@@ -40,6 +40,7 @@
 import { onMounted, ref } from 'vue'
 import { WarningFilled } from '@ant-design/icons-vue'
 import { apiGetAlarmStats, apiGetAlarmRecord } from '@/service/api/home'
+import useSubscription from '@/hooks/useSubscription'
 
 const alarmStats = ref<any>({})
 
@@ -69,6 +70,22 @@ const getAlarmRecord = async () => {
     AlarmRecord.value = data
   }
 }
+
+/**
+ * @desc MQTT订阅回调
+ */
+const listenMqttMsg = (res: any) => {
+  const { topic, msg } = res
+  if (topic === '/S/push/warning') {
+    const { dataType } = msg
+    if (dataType === 'warningAdd') {
+      getAlarmStats()
+      getAlarmRecord()
+    }
+  }
+}
+
+useSubscription(listenMqttMsg)
 </script>
 
 <style lang="less" scoped>

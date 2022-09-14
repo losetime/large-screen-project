@@ -135,7 +135,6 @@ const onActiveIndexChange = (event: any) => {
     chunk.forEach((item: any, index: number) => {
       if (item.monitorId && flvjs.isSupported()) {
         const videoElement: any = document.getElementById('video' + event.realIndex + '_' + index)
-        console.log(videoElement, item)
         flvPlayer[index] = flvjs.createPlayer({
           type: 'flv',
           url: item.channelChild[0].videoAddress,
@@ -170,7 +169,6 @@ const handleChunk = (arr: any[], size: number): any[][] => {
 
 const destroyPlayer = () => {
   for (const [index, item] of flvPlayer.entries()) {
-    console.log(item)
     item.pause()
     item.unload()
     item.detachMediaElement()

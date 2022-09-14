@@ -149,8 +149,6 @@ const towerConstruction = ref(0)
 const lineConstruction = ref(0)
 
 onMounted(() => {
-  getPowerTransformProjectProgress()
-  getLineRouteProjectProgress()
   getProjectType()
 })
 
@@ -161,6 +159,11 @@ const getProjectType = async () => {
   const { code, data } = await apiGetProjectType()
   if (code === 20000) {
     projectType.value = data
+    if (projectType.value === 'BD') {
+      getPowerTransformProjectProgress()
+    } else {
+      getLineRouteProjectProgress()
+    }
   }
 }
 
@@ -183,6 +186,10 @@ const getPowerTransformProjectProgress = async () => {
       }
     })
   }
+  const timeout = setTimeout(() => {
+    getPowerTransformProjectProgress()
+    clearTimeout(timeout)
+  }, 1000 * 60 * 5)
 }
 
 const formatTimelines = (sourceStep: any, currentStep: any) => {
@@ -223,6 +230,10 @@ const getLineRouteProjectProgress = async () => {
       }
     })
   }
+  const timeout = setTimeout(() => {
+    getLineRouteProjectProgress()
+    clearTimeout(timeout)
+  }, 1000 * 60 * 5)
 }
 </script>
 

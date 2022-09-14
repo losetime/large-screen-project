@@ -5,39 +5,50 @@
       <span>人员总览</span>
     </div>
     <div class="details-wrap">
-      <div class="chart-wrap">
+      <div class="chart-wrap" :style="{ height: showPeopleDistribute ? '450px' : '700px' }">
         <Pie :series="projectPeople" />
       </div>
-      <div class="chart-title">人员一码通分布</div>
-      <div class="code-count-wrap">
-        <span class="label-wrap">绿码</span>
-        <img src="../../assets/images/home/green-code.png" alt="" />
-        <a-progress :percent="peopleCodeStats.green" :steps="30" strokeColor="#25CA93" trailColor="#424267" />
-      </div>
-      <div class="code-count-wrap">
-        <span class="label-wrap">黄码</span>
-        <img src="../../assets/images/home/yellow-code.png" alt="" />
-        <a-progress :percent="peopleCodeStats.yellow" :steps="30" strokeColor="#F6B900" trailColor="#424267" />
-      </div>
-      <div class="code-count-wrap">
-        <span class="label-wrap">红码</span>
-        <img src="../../assets/images/home/red-code.png" alt="" />
-        <a-progress :percent="peopleCodeStats.red" :steps="30" strokeColor="#F44765" trailColor="#424267" />
-      </div>
+      <template v-if="showPeopleDistribute">
+        <div class="chart-title">人员一码通分布</div>
+        <div class="code-count-wrap">
+          <span class="label-wrap">绿码</span>
+          <img src="../../assets/images/home/green-code.png" alt="" />
+          <a-progress :percent="peopleCodeStats.green" :steps="30" strokeColor="#25CA93" trailColor="#424267" />
+        </div>
+        <div class="code-count-wrap">
+          <span class="label-wrap">黄码</span>
+          <img src="../../assets/images/home/yellow-code.png" alt="" />
+          <a-progress :percent="peopleCodeStats.yellow" :steps="30" strokeColor="#F6B900" trailColor="#424267" />
+        </div>
+        <div class="code-count-wrap">
+          <span class="label-wrap">红码</span>
+          <img src="../../assets/images/home/red-code.png" alt="" />
+          <a-progress :percent="peopleCodeStats.red" :steps="30" strokeColor="#F44765" trailColor="#424267" />
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import Pie from '@/components/charts/Pie.vue'
 import { apiGetProjectPeople, apiGetPeopleCodeStats } from '@/service/api/home'
+import useComponents from '@/hooks/useComponents'
+
+const { componentsContainer } = useComponents(3)
+
 const projectPeople = ref<any[]>([])
+
 const peopleCodeStats = ref<any>({})
+
+const showPeopleDistribute = computed(() => componentsContainer.value.includes('PROJECT_PEOPLE_CODE'))
+
 onMounted(() => {
   getProjectPeople()
   getPeopleCodeStats()
 })
+
 /**
  * @desc 获取项目人员
  */

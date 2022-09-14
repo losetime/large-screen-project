@@ -39,12 +39,13 @@ import 'swiper/css/pagination'
 import avatar from '../../../assets/images/peopleInAndOut/people-avatar.png'
 import Indicator from '@/components/common/Indicator.vue'
 import { apiGetProjectManagerDuty } from '@/service/api/home'
+import useSubscription from '@/hooks/useSubscription'
 
 const modules = [Pagination, Autoplay]
 
-const projectManagerDuty = ref<any[]>([])
-
 const activeIndex = ref(1)
+
+const projectManagerDuty = ref<any[]>([])
 
 onMounted(() => {
   getProjectManagerDuty()
@@ -83,6 +84,21 @@ const handleChunk = (arr: any[], size: number): any[][] => {
   }
   return objArr
 }
+
+/**
+ * @desc MQTT订阅回调
+ */
+const listenMqttMsg = (res: any) => {
+  const { topic, msg } = res
+  if (topic === '/S/push/person') {
+    const { dataType } = msg
+    if (dataType === 'personInout') {
+      getProjectManagerDuty()
+    }
+  }
+}
+
+useSubscription(listenMqttMsg)
 </script>
 
 <style lang="less" scoped>
@@ -161,7 +177,7 @@ const handleChunk = (arr: any[], size: number): any[][] => {
     }
     .paging-wrap {
       position: absolute;
-      bottom: -38px;
+      bottom: -65px;
       left: 46%;
       z-index: 100;
     }

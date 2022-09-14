@@ -47,12 +47,20 @@ import BlockFour from '@/components/home/blockFour/index.vue'
 import BlockEight from '@/components/home/blockEight/index.vue'
 import AlarmRecord from '@/components/home/AlarmRecord.vue'
 import { apiGetProjectInfo } from '@/service/api/home'
+import { useStore } from '@/store'
+import useMqtt from '@/hooks/useMqtt'
+
+useMqtt()
+
+const store = useStore()
 
 const { date, time, week } = useDateTime()
 
 const projectName = ref('')
 
 onMounted(() => {
+  store.dispatch('GetScreenConfigInfo')
+  store.dispatch('GetConnectionInfo')
   getProjectInfo()
 })
 
@@ -71,7 +79,7 @@ const getProjectInfo = async () => {
 @import '../../assets/style/home.less';
 
 .intelligent-building-site-wrapper {
-  width: 100%;
+  width: 3840px;
   height: 2160px;
   background-image: url('../../assets/images/home/background.png');
   background-size: cover;

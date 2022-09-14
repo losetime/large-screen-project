@@ -1,5 +1,10 @@
 <template>
   <div class="meteorological-wrapper">
+    <div class="title-wrap">
+      <img src="../../../assets/images/home/title-icon-warning.png" alt="" />
+      <span>气象预警</span>
+    </div>
+    <div class="warning-date">{{ meteorologicalInfo[activeIndex - 1]?.warningTime }}</div>
     <Indicator :length="meteorologicalInfo.length" :active-index="activeIndex" v-if="meteorologicalInfo.length > 0" />
     <swiper
       :modules="modules"
@@ -13,34 +18,27 @@
       <template v-for="(item, index) in meteorologicalInfo" :key="index">
         <swiper-slide>
           <div class="item-wrap">
-            <div class="title-wrap">
-              <img src="../../../assets/images/home/title-icon-warning.png" alt="" />
-              <span>气象预警</span>
-            </div>
-            <div class="warning-date">{{ item.warningTime }}</div>
-            <div class="content-wrap">
-              <div class="warning-title">
-                <div class="type-wrap">
-                  <span class="label-wrap">预警类型</span>
-                  <span class="value-wrap" :style="{ color: getWarningStyle(item.warningLevel) }">{{
-                    item.warningType
-                  }}</span>
-                </div>
-                <div class="level-wrap">
-                  <span class="label-wrap">预警等级</span>
-                  <span
-                    class="value-wrap"
-                    :style="{
-                      backgroundColor: getWarningStyle(item.warningLevel),
-                      color: item.warningLevel === '白色' ? '#000000' : '#ffffff',
-                    }"
-                  >
-                    {{ item.warningLevel }}预警
-                  </span>
-                </div>
+            <div class="warning-title">
+              <div class="type-wrap">
+                <span class="label-wrap">预警类型</span>
+                <span class="value-wrap" :style="{ color: getWarningStyle(item.warningLevel) }">{{
+                  item.warningType
+                }}</span>
               </div>
-              <div class="warning-text">{{ item.warningContent }}</div>
+              <div class="level-wrap">
+                <span class="label-wrap">预警等级</span>
+                <span
+                  class="value-wrap"
+                  :style="{
+                    backgroundColor: getWarningStyle(item.warningLevel),
+                    color: item.warningLevel === '白色' || item.warningLevel === '黄色' ? '#000000' : '#ffffff',
+                  }"
+                >
+                  {{ item.warningLevel }}预警
+                </span>
+              </div>
             </div>
+            <div class="warning-text">{{ item.warningContent }}</div>
           </div>
         </swiper-slide>
       </template>
@@ -56,6 +54,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import Indicator from '@/components/common/Indicator.vue'
 import { apiGetMeteorologicalAlarm } from '@/service/api/home'
+import useSubscription from '@/hooks/useSubscription'
 
 const modules = [Pagination, Autoplay]
 
@@ -98,6 +97,21 @@ const getWarningStyle = (type: string) => {
       return 'white'
   }
 }
+
+/**
+ * @desc MQTT订阅回调
+ */
+const listenMqttMsg = (res: any) => {
+  const { topic, msg } = res
+  if (topic === '/S/push/warning') {
+    const { dataType } = msg
+    if (dataType === 'weatherWarning') {
+      getMeteorologicalAlarm()
+    }
+  }
+}
+
+useSubscription(listenMqttMsg)
 </script>
 
 <style lang="less" scoped>
@@ -107,6 +121,19 @@ const getWarningStyle = (type: string) => {
   width: 100%;
   background-image: url('../../../assets/images/home/meteorological.png');
   background-size: 100% 100%;
+  padding: 24px 32px;
+  .title-wrap {
+    span {
+      color: #f44765;
+    }
+  }
+  .warning-date {
+    position: absolute;
+    top: 32px;
+    right: 35px;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.8);
+  }
   .paging-wrap {
     position: absolute;
     bottom: 20px;
@@ -119,58 +146,46 @@ const getWarningStyle = (type: string) => {
     .swiper-wrapper {
       .swiper-slide {
         .item-wrap {
-          padding: 24px 32px;
-          .title-wrap {
-            span {
-              color: #f44765;
-            }
-          }
-          .warning-date {
-            position: absolute;
-            top: 32px;
-            right: 35px;
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.8);
-          }
-          .content-wrap {
-            color: #ffffff;
-            .warning-title {
+          color: #ffffff;
+          .warning-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+            .type-wrap {
               display: flex;
-              justify-content: space-between;
+              justify-content: center;
               align-items: center;
-              margin-top: 14px;
-              .type-wrap {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                .label-wrap {
-                  font-size: 24px;
-                }
-                .value-wrap {
-                  font-size: 40px;
-                  margin-left: 8px;
-                }
+              .label-wrap {
+                font-size: 24px;
               }
-              .level-wrap {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                .label-wrap {
-                  font-size: 24px;
-                }
-                .value-wrap {
-                  font-size: 20px;
-                  // background-color: #fa9027;
-                  border-radius: 16px;
-                  margin-left: 8px;
-                  padding: 2px 10px;
-                }
+              .value-wrap {
+                font-size: 40px;
+                margin-left: 8px;
               }
             }
-            .warning-text {
-              margin-top: 14px;
-              font-size: 28px;
+            .level-wrap {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .label-wrap {
+                font-size: 24px;
+              }
+              .value-wrap {
+                font-size: 20px;
+                border-radius: 16px;
+                margin-left: 8px;
+                padding: 2px 10px;
+              }
             }
+          }
+          .warning-text {
+            margin-top: 14px;
+            font-size: 28px;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
           }
         }
       }

@@ -24,6 +24,7 @@
 import { onMounted, ref } from 'vue'
 import { apiGetSafetyStats, apiGetSafetyChart } from '@/service/api/home'
 import Bar from '@/components/charts/Bar.vue'
+import useSubscription from '@/hooks/useSubscription'
 
 const safetyStats = ref<any>({})
 
@@ -82,6 +83,22 @@ const getScenePeopleChart = async () => {
     safetyChart.value.xAxis = data.xData
   }
 }
+
+/**
+ * @desc MQTT订阅回调
+ */
+const listenMqttMsg = (res: any) => {
+  const { topic, msg } = res
+  if (topic === '/S/push/aqb') {
+    const { dataType } = msg
+    if (dataType === 'aqbSign') {
+      getScenePeopleStats()
+      getScenePeopleChart()
+    }
+  }
+}
+
+useSubscription(listenMqttMsg)
 </script>
 
 <style lang="less" scoped>

@@ -39,50 +39,7 @@ import { getWeatherIcon } from '@/utils/base'
 
 const weatherInfo = ref<any>({})
 
-const weatherDay7 = ref<any[]>([
-  {
-    date: '今天',
-    weaImg: 'qing',
-    tem1: '19℃',
-    tem2: '30℃',
-  },
-  {
-    date: '今天',
-    weaImg: 'qing',
-    tem1: '19℃',
-    tem2: '30℃',
-  },
-  {
-    date: '今天',
-    weaImg: 'qing',
-    tem1: '19℃',
-    tem2: '30℃',
-  },
-  {
-    date: '今天',
-    weaImg: 'qing',
-    tem1: '19℃',
-    tem2: '30℃',
-  },
-  {
-    date: '今天',
-    weaImg: 'qing',
-    tem1: '19℃',
-    tem2: '30℃',
-  },
-  {
-    date: '今天',
-    weaImg: 'qing',
-    tem1: '19℃',
-    tem2: '30℃',
-  },
-  {
-    date: '今天',
-    weaImg: 'qing',
-    tem1: '19℃',
-    tem2: '30℃',
-  },
-])
+const weatherDay7 = ref<any[]>([])
 
 onMounted(() => {
   getWeatherInfo()
@@ -97,6 +54,10 @@ const getWeatherInfo = async () => {
   if (code === 20000) {
     weatherInfo.value = data
   }
+  const timeout = setTimeout(() => {
+    getWeatherInfo()
+    clearTimeout(timeout)
+  }, 1000 * 60 * 5)
 }
 
 /**
@@ -107,6 +68,10 @@ const getWeatherDay7 = async () => {
   if (code === 20000) {
     weatherDay7.value = data
   }
+  const timeout = setTimeout(() => {
+    getWeatherDay7()
+    clearTimeout(timeout)
+  }, 1000 * 60 * 5)
 }
 </script>
 
