@@ -4,13 +4,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "skip-check-build": "vite build",
     "serve": "vite preview",
     "lint": "eslint --cache --max-warnings 0  \"src/**/*.{vue,ts,tsx}\" --fix",
     "prepare": "husky install"
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
-    "@besovideo/webrtc-player": "^0.8.20",
     "ant-design-vue": "^3.2.10",
     "axios": "^0.21.4",
     "buffer": "^6.0.3",

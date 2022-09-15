@@ -66,12 +66,15 @@ const onActiveIndexChange = (event: any) => {
  * @desc MQTT订阅回调
  */
 const listenMqttMsg = (res: any) => {
+  console.log(333, res)
   const { topic, msg } = res
   if (topic === '/S/push/warning') {
     const { dataType } = msg
     if (dataType === 'weatherWarning') {
       const findIndex = componentsContainer.value.findIndex((item: any) => item.__name === 'Meteorological')
-      swiperInstance.value.slideTo(findIndex, false)
+      if (findIndex !== -1) {
+        swiperInstance.value.slideTo(findIndex, false)
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-import { ref, computed, watch } from 'vue'
+import { ref, markRaw, computed, watch } from 'vue'
 import { useStore } from '@/store'
 // blockFour
 import EnvMonitor from '@/components/home/blockFour/EnvMonitor.vue'
@@ -50,47 +50,47 @@ const useComponents = (type: number) => {
       switch (item) {
         // 天气预报
         case 'WEATHER_INFO':
-          componentsTemp.push(WeatherForecast)
+          componentsTemp.push(markRaw(WeatherForecast))
           break
         // 气象预警
         case 'WEATHER_WARNING':
-          componentsTemp.push(Meteorological)
+          componentsTemp.push(markRaw(Meteorological))
           break
         // 环境监测
         case 'ENVIRONMENT_MONITOR':
-          componentsTemp.push(EnvMonitor)
+          componentsTemp.push(markRaw(EnvMonitor))
           break
         // 视频监控
         case 'VIDEO_MONITOR':
-          componentsTemp.push(VideoMonitor)
+          componentsTemp.push(markRaw(VideoMonitor))
           break
         // 地图定位(安全帽&手环)
         case 'MAP_LOCATION':
-          componentsTemp.push(Location)
+          componentsTemp.push(markRaw(Location))
           break
         // 工程图片
         case 'PROJECT_IMAGE':
-          componentsTemp.push(DesignDrawing)
+          componentsTemp.push(markRaw(DesignDrawing))
           break
         // 进出场记录
         case 'IN_OUT_RECORD':
-          componentsTemp.push(PeopleInAndOut)
+          componentsTemp.push(markRaw(PeopleInAndOut))
           break
         // 项目经理到岗到位
         case 'PROJECT_MANAGER_ARRIVAL':
-          componentsTemp.push(PeopleReportToDuty)
+          componentsTemp.push(markRaw(PeopleReportToDuty))
           break
         // 手环领还记录
         case 'WATCH_SIGN_RECORD':
-          componentsTemp.push(BraceletRecord)
+          componentsTemp.push(markRaw(BraceletRecord))
           break
         // 现场人员
         case 'PERSON_INOUT_STAT':
-          componentsTemp.push(SencePeople)
+          componentsTemp.push(markRaw(SencePeople))
           break
         // 安全宝数据
         case 'WATCH_SIGN_STAT':
-          componentsTemp.push(SafetyStats)
+          componentsTemp.push(markRaw(SafetyStats))
           break
         case 'PROJECT_INFO':
           componentsTemp.push('PROJECT_INFO')

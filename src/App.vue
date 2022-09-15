@@ -18,7 +18,7 @@ onMounted(() => {
  */
 const exportVersion = () => {
   console.log(
-    '%c💡当前版本%c' + '1.0.3',
+    '%c💡当前版本%c' + '1.0.5',
     'background: #44CF00; color: #fff; border-radius: 2px 0 0 2px; padding:2px 5px; font-family: AliPH;',
     'background: #1475B2; color: #fff; border-radius: 0 2px 2px 0; padding:2px 10px; font-family: AliPH;',
   )

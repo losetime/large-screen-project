@@ -23,10 +23,12 @@ const useMap = () => {
     })
     try {
       map.value = new AMap.value.Map(domId, {
+        resizeEnable: true,
         //设置地图容器id
         viewMode: '3D', //是否为3D地图模式
         zoom: 5, //初始化地图级别
         center: [116.39, 39.9], //初始化地图中心点位置
+        mapStyle: 'amap://styles/dark',
       })
       return Promise.resolve(true)
     } catch (e) {

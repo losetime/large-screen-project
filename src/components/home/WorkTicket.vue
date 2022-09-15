@@ -82,14 +82,26 @@ onMounted(async () => {
 const getWorkTicketInfo = async () => {
   const { code, data } = await apiGetWorkTicketInfo()
   if (code === 20000) {
-    workTicketInfo.value = data.map((item: any) => ({
-      ...item,
-      workPersonName: item.workPersonName ? item.workPersonName.split(',').slice(0, 7).concat(['......']) : [],
-      beginDate: item.beginDate.split(' ')[0],
-      planEndDate: item.beginDate.split(' ')[0],
-      workContent: item.workContent.length > 16 * 6 ? item.workContent.substr(0, 16 * 6) + ' ......' : item.workContent,
-      workPart: item.workPart.length > 16 * 3 ? item.workPart.substr(0, 16 * 3) + ' ......' : item.workPart,
-    }))
+    workTicketInfo.value = data.map((item: any) => {
+      let workPerson = []
+      if (item.workPersonName) {
+        const splitName = item.workPersonName.split(',')
+        if (splitName.length > 9) {
+          workPerson = splitName.slice(0, 9).concat(['......'])
+        } else {
+          workPerson = splitName
+        }
+      }
+      return {
+        ...item,
+        workPersonName: workPerson,
+        beginDate: item.beginDate.split(' ')[0],
+        planEndDate: item.planEndDate.split(' ')[0],
+        workContent:
+          item.workContent.length > 16 * 6 ? item.workContent.substr(0, 16 * 6) + ' ......' : item.workContent,
+        workPart: item.workPart.length > 16 * 3 ? item.workPart.substr(0, 16 * 3) + ' ......' : item.workPart,
+      }
+    })
   }
 }
 

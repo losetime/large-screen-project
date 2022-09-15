@@ -8,7 +8,7 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import useMap from '@/hooks/useMap'
 import videoHat from '@/assets/images/home/video-hat.png'
-import locationHat from '@/assets/images/home/location.png'
+import locationHat from '@/assets/images/home/location-hat.png'
 import bracelet from '@/assets/images/home/bracelet.png'
 import { apiGetLocationInfo } from '@/service/api/home'
 import axios from 'axios'
@@ -101,7 +101,7 @@ const createMarker = () => {
         icon: item.type === 'VIDEO_HAT' ? videoHatIcon : item.type === 'LOCATION_HAT' ? locationHatIcon : braceletIcon,
         label: {
           direction: 'top',
-          content: `<div class='mark-label' style="font-size: 24px; margin-bottom: 10px;">${
+          content: `<div class='mark-label' style="font-size: 24px; margin-bottom: 10px; color: #ffffff;">${
             item.bindUserName ? item.bindUserName : item.deviceId
           }</div>`,
         },
@@ -131,7 +131,7 @@ const convertCoords = async (coords: string) => {
     width: 100%;
     height: 680px;
     overflow: hidden;
-    border: 6px solid #ffffff;
+    // border: 6px solid #ffffff;
     ::v-deep(.amap-maps) {
       .amap-marker-label {
         border: 0 !important;

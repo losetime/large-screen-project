@@ -16,7 +16,7 @@
         <template v-for="(record, recordIndex) in projectManagerDuty" :key="recordIndex">
           <swiper-slide>
             <div class="item-wrap" v-for="(item, index) in record" :key="index">
-              <img :src="item.photoUrl || avatar" alt="" class="avatar" />
+              <img :src="item.photoUrl || peopleAvatar" alt="" class="avatar" />
               <p class="name-wrap">{{ item.userName }}</p>
               <p class="post-wrap">{{ item.postName }}</p>
               <img src="../../../assets/images/home/arriving.png" alt="" class="arriving-mark" v-if="item.arriveFlag" />
@@ -36,7 +36,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Pagination, Autoplay } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import avatar from '../../../assets/images/peopleInAndOut/people-avatar.png'
+import peopleAvatar from '../../../assets/images/home/people-avatar.png'
 import Indicator from '@/components/common/Indicator.vue'
 import { apiGetProjectManagerDuty } from '@/service/api/home'
 import useSubscription from '@/hooks/useSubscription'

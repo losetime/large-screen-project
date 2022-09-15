@@ -6,7 +6,7 @@
     </div>
     <div class="detail-wrap">
       <div class="item-wrap" v-for="(item, index) in braceletRecord" :key="index">
-        <img :src="item?.useImageUrl || avatar" alt="" />
+        <img :src="item?.useImageUrl || peopleAvatar" alt="" />
         <p class="name-wrap">{{ item?.personName }}</p>
         <p class="type-wrap">{{ item?.postName }}</p>
         <p class="time-wrap">{{ item?.actionTime.slice(10) }}</p>
@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import avatar from '../../../assets/images/peopleInAndOut/people-avatar.png'
+import peopleAvatar from '../../../assets/images/home/people-avatar.png'
 import { apiGetBraceletRecord } from '@/service/api/home'
 import useSubscription from '@/hooks/useSubscription'
 

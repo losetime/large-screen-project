@@ -4,7 +4,7 @@
       <swiper
         :modules="modules"
         :autoplay="{
-          delay: 10000,
+          delay: 20000,
           disableOnInteraction: false,
         }"
         @active-index-change="onActiveIndexChange"
@@ -73,7 +73,7 @@ const splitScreenVideoList = ref<any[][]>([])
 
 const activeIndex = ref(1)
 
-const flvPlayer: any = [{}, {}, {}, {}]
+const flvPlayer: any = []
 
 onMounted(() => {
   getVideoList()
@@ -169,11 +169,13 @@ const handleChunk = (arr: any[], size: number): any[][] => {
 
 const destroyPlayer = () => {
   for (const [index, item] of flvPlayer.entries()) {
-    item.pause()
-    item.unload()
-    item.detachMediaElement()
-    item.destroy()
-    flvPlayer[index] = null
+    if (item) {
+      item.pause()
+      item.unload()
+      item.detachMediaElement()
+      item.destroy()
+      flvPlayer[index] = null
+    }
   }
 }
 </script>

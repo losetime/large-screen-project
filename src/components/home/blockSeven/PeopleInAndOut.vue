@@ -2,11 +2,12 @@
   <div class="people-in-and-out-wrapper">
     <div class="title-wrap">
       <img src="../../../assets/images/home/title-icon.png" alt="" />
-      <span>进出场记录</span>
+      <span>实时进出</span>
     </div>
     <div class="detail-wrap">
       <div class="item-wrap" v-for="(item, index) in realTimeInAndOut" :key="index">
-        <img :src="item.useImageUrl || avatar" alt="" />
+        <img :src="item.useImageUrl || peopleAvatar" alt="" v-if="item.type === 'person'" />
+        <img :src="item.useImageUrl || car" alt="" v-else />
         <p class="name-wrap">{{ item.userName }}</p>
         <p class="type-wrap">{{ item.postName }}</p>
         <p class="time-wrap">{{ item.accessTime.slice(10) }}</p>
@@ -21,7 +22,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { apiGetRealTimeInAndOut } from '@/service/api/home'
-import avatar from '@/assets/images/peopleInAndOut/people-avatar.png'
+import peopleAvatar from '@/assets/images/home/people-avatar.png'
+import car from '@/assets/images/home/car.png'
 import useSubscription from '@/hooks/useSubscription'
 
 const realTimeInAndOut = ref<any[]>([

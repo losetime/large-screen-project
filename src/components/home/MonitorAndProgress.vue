@@ -26,7 +26,7 @@
       </div>
       <div class="line-route-wrap" v-if="projectType === 'XL'">
         <div class="progress-item-wrap">
-          <div class="title">杆塔施工(共10基)</div>
+          <div class="title">杆塔施工(共{{ groupTowerTotal }}基)</div>
           <div class="content-wrap">
             <div class="item-wrap base-construction">
               <span>基础施工</span>
@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="progress-item-wrap">
-          <div class="title">架线施工(工25.3公里)</div>
+          <div class="title">架线施工(共{{ stringingTotal }}公里)</div>
           <div class="content-wrap">
             <div class="item-wrap">
               <span>架线施工</span>
@@ -148,6 +148,12 @@ const towerConstruction = ref(0)
 // 架线施工
 const lineConstruction = ref(0)
 
+// 杆塔施工总数
+const groupTowerTotal = ref(0)
+
+// 架线施工总数
+const stringingTotal = ref(0)
+
 onMounted(() => {
   getProjectType()
 })
@@ -212,6 +218,7 @@ const getLineRouteProjectProgress = async () => {
       const { projectTotal, doneTotal, doneGroupTower } = item.progress
       switch (item.progressXlEnum) {
         case 'GROUP_TOWER':
+          groupTowerTotal.value = projectTotal
           if (item.projectTotal > 0) {
             baseConstruction.value = Math.ceil(doneTotal / projectTotal)
             towerConstruction.value = Math.ceil(doneGroupTower / projectTotal)
@@ -221,6 +228,7 @@ const getLineRouteProjectProgress = async () => {
           }
           break
         case 'STRINGING':
+          stringingTotal.value = projectTotal
           if (projectTotal > 0) {
             lineConstruction.value = Math.ceil(doneTotal / projectTotal)
           } else {

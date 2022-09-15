@@ -117,7 +117,7 @@ const getProjectInfo = async () => {
       width: 32%;
       height: 107px;
       margin-top: 38px;
-      margin-left: -16%;
+      margin-left: -14%;
       img {
         width: 100%;
         height: 100%;
