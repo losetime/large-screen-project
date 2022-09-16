@@ -146,6 +146,7 @@ useSubscription(listenMqttMsg)
   .stats-wrap {
     display: flex;
     margin-top: 30px;
+    margin-left: 46px;
     .stats-item-wrap {
       display: flex;
       flex-direction: column;

@@ -83,34 +83,14 @@ useSubscription(listenMqttMsg)
 </script>
 
 <style lang="less" scoped>
+@import '@/assets/style/swiper.less';
 .block-four-wrapper {
   height: 436px;
   margin-top: 34px;
   ::v-deep(.swiper) {
-    width: 100%;
-    height: 100%;
     .swiper-pagination,
     .swiper-pagination-horizontal {
       left: 94% !important;
-      width: 50px !important;
-      z-index: 99;
-      .swiper-pagination-bullet {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 30px;
-        height: 30px;
-        opacity: 0.4;
-        border: 3px solid #55b1ff;
-        color: #55b1ff;
-      }
-      .swiper-pagination-bullet-active {
-        color: #ffffff;
-        border: 3px solid #ffffff;
-        background-color: #000000;
-        box-shadow: 0px 0px 5px 1px #ffffff;
-        font-weight: bold;
-      }
     }
   }
 }

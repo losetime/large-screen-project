@@ -8,9 +8,9 @@
       <div class="item-wrap" v-for="(item, index) in realTimeInAndOut" :key="index">
         <img :src="item.useImageUrl || peopleAvatar" alt="" v-if="item.type === 'person'" />
         <img :src="item.useImageUrl || car" alt="" v-else />
-        <p class="name-wrap">{{ item.userName }}</p>
-        <p class="type-wrap">{{ item.postName }}</p>
-        <p class="time-wrap">{{ item.accessTime.slice(10) }}</p>
+        <p class="name-wrap">{{ item.userName || '--' }}</p>
+        <p class="type-wrap">{{ item.postName || '--' }}</p>
+        <p class="time-wrap">{{ item.accessTime.slice(10) || '--' }}</p>
         <span :class="{ 'in-site-wrap': item.accessType === '1', 'out-site-wrap': item.accessType === '2' }">
           {{ item.accessType === '1' ? '进场' : '出场' }}
         </span>
@@ -124,15 +124,6 @@ useSubscription(listenMqttMsg)
         padding: 2px 20px;
         margin-top: 4px;
         font-size: 28px;
-        background: rgba(68, 4, 15, 0.42);
-        box-shadow: inset 0px 0px 16px 0px rgba(244, 71, 101, 0.5);
-        border-radius: 32px;
-        border: 2px solid #70242b;
-      }
-      .out-site-wrap {
-        padding: 2px 20px;
-        margin-top: 4px;
-        font-size: 28px;
         background: linear-gradient(
           360deg,
           rgba(26, 73, 129, 0.42) 0%,
@@ -142,6 +133,15 @@ useSubscription(listenMqttMsg)
         box-shadow: inset 0px 0px 16px 0px rgba(42, 140, 222, 0.54);
         border-radius: 32px;
         border: 2px solid #26477a;
+      }
+      .out-site-wrap {
+        padding: 2px 20px;
+        margin-top: 4px;
+        font-size: 28px;
+        background: rgba(68, 4, 15, 0.42);
+        box-shadow: inset 0px 0px 16px 0px rgba(244, 71, 101, 0.5);
+        border-radius: 32px;
+        border: 2px solid #70242b;
       }
     }
     .item-wrap:first-child {

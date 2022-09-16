@@ -5,8 +5,14 @@
       <span>人员总览</span>
     </div>
     <div class="details-wrap">
-      <div class="chart-wrap" :style="{ height: showPeopleDistribute ? '450px' : '700px' }">
-        <Pie :series="projectPeople" />
+      <div
+        class="chart-wrap"
+        :style="{
+          height: showPeopleDistribute ? '450px' : '600px',
+          marginTop: showPeopleDistribute ? '0px' : '40px',
+        }"
+      >
+        <Pie :series="projectPeople" :color="['#A1C7FF', '#404DFD', '#599CFF', '#65CA92', '#DFB91B', '#FA9027']" />
       </div>
       <template v-if="showPeopleDistribute">
         <div class="chart-title">人员一码通分布</div>
@@ -58,7 +64,7 @@ const getProjectPeople = async () => {
     projectPeople.value = [
       {
         type: 'pie',
-        radius: ['40%', '70%'],
+        radius: ['44%', '70%'],
         center: ['50%', '50%'],
         itemStyle: {
           borderRadius: 4,

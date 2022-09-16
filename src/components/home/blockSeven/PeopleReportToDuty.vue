@@ -17,8 +17,8 @@
           <swiper-slide>
             <div class="item-wrap" v-for="(item, index) in record" :key="index">
               <img :src="item.photoUrl || peopleAvatar" alt="" class="avatar" />
-              <p class="name-wrap">{{ item.userName }}</p>
-              <p class="post-wrap">{{ item.postName }}</p>
+              <p class="name-wrap">{{ item.userName || '--' }}</p>
+              <p class="post-wrap">{{ item.postName || '--' }}</p>
               <img src="../../../assets/images/home/arriving.png" alt="" class="arriving-mark" v-if="item.arriveFlag" />
               <img src="../../../assets/images/home/not-arriving.png" alt="" class="arriving-mark" v-else />
             </div>

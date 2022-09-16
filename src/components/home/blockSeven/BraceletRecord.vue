@@ -7,9 +7,9 @@
     <div class="detail-wrap">
       <div class="item-wrap" v-for="(item, index) in braceletRecord" :key="index">
         <img :src="item?.useImageUrl || peopleAvatar" alt="" />
-        <p class="name-wrap">{{ item?.personName }}</p>
-        <p class="type-wrap">{{ item?.postName }}</p>
-        <p class="time-wrap">{{ item?.actionTime.slice(10) }}</p>
+        <p class="name-wrap">{{ item?.personName || '--' }}</p>
+        <p class="type-wrap">{{ item?.postName || '--' }}</p>
+        <p class="time-wrap">{{ item?.actionTime.slice(10) || '--' }}</p>
         <span :class="{ 'receive-wrap': item.status === 'ONLINE', 'return-wrap': item.status === 'OFFLINE' }">
           {{ item.status === 'ONLINE' ? '领用' : '归还' }}
         </span>

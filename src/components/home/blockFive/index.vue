@@ -63,47 +63,16 @@ const onActiveIndexChange = (event: any) => {
 </script>
 
 <style lang="less" scoped>
+@import '@/assets/style/swiper.less';
 .block-five-wrapper {
   width: 90%;
   height: 100%;
   margin-left: 5%;
   position: relative;
   ::v-deep(.swiper) {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0%;
-    top: 0%;
-    .swiper-slide {
-      background-position: center;
-      background-size: cover;
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
     .swiper-pagination,
     .swiper-pagination-horizontal {
-      left: 96% !important;
-      width: 50px !important;
-      z-index: 99;
-      .swiper-pagination-bullet {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 30px;
-        height: 30px;
-        opacity: 0.4;
-        border: 3px solid #55b1ff;
-        color: #55b1ff;
-      }
-      .swiper-pagination-bullet-active {
-        color: #ffffff;
-        border: 3px solid #ffffff;
-        background-color: #000000;
-        box-shadow: 0px 0px 5px 1px #ffffff;
-        font-weight: bold;
-      }
+      left: 97% !important;
     }
   }
 }
