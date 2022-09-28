@@ -49,7 +49,7 @@ const progessIndex = () => {
     background-color: #26477a;
     .node-wrap {
       height: 100%;
-      width: 180px;
+      width: 227px;
       position: relative;
       .dot-wrap {
         display: inline-block;
@@ -91,7 +91,7 @@ const progessIndex = () => {
     left: 0px;
     .node-wrap {
       height: 100%;
-      width: 180px;
+      width: 227px;
       position: relative;
       .dot-wrap {
         display: inline-block;

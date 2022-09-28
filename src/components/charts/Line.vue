@@ -100,6 +100,7 @@ const chartInit = () => {
   option.legend = {
     show: true,
     left: 'right',
+    itemGap: 30,
     textStyle: {
       color: '#ffffff',
       fontSize: 24,

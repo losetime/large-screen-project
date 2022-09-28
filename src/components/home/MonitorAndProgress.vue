@@ -1,10 +1,10 @@
 <template>
   <div class="monitor-and-progress-wrap">
     <div class="monitor-wrap">
-      <div class="title-wrap">
+      <!-- <div class="title-wrap">
         <img src="../../assets/images/home/title-icon.png" alt="" />
         <span>工地实时监控</span>
-      </div>
+      </div> -->
       <div class="monitor-view">
         <BlockFive />
       </div>
@@ -258,7 +258,7 @@ const getLineRouteProjectProgress = async () => {
     .monitor-view {
       height: 705px;
       width: 100%;
-      margin: 20px 0;
+      margin-top: 20px;
       background-image: url('../../assets/images/home/monitor-background.png');
       background-size: 100% 100%;
       padding: 14px 60px;
@@ -269,6 +269,7 @@ const getLineRouteProjectProgress = async () => {
     }
   }
   .progress-wrap {
+    margin-top: 50px;
     .power-transform-wrap {
       display: flex;
       margin-top: 20px;
@@ -359,9 +360,12 @@ const getLineRouteProjectProgress = async () => {
           border: 1px dashed #1f5bb5;
           height: 140px;
           position: absolute;
-          right: 46px;
+          right: -20px;
           top: 100px;
         }
+      }
+      .progress-item-wrap:last-child {
+        margin-left: 65px;
       }
     }
   }

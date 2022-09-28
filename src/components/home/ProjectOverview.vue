@@ -22,7 +22,7 @@
       </div>
       <div class="item-wrap">
         <span>开工日期</span>
-        <span>{{ projectOverview?.startDate }}</span>
+        <span>{{ projectOverview?.startDate || '--' }}</span>
       </div>
     </div>
   </div>

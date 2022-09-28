@@ -28,7 +28,7 @@
             <warning-filled />
             <span>{{ item?.warningType }}</span>
           </div>
-          <div class="alarm-time">{{ item?.warningTime }}</div>
+          <div class="alarm-time">{{ formatWarningTime(item?.warningTime) }}</div>
         </div>
         <div class="alarm-content">{{ item?.warningName }}</div>
       </div>
@@ -86,6 +86,15 @@ const listenMqttMsg = (res: any) => {
 }
 
 useSubscription(listenMqttMsg)
+
+const formatWarningTime = (time: string) => {
+  if (time) {
+    const splitTime = time.split(' ')
+    return splitTime[1]
+  } else {
+    return '--'
+  }
+}
 </script>
 
 <style lang="less" scoped>

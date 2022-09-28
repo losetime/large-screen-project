@@ -4,7 +4,7 @@
       <img src="../../assets/images/home/title-icon.png" alt="" />
       <span>工作票信息</span>
     </div>
-    <div class="swiper-wrap">
+    <div class="swiper-wrap" v-if="workTicketInfo.length > 0">
       <swiper
         :modules="modules"
         :autoplay="{
@@ -56,6 +56,10 @@
         </template>
       </swiper>
       <Indicator :length="workTicketInfo.length" :active-index="activeIndex" />
+    </div>
+    <div class="empty-wrap" v-else>
+      <img src="../../assets/images/home/normal-empty.png" alt="" />
+      <p>暂无数据</p>
     </div>
   </div>
 </template>
@@ -217,9 +221,18 @@ const onActiveIndexChange = (event: any) => {
     }
   }
 
-  .calendar-wrap {
-    width: 100%;
-    margin-top: 20px;
+  .empty-wrap {
+    height: 970px;
+    width: 722px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      color: #256ab4;
+      font-size: 28px;
+      margin-top: 10px;
+    }
   }
 }
 </style>

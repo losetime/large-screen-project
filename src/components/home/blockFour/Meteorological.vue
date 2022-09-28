@@ -14,6 +14,7 @@
       }"
       @swiper="onSwiper"
       @active-index-change="onActiveIndexChange"
+      v-if="meteorologicalInfo.length > 0"
     >
       <template v-for="(item, index) in meteorologicalInfo" :key="index">
         <swiper-slide>
@@ -43,6 +44,10 @@
         </swiper-slide>
       </template>
     </swiper>
+    <div class="empty-wrap" v-else>
+      <img src="../../../assets/images/home/warning-empty.png" alt="" />
+      <p>暂无数据</p>
+    </div>
   </div>
 </template>
 
@@ -189,6 +194,18 @@ useSubscription(listenMqttMsg)
           }
         }
       }
+    }
+  }
+  .empty-wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      color: #f44765;
+      font-size: 28px;
     }
   }
 }

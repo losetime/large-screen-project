@@ -6,10 +6,21 @@
     </div>
     <div class="details-wrap">
       <div
+        v-if="showPeopleDistribute"
         class="chart-wrap"
         :style="{
-          height: showPeopleDistribute ? '450px' : '600px',
-          marginTop: showPeopleDistribute ? '0px' : '40px',
+          height: '450px',
+          marginTop: '0px',
+        }"
+      >
+        <Pie :series="projectPeople" :color="['#A1C7FF', '#404DFD', '#599CFF', '#65CA92', '#DFB91B', '#FA9027']" />
+      </div>
+      <div
+        v-else
+        class="chart-wrap"
+        :style="{
+          height: '600px',
+          marginTop: '40px',
         }"
       >
         <Pie :series="projectPeople" :color="['#A1C7FF', '#404DFD', '#599CFF', '#65CA92', '#DFB91B', '#FA9027']" />
@@ -64,7 +75,7 @@ const getProjectPeople = async () => {
     projectPeople.value = [
       {
         type: 'pie',
-        radius: ['44%', '70%'],
+        radius: ['38%', '60%'],
         center: ['50%', '50%'],
         itemStyle: {
           borderRadius: 4,

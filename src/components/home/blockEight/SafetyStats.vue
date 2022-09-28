@@ -80,7 +80,10 @@ const getScenePeopleChart = async () => {
         data: data.yData[1].data,
       },
     ]
-    safetyChart.value.xAxis = data.xData
+    safetyChart.value.xAxis = data.xData.map((item: any) => {
+      const splitItem = item.split('-')
+      return `${splitItem[1]}-${splitItem[2]}`
+    })
   }
 }
 

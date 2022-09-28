@@ -25,7 +25,7 @@ const props = defineProps<{
 <style lang="less" scoped>
 .progress-wrapper {
   position: relative;
-  width: 400px;
+  width: 494px;
   .base-progress-wrap {
     width: 100%;
     height: 20px;
