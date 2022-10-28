@@ -9,7 +9,7 @@
         <img :src="item?.useImageUrl || peopleAvatar" alt="" />
         <p class="name-wrap">{{ item?.personName || '--' }}</p>
         <p class="type-wrap">{{ item?.postName || '--' }}</p>
-        <p class="time-wrap">{{ item?.actionTime.slice(10) || '--' }}</p>
+        <p class="time-wrap">{{ fromatTime(item?.actionTime) }}</p>
         <span :class="{ 'receive-wrap': item.status === 'ONLINE', 'return-wrap': item.status === 'OFFLINE' }">
           {{ item.status === 'ONLINE' ? '领用' : '归还' }}
         </span>
@@ -23,6 +23,7 @@ import { onMounted, ref } from 'vue'
 import peopleAvatar from '../../../assets/images/home/people-avatar.png'
 import { apiGetBraceletRecord } from '@/service/api/home'
 import useSubscription from '@/hooks/useSubscription'
+import { fromatTime } from '@/utils/dateUtil'
 
 const braceletRecord = ref<any[]>([])
 
@@ -101,7 +102,7 @@ useSubscription(listenMqttMsg)
         margin-top: 4px;
       }
       .time-wrap {
-        font-size: 40px;
+        font-size: 32px;
         color: rgba(255, 255, 255, 0.7);
         margin-top: 4px;
       }

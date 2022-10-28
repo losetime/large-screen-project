@@ -6,10 +6,12 @@
 <script setup lang="ts">
 import { reactive, onMounted } from 'vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import screenAdaptation from '@/utils/screenAdaptation'
 
 const locale = reactive(zhCN)
 
 onMounted(() => {
+  screenAdaptation()
   exportVersion()
 })
 

@@ -10,7 +10,7 @@
         <img :src="item.useImageUrl || car" alt="" v-else />
         <p class="name-wrap">{{ item.userName || '--' }}</p>
         <p class="type-wrap">{{ item.postName || '--' }}</p>
-        <p class="time-wrap">{{ item.accessTime.slice(10) || '--' }}</p>
+        <p class="time-wrap">{{ fromatTime(item.accessTime) }}</p>
         <span :class="{ 'in-site-wrap': item.accessType === '1', 'out-site-wrap': item.accessType === '2' }">
           {{ item.accessType === '1' ? '进场' : '出场' }}
         </span>
@@ -25,21 +25,9 @@ import { apiGetRealTimeInAndOut } from '@/service/api/home'
 import peopleAvatar from '@/assets/images/home/people-avatar.png'
 import car from '@/assets/images/home/car.png'
 import useSubscription from '@/hooks/useSubscription'
+import { fromatTime } from '@/utils/dateUtil'
 
-const realTimeInAndOut = ref<any[]>([
-  {
-    userName: '张三',
-    postName: '吊车司机',
-    accessTime: '2021-12-21 15:30',
-    accessType: '1',
-  },
-  {
-    userName: '张三',
-    postName: '吊车司机',
-    accessTime: '2021-12-21 15:30',
-    accessType: '2',
-  },
-])
+const realTimeInAndOut = ref<any[]>([])
 
 onMounted(() => {
   getRealTimeInAndOut()
@@ -62,7 +50,7 @@ const listenMqttMsg = (res: any) => {
   const { topic, msg } = res
   if (topic === '/S/push/person') {
     const { dataType } = msg
-    if (dataType === 'personInout') {
+    if (dataType === 'personInOut') {
       getRealTimeInAndOut()
     }
   }
@@ -116,7 +104,7 @@ useSubscription(listenMqttMsg)
         margin-top: 4px;
       }
       .time-wrap {
-        font-size: 40px;
+        font-size: 32px;
         color: rgba(255, 255, 255, 0.7);
         margin-top: 4px;
       }

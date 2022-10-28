@@ -92,7 +92,7 @@ const listenMqttMsg = (res: any) => {
   const { topic, msg } = res
   if (topic === '/S/push/person') {
     const { dataType } = msg
-    if (dataType === 'personInout') {
+    if (dataType === 'personInOut') {
       getProjectManagerDuty()
     }
   }

@@ -28,7 +28,7 @@
             <warning-filled />
             <span>{{ item?.warningType }}</span>
           </div>
-          <div class="alarm-time">{{ formatWarningTime(item?.warningTime) }}</div>
+          <div class="alarm-time">{{ fromatTime(item?.warningTime) }}</div>
         </div>
         <div class="alarm-content">{{ item?.warningName }}</div>
       </div>
@@ -41,6 +41,7 @@ import { onMounted, ref } from 'vue'
 import { WarningFilled } from '@ant-design/icons-vue'
 import { apiGetAlarmStats, apiGetAlarmRecord } from '@/service/api/home'
 import useSubscription from '@/hooks/useSubscription'
+import { fromatTime } from '@/utils/dateUtil'
 
 const alarmStats = ref<any>({})
 
@@ -86,15 +87,6 @@ const listenMqttMsg = (res: any) => {
 }
 
 useSubscription(listenMqttMsg)
-
-const formatWarningTime = (time: string) => {
-  if (time) {
-    const splitTime = time.split(' ')
-    return splitTime[1]
-  } else {
-    return '--'
-  }
-}
 </script>
 
 <style lang="less" scoped>

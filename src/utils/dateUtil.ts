@@ -72,4 +72,20 @@ export const getWeek = () => {
   return tempWeek[dayjs().day()]
 }
 
+/**
+ * @desc 格式化时间（如果是今日，只显示时分；非今日数据还需显示日期）
+ */
+export const fromatTime = (time: string) => {
+  if (!time) return '--'
+  const currentDate = getDate()
+  const arr = time.split(' ')
+  const splitDate = arr[0]
+  const splitTime = arr[1]
+  if (currentDate === splitDate) {
+    return splitTime.slice(3)
+  } else {
+    return `${splitDate.slice(5)} ${splitTime.slice(0, 5)}`
+  }
+}
+
 export const dateUtil = dayjs

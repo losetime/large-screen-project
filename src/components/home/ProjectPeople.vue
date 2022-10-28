@@ -81,10 +81,10 @@ const getProjectPeople = async () => {
           borderRadius: 4,
         },
         label: {
-          formatter: '{d}%',
+          formatter: '{c}人/{d}%',
           backgroundColor: 'none',
           color: '#ffffff',
-          fontSize: 28,
+          fontSize: 25,
         },
         data: data.map((item: any) => ({ name: item.label, value: item.value })),
       },

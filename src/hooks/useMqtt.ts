@@ -48,10 +48,11 @@ const useMqtt = () => {
         }
       })
     })
-    client.on('message', (topic: any, message: any) => {
-      const msg = JSON.parse(message.toString())
+    client.on('message', (topic: any, msg: any) => {
+      console.log(msg)
+      const tempMsg = JSON.parse(msg.toString())
       // callback(topic, msg)
-      store.commit('SET_SUBSCRIPTION_MQTT_INFO', { id: nanoid(), topic, msg })
+      store.commit('SET_SUBSCRIPTION_MQTT_INFO', { id: nanoid(), topic, msg: tempMsg })
     })
     client.on('close', () => {
       throttle(reconnect, 5000)

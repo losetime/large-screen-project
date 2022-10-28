@@ -16,7 +16,7 @@
         </swiper-slide>
       </template>
     </swiper>
-    <Indicator :length="designImg.length" :active-index="activeIndex" />
+    <Indicator :length="designImg.length" :active-index="activeIndex" v-if="designImg.length > 1" />
   </div>
 </template>
 
