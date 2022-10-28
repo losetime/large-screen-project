@@ -55,7 +55,7 @@
           </swiper-slide>
         </template>
       </swiper>
-      <Indicator :length="workTicketInfo.length" :active-index="activeIndex" />
+      <Indicator :length="workTicketInfo.length" :active-index="activeIndex" v-if="workTicketInfo.length > 1" />
     </div>
     <div class="empty-wrap" v-else>
       <img src="../../assets/images/home/normal-empty.png" alt="" />

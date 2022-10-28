@@ -20,7 +20,11 @@
           </swiper-slide>
         </template>
       </swiper>
-      <Indicator :length="fullScreenVideoList.length" :active-index="activeIndex" />
+      <Indicator
+        :length="fullScreenVideoList.length"
+        :active-index="activeIndex"
+        v-if="fullScreenVideoList.length > 0"
+      />
     </div>
     <div class="split-screen-video-wrap" v-else>
       <swiper
@@ -50,7 +54,11 @@
           </swiper-slide>
         </template>
       </swiper>
-      <Indicator :length="splitScreenVideoList.length" :active-index="activeIndex" />
+      <Indicator
+        :length="splitScreenVideoList.length"
+        :active-index="activeIndex"
+        v-if="splitScreenVideoList.length > 0"
+      />
     </div>
   </div>
 </template>

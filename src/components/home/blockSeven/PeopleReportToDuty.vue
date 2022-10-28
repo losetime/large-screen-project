@@ -25,7 +25,7 @@
           </swiper-slide>
         </template>
       </swiper>
-      <Indicator :length="projectManagerDuty.length" :active-index="activeIndex" />
+      <Indicator :length="projectManagerDuty.length" :active-index="activeIndex" v-if="projectManagerDuty.length > 1" />
     </div>
   </div>
 </template>

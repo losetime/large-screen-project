@@ -5,7 +5,7 @@
       <span>气象预警</span>
     </div>
     <div class="warning-date">{{ meteorologicalInfo[activeIndex - 1]?.warningTime }}</div>
-    <Indicator :length="meteorologicalInfo.length" :active-index="activeIndex" v-if="meteorologicalInfo.length > 0" />
+    <Indicator :length="meteorologicalInfo.length" :active-index="activeIndex" v-if="meteorologicalInfo.length > 1" />
     <swiper
       :modules="modules"
       :autoplay="{
