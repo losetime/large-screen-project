@@ -82,7 +82,7 @@ export const fromatTime = (time: string) => {
   const splitDate = arr[0]
   const splitTime = arr[1]
   if (currentDate === splitDate) {
-    return splitTime.slice(3)
+    return splitTime.slice(0, 5)
   } else {
     return `${splitDate.slice(5)} ${splitTime.slice(0, 5)}`
   }

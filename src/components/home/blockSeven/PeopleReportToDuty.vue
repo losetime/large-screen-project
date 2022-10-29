@@ -15,7 +15,7 @@
       >
         <template v-for="(record, recordIndex) in projectManagerDuty" :key="recordIndex">
           <swiper-slide>
-            <div class="item-wrap" v-for="(item, index) in record" :key="index">
+            <div class="item-wrap" v-for="item in record" :key="item.identity">
               <img :src="item.photoUrl || peopleAvatar" alt="" class="avatar" />
               <p class="name-wrap">{{ item.userName || '--' }}</p>
               <p class="post-wrap">{{ item.postName || '--' }}</p>
@@ -118,6 +118,7 @@ useSubscription(listenMqttMsg)
       height: 100%;
       .swiper-wrapper {
         .swiper-slide {
+          display: flex;
           .item-wrap {
             width: 210px;
             height: 100%;
@@ -127,6 +128,7 @@ useSubscription(listenMqttMsg)
             align-items: center;
             width: 238px;
             position: relative;
+            margin-left: 48px;
             .avatar {
               width: 164px;
               height: 224px;
