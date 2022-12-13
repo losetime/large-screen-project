@@ -22,7 +22,11 @@
       </div>
       <div class="item-wrap">
         <span>开工日期</span>
-        <span>{{ projectOverview?.startDate || '--' }}</span>
+        <span>{{ projectOverview?.startWorkTime || '--' }}</span>
+      </div>
+      <div class="item-wrap">
+        <span>计划竣工</span>
+        <span>{{ projectOverview?.planCompletionTime || '--' }}</span>
       </div>
     </div>
   </div>
@@ -99,7 +103,7 @@ const getQRCode = async () => {
     }
   }
   .overview-wrap {
-    margin-top: 55px;
+    margin-top: 35px;
     color: #ffffff;
     .item-wrap {
       display: flex;

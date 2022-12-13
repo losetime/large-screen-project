@@ -2,7 +2,7 @@
   <div class="alarm-record-wrapper">
     <div class="title-wrap">
       <img src="../../assets/images/home/title-icon.png" alt="" />
-      <span>体征告警</span>
+      <span>告警记录</span>
     </div>
     <div class="stats-wrap">
       <div class="stats-item-wrap">

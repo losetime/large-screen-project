@@ -42,7 +42,7 @@ const useMqtt = () => {
         //订阅指定主题testtopic
         // client.subscribe('#',{qos:0},(error)=>{//订阅全部主题testtopic
         if (!error) {
-          message.success('MQTT订阅成功')
+          console.log('MQTT订阅成功')
         } else {
           msgLoading = message.loading({ content: 'MQTT订阅失败...', key: msgKey, duration: 0 })
         }
